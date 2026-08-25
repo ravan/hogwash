@@ -1,0 +1,5 @@
+# ADR 0010: The host agent owns the rewrite loop
+
+Status: accepted (2026-08-28). Supersedes ADR 0001, ADR 0004, ADR 0007, ADR 0009, and the compatibility-field decision in ADR 0008.
+
+Hogwash used to select a fixer, rewrite the original, rescan automatically, and decide whether its own pipeline had finished. That design tied model transport, document editing, scanner policy, and user approval to one command. Hogwash now exposes deterministic operations only: explicit scan, one-call read-only consultation, configured diff, and approved atomic acceptance. The installed skill makes the trusted host agent keep an immutable baseline checklist, write a sibling candidate, run each rescan explicitly, and ask the user before acceptance. This boundary preserves scanner reproducibility while letting the host apply the full voice and quality profiles with user feedback. It also removes source lineage, confidence votes, cages, and stored-report compatibility fields because none of them belongs in a deterministic scanner report.

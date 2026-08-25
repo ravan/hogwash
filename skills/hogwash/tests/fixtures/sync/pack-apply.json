@@ -1,0 +1,42 @@
+{
+  "name": "claudisms",
+  "version": "0.1.0",
+  "attribution": "Fixture pack for the sync apply step. Not shipped.",
+  "rules": [
+    {
+      "id": "cl.vocab.sit-with",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bsit with\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "era": "claude",
+      "reliable": true,
+      "message": "'sit with' is filler; say what happens.",
+      "examples": {
+        "matching": ["sit with that"],
+        "clean": ["sat down"]
+      },
+      "attribution": "claudisms.ai § Confirmed Claudisms (free to copy and adapt)"
+    },
+    {
+      "id": "cl.vocab.tapestry",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\btapestry\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1,
+      "era": "gpt4",
+      "deprecated": false,
+      "reliable": false,
+      "message": "'tapestry' is over-used; name the thing.",
+      "examples": {
+        "matching": ["a rich tapestry"],
+        "clean": ["a rich carpet"]
+      },
+      "attribution": "claudisms.ai § Confirmed Claudisms (free to copy and adapt)"
+    }
+  ]
+}

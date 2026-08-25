@@ -1,0 +1,8 @@
+,"word","type","part_of_speech","comment"
+0,"insights","style","noun",
+1,"delves","style","verb","already carried by wikipedia-signs, so review must skip it"
+2,"during","style","preposition",
+3,"zika","content","noun","virus, an epidemic topic rather than a writing habit"
+4,"levels","content/style","noun",
+5,"absentword","style","verb","not present in the yearly counts at all"
+6,"newcoinage","style","noun","no 2022 occurrences, so no ratio exists"

@@ -1,0 +1,7 @@
+# a five-row sample of data/liang-2024-tables.tsv, for the mapper unit tests
+rank	pos	word
+1	adjective	commendable
+6	adjective	versatile
+35	adverb	effectively
+2	adverb	reportedly
+7	adjective	Multi-Word

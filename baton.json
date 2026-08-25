@@ -1,0 +1,33 @@
+{
+  "cwd": ".",
+  "gate": "plan",
+  "rateLimitBufferSec": 60,
+  "rateLimitMaxWaitHours": 6,
+  "plan": {
+    "command": "/slice-plan",
+    "model": "claude-opus-5[1m]",
+    "effort": "medium",
+    "handoverAtRemaining": 60,
+    "gptModel": "gpt-5.6-sol",
+    "gptHandoverAtRemaining": 30,
+    "permissionMode": "default",
+    "maxTurns": 80,
+    "maxSessions": 3
+  },
+  "exec": {
+    "command": "/slice-exec",
+    "model": "claude-opus-5[1m]",
+    "effort": "medium",
+    "handoverAtRemaining": 60,
+    "gptModel": "gpt-5.6-sol",
+    "gptEffort": "medium",
+    "gptHandoverAtRemaining": 30,
+    "permissionMode": "acceptEdits",
+    "maxTurns": 320,
+    "maxSessions": 6
+  },
+  "gpt": {
+    "model": "gpt-5.6-sol",
+    "proxyUrl": "http://127.0.0.1:8317"
+  }
+}

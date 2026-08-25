@@ -1,0 +1,42 @@
+{
+  "note": "Human-written 2019 press release (pre-ChatGPT, SEC 8-K exhibit). Promotional vocabulary is the genre's native register, so every span raised here is a false positive for machine authorship. The loose.wiki-ai-words entries this file used to carry were fixed at the rule level in wikipedia-signs 0.4.0.",
+  "falsePositives": [
+    {
+      "ruleId": "loose.carve-out-vocabulary",
+      "quote": "carry"
+    },
+    {
+      "ruleId": "loose.carve-out-vocabulary",
+      "quote": "carries"
+    },
+    {
+      "ruleId": "loose.carve-out-vocabulary",
+      "quote": "Shape"
+    },
+    {
+      "ruleId": "vale.formal-transitions.in-addition",
+      "quote": "In addition"
+    },
+    {
+      "ruleId": "wiki.structure.negative-parallelism",
+      "quote": "not only"
+    },
+    {
+      "ruleId": "wiki.vocab.ai-vocabulary",
+      "quote": "aligned with the"
+    },
+    {
+      "ruleId": "xv.vocab.innovative",
+      "quote": "innovative"
+    },
+    {
+      "ruleId": "xv.vocab.additionally",
+      "quote": "Additionally"
+    },
+    {
+      "ruleId": "wiki.vocab.soft-technical",
+      "quote": "utilized"
+    }
+  ],
+  "missed": []
+}

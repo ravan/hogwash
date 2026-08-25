@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Density.yml",
+    "path": "styles/ai-tells/Density.yml",
+    "type": "file",
+    "size": 118
+  },
+  {
+    "name": "Cliches.yml",
+    "path": "styles/ai-tells/Cliches.yml",
+    "type": "file",
+    "size": 402
+  },
+  {
+    "name": "Headings.yml",
+    "path": "styles/ai-tells/Headings.yml",
+    "type": "file",
+    "size": 154
+  },
+  {
+    "name": "Pairs.yml",
+    "path": "styles/ai-tells/Pairs.yml",
+    "type": "file",
+    "size": 161
+  },
+  {
+    "name": "Punctuation.yml",
+    "path": "styles/ai-tells/Punctuation.yml",
+    "type": "file",
+    "size": 143
+  },
+  {
+    "name": "Swaps.yml",
+    "path": "styles/ai-tells/Swaps.yml",
+    "type": "file",
+    "size": 197
+  },
+  {
+    "name": "README.md",
+    "path": "styles/ai-tells/README.md",
+    "type": "file",
+    "size": 40
+  },
+  {
+    "name": "scripts",
+    "path": "styles/ai-tells/scripts",
+    "type": "dir",
+    "size": 0
+  }
+]

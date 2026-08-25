@@ -1,0 +1,735 @@
+{
+  "name": "claudisms",
+  "version": "0.2.0",
+  "attribution": "Compiled from the claudism-pass skill reference files (banlist.md, patterns.txt, artifacts.txt, hidden-unicode.txt), contributed by Andy Fitzsimon (SUSE) from the Lolly project, CC0 1.0 Universal (public domain dedication).",
+  "rules": [
+    {
+      "id": "residue.oaicite",
+      "category": "residue",
+      "engine": "lexical",
+      "pattern": "contentReference\\[oaicite:[0-9]+\\]|contentReference\\[|oaicite|oai_citation|attributableIndex|filecite",
+      "flags": [],
+      "severity": "error",
+      "weight": 6,
+      "era": "gpt4",
+      "reliable": true,
+      "message": "Leaked ChatGPT citation scaffolding; delete the token.",
+      "examples": {
+        "matching": ["see contentReference[oaicite:0]", "oai_citation here", "filecite turn0"],
+        "clean": ["the citation is in the footnote", "OAI is an acronym"]
+      },
+      "attribution": "claudism-pass references/artifacts.txt, CC0 1.0",
+      "replacements": [
+        {
+          "when": "[\\s\\S]*",
+          "text": ""
+        }
+      ]
+    },
+    {
+      "id": "residue.chat-turn-token",
+      "category": "residue",
+      "engine": "lexical",
+      "pattern": "turn[0-9]+(search|news|view|image|forecast)[0-9]+|(cite|video|navlist)turn[0-9]+|\\[cite_start\\]|\\[cite: *[0-9]+\\]|\\[span_[0-9]+\\]|\\[\\^[0-9]+\\^\\]|grok_card|render_inline_citation|ppl-ai-file-upload|\\[attached_file",
+      "flags": [],
+      "severity": "error",
+      "weight": 6,
+      "era": "mixed",
+      "reliable": true,
+      "message": "Leaked chat-product citation token (ChatGPT, Gemini, Copilot, Grok or Perplexity); delete it.",
+      "examples": {
+        "matching": ["turn0search3", "[cite: 12]", "[^1^]", "grok_card"],
+        "clean": ["turn the page", "cite the source", "[1]"]
+      },
+      "attribution": "claudism-pass references/artifacts.txt, CC0 1.0",
+      "replacements": [
+        {
+          "when": "[\\s\\S]*",
+          "text": ""
+        }
+      ]
+    },
+    {
+      "id": "residue.prompt-format",
+      "category": "residue",
+      "engine": "lexical",
+      "pattern": "<\\|im_(start|sep|end)\\|>|<\\|endoftext\\|>|\\[/?INST\\]|<<SYS>>|<\\|start_header_id\\|>|<\\|eot_id\\|>|</?think>|<xaiArtifact",
+      "flags": [],
+      "severity": "error",
+      "weight": 6,
+      "era": "mixed",
+      "reliable": true,
+      "message": "Leaked prompt-format or reasoning-trace markup; delete it.",
+      "examples": {
+        "matching": ["<|im_start|>", "[/INST]", "</think>"],
+        "clean": ["the start token is documented", "think about it"]
+      },
+      "attribution": "claudism-pass references/artifacts.txt, CC0 1.0",
+      "replacements": [
+        {
+          "when": "[\\s\\S]*",
+          "text": ""
+        }
+      ]
+    },
+    {
+      "id": "residue.utm-source",
+      "category": "residue",
+      "engine": "lexical",
+      "pattern": "utm_source=(chatgpt\\.com|openai|copilot\\.com)|referrer=grok\\.com",
+      "flags": [],
+      "severity": "error",
+      "weight": 4,
+      "era": "mixed",
+      "reliable": true,
+      "message": "Link carries a chat-product tracking parameter; strip the query string.",
+      "examples": {
+        "matching": ["https://example.com/a?utm_source=chatgpt.com"],
+        "clean": ["https://example.com/a?utm_source=newsletter"]
+      },
+      "attribution": "claudism-pass references/artifacts.txt, CC0 1.0",
+      "replacements": [
+        {
+          "when": "[\\s\\S]*",
+          "text": ""
+        }
+      ]
+    },
+    {
+      "id": "residue.assistant-voice",
+      "category": "residue",
+      "engine": "lexical",
+      "pattern": "\\bas an? (AI|artificial intelligence|large language model|language model)\\b|\\bI('m| am) (just )?an? (AI|large language model|language model)\\b|\\bI (can'?t|cannot|am unable to) (fulfill|fulfil|comply with|assist with|help with) (that|this) request\\b|(my|the) knowledge cut.?off|as of my (last|latest|most recent) (knowledge )?(update|training)",
+      "flags": ["i"],
+      "severity": "error",
+      "weight": 6,
+      "era": "mixed",
+      "reliable": true,
+      "message": "Assistant boilerplate pasted into a document; nobody writes this on purpose.",
+      "examples": {
+        "matching": ["As an AI, I cannot verify that", "as of my last training update"],
+        "clean": ["as a developer I cannot verify that", "the model was updated in May"]
+      },
+      "attribution": "claudism-pass references/artifacts.txt, CC0 1.0"
+    },
+    {
+      "id": "residue.assistant-opener",
+      "category": "residue",
+      "engine": "lexical",
+      "pattern": "^(Sure|Certainly|Absolutely|Of course)[!,.] *(Here('s| is| are)|I('ve| have) (created|drafted|outlined|prepared))|^Here('s| is) an? (draft|outline|version|summary|example|overview|template) (of|for)\\b",
+      "flags": ["m"],
+      "severity": "error",
+      "weight": 4,
+      "era": "mixed",
+      "reliable": true,
+      "message": "Chat-reply opener left at the top of a document.",
+      "examples": {
+        "matching": [
+          "Certainly! Here's the outline you asked for",
+          "Here is a summary of the quarter"
+        ],
+        "clean": ["Here is the quarterly summary", "Sure, we can do that."]
+      },
+      "attribution": "claudism-pass references/artifacts.txt, CC0 1.0"
+    },
+    {
+      "id": "residue.hidden-unicode",
+      "category": "residue",
+      "engine": "lexical",
+      "pattern": "[\\u00A0\\u00AD\\u0085\\u200B\\u2060\\uFEFF\\u2011\\u2028\\u2029\\u202A-\\u202E\\u2066-\\u2069\\u2000-\\u200A\\u202F\\u205F\\u1680\\u180E\\u3000]",
+      "flags": [],
+      "severity": "warning",
+      "weight": 1,
+      "era": "mixed",
+      "reliable": true,
+      "message": "Invisible or near-invisible character; a fingerprint of text pasted out of a chat surface. Replace with a normal space or delete.",
+      "replacements": [
+        {
+          "when": "[\\u00AD\\u200B\\u2060\\uFEFF\\u202A-\\u202E\\u2066-\\u2069\\u180E]",
+          "text": ""
+        },
+        {
+          "when": "\\u2011",
+          "text": "-"
+        },
+        {
+          "when": "[\\u0085\\u2028\\u2029]",
+          "text": "\n"
+        },
+        {
+          "when": "[\\u00A0\\u2000-\\u200A\\u202F\\u205F\\u1680\\u3000]",
+          "text": " "
+        }
+      ],
+      "examples": {
+        "matching": ["a b", "x​y", "wide gap"],
+        "clean": ["a b", "a\tb", "normal-hyphen"]
+      },
+      "attribution": "claudism-pass references/hidden-unicode.txt, CC0 1.0"
+    },
+    {
+      "id": "tic.reflective-pose",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bsit(s|ting)? with (that|this|it|the (question|idea|tension|discomfort|feeling|ambiguity))\\b|\\bworth (sitting|talking|asking|drawing|examining|considering|exploring|knowing|naming|a look)\\b|\\barriv(e|es|ed|ing) at (the|a|an) (question|answer|conclusion|point|idea)\\b|\\b(keep|keeps|kept) coming back to\\b|\\bcoming back to (the|this|that|a|an) [a-z]+\\b|\\bbrings (me|us) back to\\b|\\bthe question (that |I )?(kept|keeps|keep) (coming up|coming back)\\b|\\bhere('s| is) where I (landed|come down)\\b|\\bwhere I landed\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "registers": {
+        "prose": 0.6
+      },
+      "era": "claude",
+      "reliable": true,
+      "message": "Reflective-pose filler. It sounds thoughtful and says nothing; state the point.",
+      "examples": {
+        "matching": [
+          "worth sitting with that for a while",
+          "the idea I keep coming back to",
+          "arriving at the question",
+          "here is where I landed"
+        ],
+        "clean": ["sit with the team", "he came back to the office", "it is worth noting that"]
+      },
+      "attribution": "claudism-pass references/banlist.md, CC0 1.0"
+    },
+    {
+      "id": "tic.discovery-arc",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\bI did ?n(o|')t (set out to|plan)\\b|\\bwhat I did ?n(o|')t expect\\b|\\b(surprised|struck) me (the )?(most|hardest)\\b|\\bif I had to pick one\\b|\\bthe one that (surprised|struck|stuck)\\b|\\bstuck with me\\b|\\bstayed with me\\b|\\bstruck a (chord|nerve)\\b|\\bhit a nerve\\b|\\bthe thing that (got|hooked) me\\b|\\bwhat got me\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "registers": {
+        "prose": 0.6
+      },
+      "era": "claude",
+      "reliable": true,
+      "message": "Discovery-arc framing: a staged little narrative of stumbling onto an insight. Cut the setup and state the observation.",
+      "examples": {
+        "matching": [
+          "I didn't set out to write this",
+          "what struck me most",
+          "one detail stuck with me",
+          "that is the thing that got me"
+        ],
+        "clean": ["I planned to write this", "the nail stuck in the tyre"]
+      },
+      "attribution": "claudism-pass references/banlist.md, CC0 1.0"
+    },
+    {
+      "id": "tic.crowned-superlative",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\bthe best thing you can do\\b|\\bthe whole (game|ballgame|point|story|thing|job|lesson|metric|idea)\\b|\\bthe entire point\\b|\\bthe only thing that (matters|mattered|changed|happened)\\b|\\b(hits|hit|lands|land|strikes|strike) (the )?hardest\\b|\\b(helps|pays off|works) (the )?most\\b|\\bthe (perfect|classic|textbook|canonical) example\\b|\\bbest operators\\b|\\btop practitioners\\b|\\bcannot be overstated\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "era": "claude",
+      "reliable": true,
+      "message": "Crowned superlative: a totalising claim used for emphasis. Say what actually happens.",
+      "examples": {
+        "matching": [
+          "that is the whole point",
+          "where it hits hardest",
+          "the perfect example of the problem",
+          "its importance cannot be overstated"
+        ],
+        "clean": ["that is the point of the change", "the hammer hit the nail"]
+      },
+      "attribution": "claudism-pass references/patterns.txt, CC0 1.0"
+    },
+    {
+      "id": "tic.placement-metaphor",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bthe shape of (the|a|this|that|our|their)\\b|\\b(risk|work|tension|value|problem|complexity|difference|answer|logic|truth|config|code|data) (actually |really |genuinely )?lives\\b|\\bload-bearing\\b|\\bthe engine (of|behind|is)\\b|\\bdoing the (heavy lifting|work)\\b|\\bthroughline\\b|\\bhold(s|ing)? (that thought|the line|the tension|both|two things)\\b|\\bcarry (this|it|that) (with you|forward)\\b|\\bin (my|the same|the) chest\\b|\\bstay(s)? yours\\b|\\byours to (keep|own|decide)\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "registers": {
+        "prose": 0.6
+      },
+      "era": "claude",
+      "reliable": true,
+      "message": "Placement or machine metaphor standing in for a plain statement.",
+      "examples": {
+        "matching": [
+          "the shape of the problem",
+          "the risk lives in the config",
+          "the layer where the truth actually lives",
+          "the decision stays yours",
+          "a load-bearing assumption"
+        ],
+        "clean": ["the problem is a scheduling one", "the beam is load bearing in the wall"]
+      },
+      "attribution": "claudism-pass references/banlist.md, CC0 1.0"
+    },
+    {
+      "id": "tic.announce-instead-of-deliver",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\bthe point is\\b|\\bhere('s| is) where it gets\\b|\\bhere('s| is) the (analogy|moment|thing|part|kicker|catch) that\\b|\\bhere('s| is) the thing\\b|\\bthis is where .{1,30} comes in\\b|\\blet('s| us) (break it down|explore|dive|dig|turn|look at)\\b|\\bhere('s| is) the kicker\\b|\\bthe right (time|question|way|answer|tool|thing|approach|level|mindset)\\b|\\bwhat I (want|keep wanting) (you|people) to (see|know|take)\\b|\\breflecting a broader trend\\b|\\bmarking a significant shift\\b|\\bread that again\\b|\\bnote what this is not\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "era": "claude",
+      "reliable": true,
+      "message": "Announcing an insight instead of delivering it. Open with the thing itself.",
+      "examples": {
+        "matching": [
+          "Here's where it gets interesting",
+          "let's dive in",
+          "here is the thing almost everyone misses",
+          "picking the right tool matters"
+        ],
+        "clean": ["The scheduler retries twice.", "We dive in the lake each June."]
+      },
+      "attribution": "claudism-pass references/patterns.txt, CC0 1.0"
+    },
+    {
+      "id": "tic.pseudo-elevated-diction",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bnames (the|what|a) (move|question|thing|problem|stake)\\b|\\bnaming (that|it|the)\\b|\\bsurfac(e|es|ed|ing) (the|a|an|its|our|their|insights|patterns|issues|risks)\\b|\\bunpack(s|ing|ed)? (that|this|it|the (idea|question|claim|argument|term|concept))\\b|\\blean (into|out)\\b|\\bdouble[- ]click on\\b|\\bbumped into\\b|\\bquietly\\b|\\bmature (setup|version|state|approach)\\b|\\bpressure[- ]test\\b|\\bnorth star\\b|\\bdeep[- ]dive\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.5,
+      "era": "claude",
+      "reliable": true,
+      "message": "Pseudo-elevated or corporate diction where a plain verb is sharper.",
+      "examples": {
+        "matching": [
+          "let me unpack that",
+          "surfacing the risks",
+          "a badly worded question quietly becomes law",
+          "double-click on the metric"
+        ],
+        "clean": ["let me explain that", "unpack the boxes", "the room went quiet"]
+      },
+      "attribution": "claudism-pass references/banlist.md, CC0 1.0"
+    },
+    {
+      "id": "tic.false-intimacy",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bI can'?t stop thinking about\\b|\\bmost people I\\b|\\beveryone I('ve| have) worked with\\b|\\ba lot of folks\\b|\\bnobody I know\\b|\\bwe('ve| have) (seen this movie|been here) before\\b|\\bseen this one before\\b|\\bthe honest version\\b|\\bhonestly,|\\bin my experience, most\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "registers": {
+        "prose": 0.6
+      },
+      "era": "claude",
+      "reliable": true,
+      "message": "False intimacy or invented observation: a claim about people the writer has not counted.",
+      "examples": {
+        "matching": [
+          "I can't stop thinking about it",
+          "a lot of folks disagree",
+          "most people I have spoken to disagree",
+          "we've been here before"
+        ],
+        "clean": ["Six of the eight reviewers disagreed.", "I thought about it overnight."]
+      },
+      "attribution": "claudism-pass references/banlist.md, CC0 1.0"
+    },
+    {
+      "id": "tic.staccato-negation",
+      "category": "rhythm",
+      "engine": "lexical",
+      "pattern": "\\bno [a-z]{2,20}\\. no [a-z]{2,20}\\. (just|only)\\b|\\bis ?n(o|')t about .{1,40} it('s| is) about\\b|\\bnot just .{1,40}(it('s| is)|but)\\b|\\bnot only .{1,40} but\\b|\\b(is|was|are|were) ?n(o|')t (a|an|the) [^;,.]{1,40}[;,] (it|they|that) (is|was|are|were)\\b|\\b(is|was) not .{1,40}[;,] it (is|was)\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "era": "claude",
+      "reliable": true,
+      "message": "Staccato negation triplet used as rhythm. Say the positive claim once.",
+      "examples": {
+        "matching": [
+          "No meetings. No standups. Just work.",
+          "It isn't about speed, it's about care",
+          "That is not a weakness; it is exactly why the model works",
+          "The real danger is not the spreadsheet; it is the trust placed in it",
+          "not just faster but cheaper"
+        ],
+        "clean": ["There are no meetings on Fridays.", "The build is not reproducible yet."]
+      },
+      "attribution": "claudism-pass references/patterns.txt, CC0 1.0"
+    },
+    {
+      "id": "tic.value-claim",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\b(this|that|it) matters\\b|\\bbecause it matters\\b|\\bthe useful (thing|part)\\b|\\bworth [a-z]+ing\\b|\\bwhat [a-z].{0,60} is worth\\b|\\bit('s| is) worth noting\\b|\\bit('s| is) important to note\\b|\\bwhen it comes to\\b|\\bat its core\\b|\\bgenuinely [a-z]+\\b|\\bit deserves\\b|\\bthe practical takeaway\\b|\\bkey takeaways?\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "era": "claude",
+      "reliable": true,
+      "message": "Value-claim filler: telling the reader what to value before they decided. Let the substance make the case.",
+      "examples": {
+        "matching": [
+          "this matters more than the rest",
+          "a line worth repeating",
+          "That structure is genuinely good",
+          "the practical takeaway is simple"
+        ],
+        "clean": [
+          "The retry costs 40 ms.",
+          "The structure survives a node failure without data loss."
+        ]
+      },
+      "attribution": "claudism-pass references/patterns.txt, CC0 1.0"
+    },
+    {
+      "id": "tic.false-singularity",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\bthe one (thing|part|piece|example|line|idea|way|reason|question|lever) (that|to)\\b|\\bthe only (way|thing|lever|question) (to|that)\\b|\\bif there('s| is) one\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "era": "claude",
+      "reliable": true,
+      "message": "False singularity: crowning one item without earning the ranking. Give the reason instead of the crown.",
+      "examples": {
+        "matching": [
+          "the one way to use it wrong",
+          "the one thing that changes the answer",
+          "the only lever that moves it"
+        ],
+        "clean": ["One way to use it wrong is to skip the check.", "There is a single lever here."]
+      },
+      "attribution": "claudism-pass references/patterns.txt, CC0 1.0"
+    },
+    {
+      "id": "tic.borrowed-metaphor",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\b(different |the )?physics of\\b|\\brules of physics\\b|\\brides (along|on)\\b|\\bheavy lifting\\b|\\bthe tell\\b|\\bparadigm shift\\b|\\bmoving the needle\\b|\\b(won|win|lost|lose) or (lost|lose|won|win)\\b|\\bhold(s|ing)? [a-z'’]+( [a-z'’]+)? against\\b|\\bearns its keep\\b|\\b(bar is (high|low|higher|lower)|rais(e|es|ed|ing) the bar)\\b|\\blowering the bar\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "era": "claude",
+      "reliable": true,
+      "message": "Borrowed-domain metaphor (sport, war, physics, poker). A second-language reader parses these slowest; say it literally.",
+      "examples": {
+        "matching": [
+          "where assessments are won or lost",
+          "the physics of the problem",
+          "it does the heavy lifting",
+          "Hold Bert's example against the spreadsheet"
+        ],
+        "clean": ["the crane lifts the beam", "the bar is 40 mm across"]
+      },
+      "attribution": "claudism-pass references/patterns.txt, CC0 1.0"
+    },
+    {
+      "id": "tic.hype-vocabulary",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bat the end of the day\\b|\\blessons learned\\b|\\bfirst wave of a multi-year\\b|\\bdispatches from\\b|\\bfield notes\\b|\\bshed light on\\b|\\bpave the way\\b|\\bnavigat(e|ing) the\\b|\\bdive into\\b|\\bright-size\\b|\\btrue north\\b|\\bstrategic imperative\\b|\\bthree things to know\\b|\\bmulti-pronged approach\\b|\\bit is crucial to acknowledge\\b|\\ba testament to\\b|\\btapestry\\b|\\btreasure trove\\b|\\bin today'?s (world|era|fast)\\b|\\bcamaraderie\\b|\\bpalpable\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "registers": {
+        "marketing": 0.6
+      },
+      "era": "mixed",
+      "reliable": true,
+      "message": "Corporate or hype vocabulary. Replace with the measurable claim.",
+      "examples": {
+        "matching": [
+          "at the end of the day it ships",
+          "a testament to the team",
+          "let us dive into the numbers"
+        ],
+        "clean": ["The release shipped on 2026-03-04.", "divers swim in the lake"]
+      },
+      "attribution": "claudism-pass references/patterns.txt, CC0 1.0"
+    },
+    {
+      "id": "tic.docs-gate-vocabulary",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bphysically cannot\\b|\\bwhere [a-z']+ (sits|fits)\\b|\\bthe [a-z']+ fits\\b|\\bmoving on to\\b|\\bhonesty notes?\\b|\\banchors? it\\b|\\bstructurally [a-z]+\\b|\\bsurvivab[a-z]*\\b|\\bsmoke[ -]test\\b|\\bin (the )?(existing|wider|current|competitive) landscape\\b|\\b(foundationally|fundamentally) [a-z]+\\b|\\b(serves|stands|functions) as\\b|\\bwhether you('re| are) an? .{2,30} or an? \\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.5,
+      "registers": {
+        "technical": 0.5
+      },
+      "era": "claude",
+      "reliable": true,
+      "message": "Filler vocabulary caught by a deterministic docs gate. It reads as structure but carries no claim.",
+      "examples": {
+        "matching": [
+          "moving on to the next section",
+          "this anchors it in the framework",
+          "the report serves as a record",
+          "whether you are an operator or a developer"
+        ],
+        "clean": ["The next section covers retries.", "He sits at the front."]
+      },
+      "attribution": "claudism-pass references/patterns.txt, CC0 1.0"
+    },
+    {
+      "id": "tic.participial-tail",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": ", (highlighting|emphasizing|emphasising|underscoring|reflecting|showcasing|demonstrating|ensuring|fostering|enhancing) ",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "era": "mixed",
+      "reliable": true,
+      "message": "Participial tail bolted onto a finished sentence to assert significance. Cut it or make it its own sentence.",
+      "examples": {
+        "matching": [
+          "The tool shipped in March, highlighting the pace of the team",
+          "Latency fell, demonstrating the value of the cache"
+        ],
+        "clean": ["The tool shipped in March. The team shipped four more that quarter."]
+      },
+      "attribution": "claudism-pass references/patterns.txt, CC0 1.0"
+    },
+    {
+      "id": "tic.chat-solicitation",
+      "category": "residue",
+      "engine": "lexical",
+      "pattern": "\\bgreat question\\b|\\bI love that you asked\\b|\\bwant me to .{3,80}\\?|\\bwould you like me to\\b|\\byou('re| are) absolutely right\\b|\\bI hope this (helps|email finds you well)\\b|\\bfeel free to (reach out|ask|adjust|modify|tweak)\\b|\\blet me know if you('d like| have any| need| want)\\b|\\bnot (meant as )?a substitute for professional (medical|legal|financial) advice\\b|\\bconsult (with )?a (qualified|licensed) professional\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 3,
+      "era": "mixed",
+      "reliable": true,
+      "message": "Chat-turn solicitation or flattery left in a document. Nobody writes this to a reader.",
+      "examples": {
+        "matching": [
+          "Great question!",
+          "Want me to draft the next section?",
+          "You're absolutely right"
+        ],
+        "clean": ["The question came up twice in review.", "Ask the platform team for access."]
+      },
+      "attribution": "claudism-pass references/patterns-loose.txt, CC0 1.0"
+    },
+    {
+      "id": "loose.totalising",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\bthe (whole|entire) [a-z]+\\b|\\bthe only [a-z]+ that\\b|\\bthe one that [a-z]+\\b",
+      "flags": ["i"],
+      "severity": "info",
+      "weight": 1,
+      "advisory": true,
+      "era": "claude",
+      "reliable": false,
+      "message": "Possible totalising claim. Legitimate uses exist; check whether the scope is real.",
+      "examples": {
+        "matching": ["without condemning the whole estate", "the only check that fires"],
+        "clean": ["a whole number", "the estate has forty machines"]
+      },
+      "attribution": "claudism-pass references/patterns-loose.txt, CC0 1.0"
+    },
+    {
+      "id": "loose.reality-qualifier",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\b(a|the) real\\b|\\breal [a-z]+\\b|\\bin reality\\b|\\bactually\\b|\\breal[- ]world\\b|\\bmatters?\\b",
+      "flags": ["i"],
+      "severity": "info",
+      "weight": 1,
+      "advisory": true,
+      "era": "claude",
+      "reliable": false,
+      "message": "Reality qualifier or bare value claim. Usually deletable, but 'real' is a term of art in places (real mode, real user ID, real time).",
+      "examples": {
+        "matching": [
+          "what the real world cannot deliver",
+          "in reality the check never runs",
+          "the real user ID",
+          "that is what matters"
+        ],
+        "clean": ["the check never runs", "the process owns the file"]
+      },
+      "attribution": "claudism-pass references/patterns-loose.txt, CC0 1.0"
+    },
+    {
+      "id": "loose.carve-out-vocabulary",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\blandscape\\b|\\brealm\\b|\\bshape(s|d)?\\b|\\bsurface\\b|\\bharness(es|ing|ed)?\\b|\\bphysics\\b|\\bcompound(s|ing)?\\b|\\bmature\\b|\\blives\\b|\\bhold(s|ing)?\\b|\\bcarr(y|ies|ying)\\b|\\bseat\\b|\\bturns on\\b|\\bessays?\\b|\\bunderscor(e|es|ed|ing)\\b|\\bfoster(s|ing|ed)?\\b",
+      "flags": ["i"],
+      "severity": "info",
+      "weight": 1,
+      "advisory": true,
+      "era": "claude",
+      "reliable": false,
+      "message": "Word on the banlist that also has a technical sense. Keep it if it is the term of art; otherwise replace it.",
+      "examples": {
+        "matching": ["it shapes the outcome", "harness the data", "the SAP system landscape"],
+        "clean": ["the array dimensions", "a test rig"]
+      },
+      "attribution": "claudism-pass references/patterns-loose.txt, CC0 1.0"
+    },
+    {
+      "id": "loose.force-verbs",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bmost people\\b|\\ba lot of people\\b|\\bwreck(ed|s)?\\b|\\bshatter(ed|s)?\\b|\\bobliterate(d|s)?\\b|\\bblow up\\b|\\bquieter\\b|\\blouder\\b|\\breach(es|ing)? for\\b|\\bcome along\\b|\\bsettled question\\b|\\bwe thought was settled\\b",
+      "flags": ["i"],
+      "severity": "info",
+      "weight": 1,
+      "advisory": true,
+      "era": "claude",
+      "reliable": false,
+      "message": "Force verb used for emphasis. Check whether the plain verb says it.",
+      "examples": {
+        "matching": ["it shattered the assumption", "reaching for the spreadsheet"],
+        "clean": ["the glass broke", "the build failed"]
+      },
+      "attribution": "claudism-pass references/patterns-loose.txt, CC0 1.0"
+    },
+    {
+      "id": "loose.copula-flourish",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\bis (not )?(the|a|an) [a-z'-]+( [a-z'-]+){0,2} here[.,!?:;]",
+      "flags": ["i"],
+      "severity": "info",
+      "weight": 1,
+      "advisory": true,
+      "era": "claude",
+      "reliable": false,
+      "message": "Copula flourish: a clause that redefines its subject and hedges with a trailing 'here'. Locatives match too.",
+      "examples": {
+        "matching": ["The problem is a scoping one here."],
+        "clean": ["The switch is in the rack."]
+      },
+      "attribution": "claudism-pass references/patterns-loose.txt, CC0 1.0"
+    },
+    {
+      "id": "tic.reader-instruction",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\b(what )?I('d| would| will|'ll) leave you with\\b|\\bleaving you with\\b|\\bwhat I want to leave you with\\b|\\bthe rest is yours\\b|\\bwhat I'd ask you to carry\\b|\\bcarry (this|it|that) forward\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "era": "claude",
+      "reliable": true,
+      "message": "Section-closer that announces the parting thought instead of stating it.",
+      "examples": {
+        "matching": [
+          "What I'd leave you with is this",
+          "leaving you with one idea",
+          "the rest is yours"
+        ],
+        "clean": ["The next step is to run the check.", "He left the room."]
+      },
+      "attribution": "claudisms.ai § Confirmed Claudisms (free to copy and adapt)"
+    },
+    {
+      "id": "tic.invented-reaction",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bthe (part|thing) that stayed (mine|ours|with)\\b|\\bit really landed for me\\b|\\bthe thing that got to me\\b|\\bthe people I('ve| have) watched\\b|\\bwhat was settled\\b|\\bback into an open one\\b|\\bdoing all the lifting\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "registers": {
+        "prose": 0.6
+      },
+      "era": "claude",
+      "reliable": true,
+      "message": "Invented reaction or invented observation. Name the actual reaction, or leave it out.",
+      "examples": {
+        "matching": [
+          "the part that stayed mine",
+          "it really landed for me",
+          "the noun is doing all the lifting"
+        ],
+        "clean": ["I found it useful and acted on it.", "the crane lifts the beam"]
+      },
+      "attribution": "claudisms.ai § Confirmed Claudisms (free to copy and adapt)"
+    },
+    {
+      "id": "tic.em-dash",
+      "category": "formatting",
+      "engine": "lexical",
+      "pattern": "[ \\t]*[\\u2014\\u2013][ \\t]*",
+      "flags": [],
+      "severity": "info",
+      "weight": 1,
+      "advisory": true,
+      "era": "mixed",
+      "reliable": false,
+      "message": "Em or en dash. Some house styles ban it outright and use a spaced hyphen instead; advisory because plenty of people type it on purpose.",
+      "replacements": [
+        {
+          "when": "[ \\t]*\\u2014[ \\t]*",
+          "text": " - "
+        },
+        {
+          "when": "[ \\t]*\\u2013[ \\t]*",
+          "text": "-"
+        }
+      ],
+      "examples": {
+        "matching": ["the build failed—again", "pages 4–9"],
+        "clean": ["the build failed - again", "pages 4-9"]
+      },
+      "attribution": "claudisms.ai § Confirmed Claudisms (free to copy and adapt)"
+    },
+    {
+      "id": "tic.emoji",
+      "category": "formatting",
+      "engine": "lexical",
+      "pattern": "[ \\t]?[\\u2600-\\u27BF\\u{1F300}-\\u{1FAFF}\\u{1F000}-\\u{1F0FF}]",
+      "flags": ["u"],
+      "severity": "info",
+      "weight": 1,
+      "advisory": true,
+      "era": "mixed",
+      "reliable": false,
+      "message": "Emoji outside a code span. Several house styles ban it in written deliverables; advisory because some documents want it.",
+      "examples": {
+        "matching": ["ship it 🚀", "done ✅"],
+        "clean": ["ship it", "done"]
+      },
+      "attribution": "claudisms.ai § Confirmed Claudisms (free to copy and adapt)",
+      "replacements": [
+        {
+          "when": "[\\s\\S]*",
+          "text": ""
+        }
+      ]
+    },
+    {
+      "id": "tic.horizontal-rule",
+      "category": "formatting",
+      "engine": "lexical",
+      "pattern": "^[ \\t]{0,3}(-{3,}|\\*{3,}|_{3,})[ \\t]*$",
+      "flags": ["m"],
+      "severity": "info",
+      "weight": 1,
+      "advisory": true,
+      "era": "mixed",
+      "reliable": false,
+      "message": "Horizontal rule used as a section divider. A heading orients the reader; a bare rule does not.",
+      "examples": {
+        "matching": ["---", "***"],
+        "clean": ["## Next section", "a - b - c"]
+      },
+      "attribution": "claudisms.ai § Structural tics (free to copy and adapt)",
+      "replacements": [
+        {
+          "when": "[\\s\\S]*",
+          "text": ""
+        }
+      ]
+    }
+  ]
+}

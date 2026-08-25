@@ -1,0 +1,10 @@
+---
+extends: existence
+message: "AI heading: '%s'. Title the section after its content."
+level: error
+ignorecase: true
+scope:
+  - "~heading"
+tokens:
+  - unlocking the power of
+  - the future of work

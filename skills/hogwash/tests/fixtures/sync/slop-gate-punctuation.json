@@ -1,0 +1,5 @@
+{
+  "id": "punctuation",
+  "description": "Hand-written in the upstream idiom. Not copied from upstream.",
+  "rules": [{ "id": "double-pilcrow", "match": "¶¶", "hint": "Use one paragraph mark." }]
+}

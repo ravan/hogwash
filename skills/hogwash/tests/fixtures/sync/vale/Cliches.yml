@@ -1,0 +1,19 @@
+---
+extends: existence
+message: "AI cliché: '%s'. Say the plain thing instead."
+level: error
+ignorecase: true
+tokens:
+  # Phrases no shipped pack carries.
+  - double-edged sword
+  - tip of the iceberg
+
+  # One word: below the phrase floor.
+  - delve
+  # A pattern, not a phrase.
+  - \bpaints? a picture\b
+  # Already carried by a shipped pack.
+  - rich tapestry
+  - "to be honest,"
+  - and honestly
+  - "and, honestly"

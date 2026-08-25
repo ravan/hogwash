@@ -1,0 +1,5 @@
+{
+  "note": "Planner-authored pastiche that exercises the four lineage packs added by the rule-sources area. Every span the scanner raises in it is a genuine tell, so it carries no false positives.",
+  "falsePositives": [],
+  "missed": []
+}

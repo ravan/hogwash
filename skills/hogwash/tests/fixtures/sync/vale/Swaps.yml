@@ -1,0 +1,10 @@
+---
+extends: substitution
+message: "AI compound: use %s instead of '%s'."
+level: error
+ignorecase: true
+action:
+  name: replace
+swap:
+  (?<!-)house style: project style
+  house tic: project tic

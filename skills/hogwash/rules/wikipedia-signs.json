@@ -1,0 +1,624 @@
+{
+  "name": "wikipedia-signs",
+  "version": "0.4.0",
+  "attribution": "Adapted from Wikipedia, \"Wikipedia:Signs of AI writing\" (https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), by Wikipedia contributors, CC BY-SA 4.0. Rule wording is a derivative work and is redistributed under CC BY-SA 4.0.",
+  "rules": [
+    {
+      "id": "wiki.vocab.delve",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bdelv(e|es|ed|ing)\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "era": "gpt4",
+      "reliable": true,
+      "message": "'delve' is the single most over-represented verb in model prose; prefer 'look at', 'examine', 'dig into'.",
+      "replacements": [
+        {
+          "when": "delve",
+          "text": "look"
+        },
+        {
+          "when": "delves",
+          "text": "looks"
+        },
+        {
+          "when": "delved",
+          "text": "looked"
+        },
+        {
+          "when": "delving",
+          "text": "looking"
+        }
+      ],
+      "examples": {
+        "matching": ["let us delve into the data", "delving deeper", "she delved"],
+        "clean": ["the delta was small", "development notes"]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § Language and grammar (CC BY-SA 4.0)"
+    },
+    {
+      "id": "wiki.vocab.spike-nouns",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\b(tapestr(y|ies)|testament|realms?|myriad|plethora|paradigms?|interplay|treasure trove|indelible mark|focal point|valuable insights?|key turning point|profound impact)\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.5,
+      "registers": {
+        "marketing": 0.6
+      },
+      "era": "gpt4",
+      "reliable": true,
+      "message": "Noun that spikes far above human base rates in model prose. Name the thing plainly.",
+      "examples": {
+        "matching": ["a rich tapestry of ideas", "a testament to the team", "a myriad of options"],
+        "clean": ["a mixture of ideas", "proof that the team works"]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § Language and grammar (CC BY-SA 4.0)"
+    },
+    {
+      "id": "wiki.vocab.spike-verbs",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\b(underscor|foster|garner|bolster|showcas|elucidat|catalyz|reimagin|spearhead|exemplif|cultivat|encompass|symboliz|symbolis|resonat)(e|es|ed|ing|y|ies|s)?\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.5,
+      "era": "gpt4",
+      "reliable": true,
+      "message": "Inflated verb typical of model prose; a plain verb ('shows', 'gathers', 'supports') carries the same meaning.",
+      "examples": {
+        "matching": ["this underscores the point", "fostering collaboration", "garnered attention"],
+        "clean": ["this shows the point", "under the score line"]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § Language and grammar (CC BY-SA 4.0)",
+      "replacements": [
+        {
+          "when": "underscores",
+          "text": "shows"
+        },
+        {
+          "when": "underscore",
+          "text": "show"
+        },
+        {
+          "when": "underscored",
+          "text": "showed"
+        },
+        {
+          "when": "underscoring",
+          "text": "showing"
+        },
+        {
+          "when": "fosters",
+          "text": "encourages"
+        },
+        {
+          "when": "foster",
+          "text": "encourage"
+        },
+        {
+          "when": "fostered",
+          "text": "encouraged"
+        },
+        {
+          "when": "fostering",
+          "text": "encouraging"
+        },
+        {
+          "when": "garners",
+          "text": "gets"
+        },
+        {
+          "when": "garner",
+          "text": "get"
+        },
+        {
+          "when": "garnered",
+          "text": "got"
+        },
+        {
+          "when": "garnering",
+          "text": "getting"
+        },
+        {
+          "when": "bolsters",
+          "text": "strengthens"
+        },
+        {
+          "when": "bolster",
+          "text": "strengthen"
+        },
+        {
+          "when": "bolstered",
+          "text": "strengthened"
+        },
+        {
+          "when": "bolstering",
+          "text": "strengthening"
+        },
+        {
+          "when": "showcases",
+          "text": "shows"
+        },
+        {
+          "when": "showcase",
+          "text": "show"
+        },
+        {
+          "when": "showcased",
+          "text": "showed"
+        },
+        {
+          "when": "showcasing",
+          "text": "showing"
+        },
+        {
+          "when": "elucidates",
+          "text": "explains"
+        },
+        {
+          "when": "elucidate",
+          "text": "explain"
+        },
+        {
+          "when": "elucidated",
+          "text": "explained"
+        },
+        {
+          "when": "elucidating",
+          "text": "explaining"
+        }
+      ]
+    },
+    {
+      "id": "wiki.vocab.spike-adjectives",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\b(pivotal|intricate|intricacies|meticulous|meticulously|vibrant|multifaceted|holistic|invaluable|unparalleled|renowned|groundbreaking|transformative|unprecedented|breathtaking|state[- ]of[- ]the[- ]art|cutting[- ]edge)\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.5,
+      "registers": {
+        "marketing": 0.5
+      },
+      "era": "gpt4",
+      "reliable": true,
+      "message": "Evaluative adjective that asserts importance instead of showing it.",
+      "examples": {
+        "matching": ["a pivotal moment", "meticulously crafted", "cutting-edge tooling"],
+        "clean": ["a turning point", "carefully built"]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § Content (CC BY-SA 4.0)",
+      "replacements": [
+        {
+          "when": "meticulously",
+          "text": "carefully"
+        },
+        {
+          "when": "meticulous",
+          "text": "careful"
+        },
+        {
+          "when": "intricate",
+          "text": "complex"
+        }
+      ]
+    },
+    {
+      "id": "wiki.vocab.soft-technical",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\b(seamless|seamlessly|scalable solution|leverag(e|es|ed|ing)|utiliz(e|es|ed|ing|ation)|facilitat(e|es|ed|ing))\\b",
+      "flags": ["i"],
+      "severity": "info",
+      "weight": 1,
+      "registers": {
+        "technical": 0.25,
+        "marketing": 0.5
+      },
+      "era": "gpt4",
+      "reliable": false,
+      "message": "Model-favoured word that also has a legitimate technical sense; weighted down in the technical register. 'robust' and 'comprehensive' were removed in 0.3.0: they fired on human formal prose as often as machine prose.",
+      "examples": {
+        "matching": ["seamlessly integrate", "leverage the cache"],
+        "clean": ["use the cache"]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § Language and grammar (CC BY-SA 4.0)",
+      "replacements": [
+        {
+          "when": "seamlessly",
+          "text": "smoothly"
+        },
+        {
+          "when": "seamless",
+          "text": "smooth"
+        },
+        {
+          "when": "utilizes",
+          "text": "uses"
+        },
+        {
+          "when": "utilize",
+          "text": "use"
+        },
+        {
+          "when": "utilized",
+          "text": "used"
+        },
+        {
+          "when": "utilizing",
+          "text": "using"
+        },
+        {
+          "when": "utilization",
+          "text": "use"
+        }
+      ]
+    },
+    {
+      "id": "wiki.vocab.promotional",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\b(nestled|in the heart of|natural beauty|diverse array|rich (heritage|history|cultural|tradition)|steeped in|must[- ]visit|boasts an?\\b|world[- ]class|best[- ]in[- ]class|industry[- ]leading|enterprise[- ]grade|next[- ]generation|commitment to (excellence|quality|innovation|sustainability))",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "registers": {
+        "marketing": 0.4
+      },
+      "era": "gpt4",
+      "reliable": true,
+      "message": "Promotional register: the sentence advertises rather than informs.",
+      "examples": {
+        "matching": [
+          "nestled in the valley",
+          "boasts a rich heritage",
+          "enterprise-grade security"
+        ],
+        "clean": ["in the valley", "the security model is documented"]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § Content (CC BY-SA 4.0)"
+    },
+    {
+      "id": "wiki.structure.copula-avoidance",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\b(serves|serve|served|stands|stood|functions|operates|acts) as an?\\b|\\b(represents|marks|embodies|epitomizes) an?\\b|\\b(boasts|features|maintains|offers) an?\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.5,
+      "era": "gpt4",
+      "reliable": true,
+      "message": "Copula avoidance: an inflated verb where 'is' would do.",
+      "replacements": [
+        {
+          "when": "(?:serves|stands|functions|operates|acts) as a|(?:represents|marks) a",
+          "text": "is a"
+        },
+        {
+          "when": "(?:serves|stands|functions|operates|acts) as an|(?:represents|marks) an",
+          "text": "is an"
+        }
+      ],
+      "examples": {
+        "matching": [
+          "the plan serves as a map",
+          "it stands as a warning",
+          "this represents a shift"
+        ],
+        "clean": ["the plan is a map", "he serves on the board"]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § Language and grammar (CC BY-SA 4.0)"
+    },
+    {
+      "id": "wiki.structure.significance-participle",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": ",\\s*(highlight|underscor|cement|showcas|demonstrat|reflect|mark|solidify|reinforc|signal|emphasiz|emphasis|illustrat|position|pav|usher|affirm|ensur|contribut|cultivat|encompass|enhanc)ing\\s+(its|his|her|their|the|a|an)\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "era": "gpt4",
+      "reliable": true,
+      "message": "Trailing participle clause that editorialises about the fact it follows. Cut the clause or make the claim a sentence.",
+      "examples": {
+        "matching": [
+          "sales doubled, reflecting the broader trend",
+          "it shipped in May, marking a key turning point",
+          "they hired six people, underscoring the demand"
+        ],
+        "clean": ["sales doubled", "it shipped in May, and the team took a week off"]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § Content (CC BY-SA 4.0)"
+    },
+    {
+      "id": "wiki.structure.negative-parallelism",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\b(it|this|that|there)?('s| is| was)?\\s?n(o|')t (just|only|merely|simply|about)\\b|\\bnot only\\b[^.!?\\n]{0,100}\\bbut (also )?\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "era": "gpt4",
+      "reliable": true,
+      "message": "Negative parallelism ('not just X, but Y'). State the positive claim once.",
+      "examples": {
+        "matching": [
+          "it is not just a tool, it is a partner",
+          "this isn't merely a report",
+          "not only structured but also flexible"
+        ],
+        "clean": ["it is a tool", "the report is not finished"]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § Language and grammar (CC BY-SA 4.0)"
+    },
+    {
+      "id": "wiki.structure.summary-opener",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "^[ \\t]*(in conclusion|in summary|to sum up|in essence|overall|ultimately|all in all)\\b[,: ]",
+      "flags": ["i", "m"],
+      "severity": "warning",
+      "weight": 2,
+      "era": "gpt4",
+      "reliable": true,
+      "message": "Essay-scaffold summary opener. Delete it and let the paragraph stand.",
+      "examples": {
+        "matching": [
+          "In conclusion, the plan works.",
+          "Overall, the numbers held.",
+          "Ultimately: it shipped."
+        ],
+        "clean": ["The plan works.", "We concluded the review in March."]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § Content (CC BY-SA 4.0)"
+    },
+    {
+      "id": "wiki.structure.challenges-outlook",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\bdespite (its|these|the) (challenges|obstacles|setbacks|criticisms?|limitations|shortcomings)\\b|\\bfac(e|es|ed|ing) (several|a number of|numerous|significant) challenges\\b|^#{1,6} +(challenges and|future outlook|awards and recognition)\\b",
+      "flags": ["i", "m"],
+      "severity": "warning",
+      "weight": 2,
+      "era": "gpt4",
+      "reliable": true,
+      "message": "Outline-shaped 'challenges / future outlook' closing move, a stock model ending.",
+      "examples": {
+        "matching": [
+          "Despite these challenges, the project continues to grow",
+          "## Challenges and Legacy",
+          "# Future Outlook"
+        ],
+        "clean": ["## Known problems", "Despite the rain we shipped"]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § Content (CC BY-SA 4.0)"
+    },
+    {
+      "id": "wiki.formatting.emoji-heading",
+      "category": "formatting",
+      "engine": "lexical",
+      "pattern": "^[ \\t]{0,3}#{1,6}[ \\t].*[\\u2600-\\u27BF\\u{1F300}-\\u{1FAFF}]",
+      "flags": ["m", "u"],
+      "severity": "warning",
+      "weight": 2,
+      "era": "gpt4",
+      "reliable": true,
+      "message": "Emoji used as heading decoration — a formatting habit of chat interfaces, not of documents.",
+      "examples": {
+        "matching": ["## 🚀 Getting started", "# Roadmap 🎯"],
+        "clean": ["## Getting started", "the rocket emoji is documented below"]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § Style (CC BY-SA 4.0)"
+    },
+    {
+      "id": "wiki.formatting.bold-term-bullet",
+      "category": "formatting",
+      "engine": "lexical",
+      "pattern": "^[ \\t]{0,3}([-*+]|\\d+\\.)[ \\t]+\\*\\*[^*\\n]{1,60}(:\\*\\*|\\*\\*[ \\t]*[:\\u2014-])",
+      "flags": ["m"],
+      "severity": "info",
+      "weight": 1,
+      "era": "gpt4",
+      "reliable": false,
+      "message": "Bold-term-colon bullet list — the model's default way to fake structure.",
+      "examples": {
+        "matching": ["- **Efficiency:** do more", "1. **Scale** — grows with you"],
+        "clean": ["- Efficiency: do more", "- **only bold text**"]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § Style (CC BY-SA 4.0)"
+    },
+    {
+      "id": "wiki.formatting.curly-quotes",
+      "category": "formatting",
+      "engine": "lexical",
+      "pattern": "[\\u201C\\u201D]",
+      "flags": [],
+      "severity": "info",
+      "weight": 0.5,
+      "registers": {
+        "prose": 0.2
+      },
+      "era": "mixed",
+      "reliable": false,
+      "message": "Curly double quote. Plain-text sources use straight quotes; curly ones arrive by copy-paste from a chat surface.",
+      "replacements": [
+        {
+          "when": "[\\u201C\\u201D]",
+          "text": "\""
+        }
+      ],
+      "examples": {
+        "matching": ["he said “no”"],
+        "clean": ["he said \"no\"", "an apostrophe is fine"]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § Style (CC BY-SA 4.0)"
+    },
+    {
+      "id": "wiki.structure.significance-claim",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\ba (crucial|pivotal|vital|significant|key|central) (role|moment|part)\\b|\\bplay(s|ed|ing)? an? (crucial|pivotal|vital|significant|key|important) role\\b|\\breflect(s|ed|ing)? (a )?broader\\b|\\bsymboliz(e|es|ing)? its (ongoing|enduring|lasting)\\b|\\bcontributing to the\\b|\\b(marking|shaping) the\\b|\\bdeeply rooted\\b|\\bsetting the stage for\\b|\\bleft an? (indelible|lasting) (mark|impression)\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "era": "mixed",
+      "reliable": true,
+      "message": "Puffed-up significance claim: asserts that the subject matters to a broader story without adding a fact.",
+      "examples": {
+        "matching": [
+          "the port played a crucial role in the region",
+          "reflecting broader trends in the industry",
+          "contributing to the growth of the sector",
+          "a tradition deeply rooted in the valley"
+        ],
+        "clean": ["the port handled 4.2 million tonnes in 2025", "the roots reach two metres down"]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § Undue emphasis on significance, legacy, and broader trends (CC BY-SA 4.0)"
+    },
+    {
+      "id": "wiki.vocab.ai-vocabulary",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bboasts\\b|\\benduring (legacy|appeal|impact|popularity|influence)\\b|\\balign(s|ed|ing)? with the\\b|\\bresonat(e|es|ed|ing) with\\b|\\bprofound (impact|effect|influence|sense)\\b|\\bstands? as a (testament|reminder|symbol)\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.5,
+      "era": "mixed",
+      "reliable": true,
+      "message": "Over-represented model vocabulary. A plain word carries the same meaning.",
+      "examples": {
+        "matching": [
+          "the town boasts three museums",
+          "its enduring legacy in the field",
+          "a profound impact on the sector"
+        ],
+        "clean": ["the town has three museums", "he boasted about the score"]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § High density of \"AI vocabulary\" words (CC BY-SA 4.0)"
+    },
+    {
+      "id": "wiki.structure.vague-attribution",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\bobservers have (cited|noted|described|pointed)\\b|\\bsome (critics|observers|commentators|analysts) (argue|note|say|suggest|contend)\\b|\\bseveral (sources|publications|outlets|commentators)\\b|\\bit is widely (regarded|believed|considered|acknowledged)\\b|\\b(critics|experts|scholars|analysts) (argue|say|note|agree)\\b|\\bhas been (widely )?(praised|criticized|criticised|described) (as|for)\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "era": "mixed",
+      "reliable": true,
+      "message": "Vague attribution: an opinion assigned to unnamed people. Name the source or drop the claim.",
+      "examples": {
+        "matching": [
+          "Observers have cited the delay as a warning",
+          "Some critics argue the design is unsafe",
+          "It is widely regarded as the standard"
+        ],
+        "clean": [
+          "Bert Boerland argues the question is wrong.",
+          "Two of the five reviewers objected."
+        ]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § Vague attributions and overgeneralization of opinions (CC BY-SA 4.0)"
+    },
+    {
+      "id": "wiki.structure.vague-connection",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\bin (connection|association) (with|to)\\b|\\b(connected|associated) (with|to) (the|a|an|its|his|her|their)\\b|\\bin relation to the\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.5,
+      "era": "mixed",
+      "reliable": true,
+      "message": "Vague expression of connection. Name the relation: caused, funded, replaced, reported to.",
+      "examples": {
+        "matching": [
+          "arrested in connection with the theft",
+          "risks associated with the migration"
+        ],
+        "clean": ["the migration drops two indexes", "he reports to the platform lead"]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § Vague expression of connection or association (CC BY-SA 4.0)"
+    },
+    {
+      "id": "residue.knowledge-gap-hedge",
+      "category": "residue",
+      "engine": "lexical",
+      "pattern": "\\bup to my last (training )?(update|refresh)\\b|\\bwhile specific details are (limited|scarce|sparse|unavailable)\\b|\\bnot widely (available|documented|disclosed|reported)\\b|\\bin the (provided|available|given) (sources|search results|documents|context)\\b|\\bbased on (the )?available information\\b|\\bas of my (knowledge|training)\\b",
+      "flags": ["i"],
+      "severity": "error",
+      "weight": 4,
+      "era": "mixed",
+      "reliable": true,
+      "message": "Knowledge-cutoff hedge: the model reporting on its own sources. Delete it, or state what you actually checked.",
+      "examples": {
+        "matching": [
+          "While specific details are limited, the project appears active",
+          "based on available information",
+          "not widely documented in the provided sources"
+        ],
+        "clean": ["The registry lists no release after 2024.", "We could not find a changelog."]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § Knowledge-cutoff disclaimers and speculation about gaps in sources (CC BY-SA 4.0)"
+    },
+    {
+      "id": "residue.collaborative-turn",
+      "category": "residue",
+      "engine": "lexical",
+      "pattern": "^[ \\t]*(Of course|Certainly|Absolutely|Sure thing)[!.]|\\bwould you like (me to|a|an|the)\\b|\\bmore detailed breakdown\\b|\\blet me know\\b|\\bI cannot (offer|provide|give) (medical|legal|financial|professional) advice\\b|\\bI'?m sorry,? but I\\b|\\bI can'?t help with that, but I can\\b",
+      "flags": ["i", "m"],
+      "severity": "error",
+      "weight": 4,
+      "era": "mixed",
+      "reliable": true,
+      "message": "Chat-turn residue: an answer to a prompt, left in a document. Delete it.",
+      "examples": {
+        "matching": [
+          "Of course! The three options are listed below.",
+          "Would you like me to expand this section?",
+          "I'm sorry, but I cannot verify that"
+        ],
+        "clean": ["Of course the build fails without the token.", "Ask the team to expand it."]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § Collaborative communication (CC BY-SA 4.0)"
+    },
+    {
+      "id": "loose.wiki-ai-words",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bcrucial\\b|\\bvital\\b|\\bessential\\b|\\bvaluable\\b|\\bensur(e|es|ed|ing)\\b|\\bprofound\\b|\\bfeaturing\\b|\\brefers to\\b|\\bmay vary\\b|^[ \\t]*Additionally[,.]",
+      "flags": ["i", "m"],
+      "severity": "info",
+      "weight": 1,
+      "advisory": true,
+      "era": "mixed",
+      "reliable": false,
+      "message": "Word the Wikipedia guide lists as over-used by models, but common in honest writing too. Check whether it earns its place. Narrowed in 0.4.0: 'significant', 'highlight', 'enhance', 'rich' and 'key <noun>' were dropped - they read as ordinary human marketing and mail as often as machine prose.",
+      "examples": {
+        "matching": ["a crucial step", "this ensures throughput", "Additionally, the cache warms"],
+        "clean": ["the step takes 40 ms", "the cache warms in 2 s"]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § High density of \"AI vocabulary\" words (CC BY-SA 4.0)"
+    },
+    {
+      "id": "wiki.structure.title-case-heading",
+      "category": "formatting",
+      "engine": "structural",
+      "check": "title-case-heading",
+      "severity": "info",
+      "weight": 0.5,
+      "era": "gpt4",
+      "reliable": true,
+      "message": "Heading in Title Case where the document otherwise uses sentence case.",
+      "examples": {
+        "matching": ["## Challenges and Future Directions"],
+        "clean": ["## Challenges and future directions"]
+      },
+      "attribution": "Wikipedia:Signs of AI writing § Style (CC BY-SA 4.0)"
+    }
+  ]
+}

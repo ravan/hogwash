@@ -1,0 +1,104 @@
+{
+  "trigger": [
+    {
+      "query": "I have a folder of sent emails and old blog posts. Build a profile of how I actually write.",
+      "should_trigger": true
+    },
+    {
+      "query": "I'm a developer, I've never written a blog in my life, and I can't describe my style. Interview me and build my voice profile anyway.",
+      "should_trigger": true
+    },
+    {
+      "query": "Rewrite this whitepaper draft so it sounds like me and not like ChatGPT.",
+      "should_trigger": true
+    },
+    {
+      "query": "Here's the voice profile my last assistant made. Critique it: is it actually usable or is it horoscope stuff?",
+      "should_trigger": true
+    },
+    {
+      "query": "That last post you wrote for me: I liked the dry jokes, but I'd never say 'leverage' and the endings feel fake. Make the profile learn that.",
+      "should_trigger": true
+    },
+    {
+      "query": "My emails should sound different from my blog posts. Split my profile into per-format registers.",
+      "should_trigger": true
+    },
+    {
+      "query": "Copyedit this paragraph for grammar and typos only.",
+      "should_trigger": false
+    },
+    {
+      "query": "Determine whether this anonymous letter was written by my manager.",
+      "should_trigger": false
+    },
+    {
+      "query": "Write a LinkedIn post in the style of a famous CEO so people think it's really them.",
+      "should_trigger": false
+    },
+    {
+      "query": "Make this product copy match the corporate brand guidelines in BRAND.md.",
+      "should_trigger": false
+    },
+    {
+      "query": "Transcribe this recording and label each speaker.",
+      "should_trigger": false
+    },
+    {
+      "query": "Summarize this research paper in neutral, encyclopedic prose.",
+      "should_trigger": false
+    }
+  ],
+  "workflow": [
+    {
+      "mode": "create",
+      "prompt": "I have no writing samples. Build my voice profile from scratch.",
+      "assertions": [
+        "runs the guided interview with anchored example ranges instead of abstract style questions",
+        "asks about registers and reader before tone",
+        "records answers as reported, not confirmed",
+        "runs the behavioral check with unlabeled contrasting drafts",
+        "ships the profile as provisional"
+      ]
+    },
+    {
+      "mode": "create",
+      "prompt": "Build my profile from samples/, but two of the drafts in there were written with Copilot.",
+      "assertions": [
+        "marks authorship per sample and quarantines AI-assisted material",
+        "reserves a holdout",
+        "extracts countable mechanics with evidence IDs, not adjectives",
+        "separates core voice from register overlays"
+      ]
+    },
+    {
+      "mode": "apply",
+      "prompt": "Write the release announcement email using my voice profile.",
+      "assertions": [
+        "loads the core plus the matching register overlay plus bans",
+        "selects few matched exemplars rather than the whole archive",
+        "preserves substance exactly",
+        "self-checks bans, mechanics, and sentence-length variation before delivering"
+      ]
+    },
+    {
+      "mode": "critique",
+      "prompt": "Review my existing voice profile and tell me what is weak.",
+      "assertions": [
+        "applies the ten-point rubric with per-area verdicts",
+        "flags vibes-only rules and unsupported bans",
+        "proposes fixes through the feedback loop instead of silently rewriting"
+      ]
+    },
+    {
+      "mode": "refine",
+      "prompt": "I hated the hedging in that draft. Fix the profile.",
+      "assertions": [
+        "captures the exact signal and diagnoses whether it is style, register, or one-off",
+        "scopes the change narrowly and proposes a diff for approval",
+        "appends a changelog entry",
+        "re-checks with a short piece after the change"
+      ]
+    }
+  ]
+}

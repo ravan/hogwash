@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+root="$(cd "$(dirname "$0")/../skills/hogwash" && pwd)"
+cd "$root"
+exec bun "scripts/sync/main.ts" "$@"

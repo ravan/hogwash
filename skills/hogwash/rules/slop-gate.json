@@ -1,0 +1,166 @@
+{
+  "name": "slop-gate",
+  "version": "0.1.0",
+  "attribution": "Derived from hwajongpark/slop-gate, an AI writing-tell CLI by Hwajong (Howard) Park, MIT. Rule text is generated from the upstream English rule files; the patterns and the advice are the upstream's.",
+  "rules": [
+    {
+      "id": "slop.vocabulary.bustling",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bbustling\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "A travel-AI tell. Be specific.",
+      "examples": {
+        "matching": ["bustling"],
+        "clean": []
+      },
+      "attribution": "hwajongpark/slop-gate § vocabulary (MIT)"
+    },
+    {
+      "id": "slop.vocabulary.elevate",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\belevate(s|d)?\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "Describe the gain.",
+      "examples": {
+        "matching": ["elevate"],
+        "clean": []
+      },
+      "attribution": "hwajongpark/slop-gate § vocabulary (MIT)"
+    },
+    {
+      "id": "slop.vocabulary.embark",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bembark(ing)? on\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "Use 'start'.",
+      "replacements": [
+        {
+          "when": "embark on",
+          "text": "start"
+        }
+      ],
+      "examples": {
+        "matching": ["embark on"],
+        "clean": []
+      },
+      "attribution": "hwajongpark/slop-gate § vocabulary (MIT)"
+    },
+    {
+      "id": "slop.vocabulary.empower",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bempower(s|ed|ing)?\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "Say what the reader can now do.",
+      "examples": {
+        "matching": ["empower"],
+        "clean": []
+      },
+      "attribution": "hwajongpark/slop-gate § vocabulary (MIT)"
+    },
+    {
+      "id": "slop.vocabulary.furthermore",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bfurthermore\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "Often deletable. Start a new sentence.",
+      "examples": {
+        "matching": ["furthermore"],
+        "clean": []
+      },
+      "attribution": "hwajongpark/slop-gate § vocabulary (MIT)"
+    },
+    {
+      "id": "slop.vocabulary.moreover",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bmoreover\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "Often deletable. Start a new sentence.",
+      "examples": {
+        "matching": ["moreover"],
+        "clean": []
+      },
+      "attribution": "hwajongpark/slop-gate § vocabulary (MIT)"
+    },
+    {
+      "id": "slop.vocabulary.proactive",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bproactive(ly)?\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "Say the specific action taken in advance.",
+      "examples": {
+        "matching": ["proactive"],
+        "clean": []
+      },
+      "attribution": "hwajongpark/slop-gate § vocabulary (MIT)"
+    },
+    {
+      "id": "slop.vocabulary.top-notch",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\btop[- ]notch\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "Say why it is good.",
+      "examples": {
+        "matching": ["top-notch"],
+        "clean": []
+      },
+      "attribution": "hwajongpark/slop-gate § vocabulary (MIT)"
+    },
+    {
+      "id": "slop.vocabulary.unlock",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bunlock(s|ed|ing)?\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "Say what becomes available.",
+      "examples": {
+        "matching": ["unlock"],
+        "clean": []
+      },
+      "attribution": "hwajongpark/slop-gate § vocabulary (MIT)"
+    }
+  ]
+}

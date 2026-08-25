@@ -1,0 +1,26 @@
+{
+  "name": "slop",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "description": "Skills that help you write documents in your own voice, without machine-writing artifacts.",
+  "type": "module",
+  "engines": {
+    "bun": ">=1.4"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.test.json",
+    "test": "bun test && cd skills/hogwash && bun test",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "check": "bun run lint && bun run typecheck && bun run test",
+    "sync": "./tools/sync",
+    "import-liang": "./tools/import-liang",
+    "eval": "./tools/eval"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.10",
+    "@types/bun": "^1.4.0",
+    "typescript": "^7.0.2"
+  }
+}

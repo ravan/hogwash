@@ -1,0 +1,429 @@
+{
+  "version": 1,
+  "revision": 1948076062,
+  "family": null,
+  "dropped": 180,
+  "accepted": [],
+  "rejected": [
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "xv.liang.commendable",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "top 100 adjectives",
+          "pattern": "\\bcommendable\\b",
+          "message": "\"commendable\" is ranked 1 of the top 100 adjectives that grew most disproportionately in ICLR 2024 peer reviews.",
+          "examples": {
+            "matching": ["commendable"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "xv.liang.innovative",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.4,
+          "section": "top 100 adjectives",
+          "pattern": "\\binnovative\\b",
+          "message": "\"innovative\" is ranked 2 of the top 100 adjectives that grew most disproportionately in ICLR 2024 peer reviews.",
+          "examples": {
+            "matching": ["innovative"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "xv.liang.meticulous",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.3,
+          "section": "top 100 adjectives",
+          "pattern": "\\bmeticulous\\b",
+          "message": "\"meticulous\" is ranked 3 of the top 100 adjectives that grew most disproportionately in ICLR 2024 peer reviews.",
+          "examples": {
+            "matching": ["meticulous"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "xv.liang.intricate",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.2,
+          "section": "top 100 adjectives",
+          "pattern": "\\bintricate\\b",
+          "message": "\"intricate\" is ranked 4 of the top 100 adjectives that grew most disproportionately in ICLR 2024 peer reviews.",
+          "examples": {
+            "matching": ["intricate"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "xv.liang.notable",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.1,
+          "section": "top 100 adjectives",
+          "pattern": "\\bnotable\\b",
+          "message": "\"notable\" is ranked 5 of the top 100 adjectives that grew most disproportionately in ICLR 2024 peer reviews.",
+          "examples": {
+            "matching": ["notable"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "the rule id xv.liang.versatile already exists",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "xv.liang.versatile",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 0.9,
+          "section": "top 100 adjectives",
+          "pattern": "\\bversatile\\b",
+          "message": "\"versatile\" is ranked 6 of the top 100 adjectives that grew most disproportionately in ICLR 2024 peer reviews.",
+          "examples": {
+            "matching": ["versatile"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "xv.liang.noteworthy",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 0.8,
+          "section": "top 100 adjectives",
+          "pattern": "\\bnoteworthy\\b",
+          "message": "\"noteworthy\" is ranked 7 of the top 100 adjectives that grew most disproportionately in ICLR 2024 peer reviews.",
+          "examples": {
+            "matching": ["noteworthy"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "xv.liang.invaluable",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 0.7,
+          "section": "top 100 adjectives",
+          "pattern": "\\binvaluable\\b",
+          "message": "\"invaluable\" is ranked 8 of the top 100 adjectives that grew most disproportionately in ICLR 2024 peer reviews.",
+          "examples": {
+            "matching": ["invaluable"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "xv.liang.pivotal",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 0.6,
+          "section": "top 100 adjectives",
+          "pattern": "\\bpivotal\\b",
+          "message": "\"pivotal\" is ranked 9 of the top 100 adjectives that grew most disproportionately in ICLR 2024 peer reviews.",
+          "examples": {
+            "matching": ["pivotal"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "the rule id xv.liang.potent already exists",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "xv.liang.potent",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 0.5,
+          "section": "top 100 adjectives",
+          "pattern": "\\bpotent\\b",
+          "message": "\"potent\" is ranked 10 of the top 100 adjectives that grew most disproportionately in ICLR 2024 peer reviews.",
+          "examples": {
+            "matching": ["potent"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "xv.liang.meticulously",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "top 100 adverbs",
+          "pattern": "\\bmeticulously\\b",
+          "message": "\"meticulously\" is ranked 1 of the top 100 adverbs that grew most disproportionately in ICLR 2024 peer reviews.",
+          "examples": {
+            "matching": ["meticulously"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "the rule id xv.liang.reportedly already exists",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "xv.liang.reportedly",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.4,
+          "section": "top 100 adverbs",
+          "pattern": "\\breportedly\\b",
+          "message": "\"reportedly\" is ranked 2 of the top 100 adverbs that grew most disproportionately in ICLR 2024 peer reviews.",
+          "examples": {
+            "matching": ["reportedly"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "the rule id xv.liang.lucidly already exists",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "xv.liang.lucidly",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.3,
+          "section": "top 100 adverbs",
+          "pattern": "\\blucidly\\b",
+          "message": "\"lucidly\" is ranked 3 of the top 100 adverbs that grew most disproportionately in ICLR 2024 peer reviews.",
+          "examples": {
+            "matching": ["lucidly"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "the rule id xv.liang.innovatively already exists",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "xv.liang.innovatively",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.2,
+          "section": "top 100 adverbs",
+          "pattern": "\\binnovatively\\b",
+          "message": "\"innovatively\" is ranked 4 of the top 100 adverbs that grew most disproportionately in ICLR 2024 peer reviews.",
+          "examples": {
+            "matching": ["innovatively"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "the rule id xv.liang.aptly already exists",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "xv.liang.aptly",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.1,
+          "section": "top 100 adverbs",
+          "pattern": "\\baptly\\b",
+          "message": "\"aptly\" is ranked 5 of the top 100 adverbs that grew most disproportionately in ICLR 2024 peer reviews.",
+          "examples": {
+            "matching": ["aptly"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "the rule id xv.liang.methodically already exists",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "xv.liang.methodically",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 0.9,
+          "section": "top 100 adverbs",
+          "pattern": "\\bmethodically\\b",
+          "message": "\"methodically\" is ranked 6 of the top 100 adverbs that grew most disproportionately in ICLR 2024 peer reviews.",
+          "examples": {
+            "matching": ["methodically"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "the rule id xv.liang.excellently already exists",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "xv.liang.excellently",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 0.8,
+          "section": "top 100 adverbs",
+          "pattern": "\\bexcellently\\b",
+          "message": "\"excellently\" is ranked 7 of the top 100 adverbs that grew most disproportionately in ICLR 2024 peer reviews.",
+          "examples": {
+            "matching": ["excellently"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "the rule id xv.liang.compellingly already exists",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "xv.liang.compellingly",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 0.7,
+          "section": "top 100 adverbs",
+          "pattern": "\\bcompellingly\\b",
+          "message": "\"compellingly\" is ranked 8 of the top 100 adverbs that grew most disproportionately in ICLR 2024 peer reviews.",
+          "examples": {
+            "matching": ["compellingly"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "the rule id xv.liang.impressively already exists",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "xv.liang.impressively",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 0.6,
+          "section": "top 100 adverbs",
+          "pattern": "\\bimpressively\\b",
+          "message": "\"impressively\" is ranked 9 of the top 100 adverbs that grew most disproportionately in ICLR 2024 peer reviews.",
+          "examples": {
+            "matching": ["impressively"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "the rule id xv.liang.undoubtedly already exists",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "xv.liang.undoubtedly",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 0.5,
+          "section": "top 100 adverbs",
+          "pattern": "\\bundoubtedly\\b",
+          "message": "\"undoubtedly\" is ranked 10 of the top 100 adverbs that grew most disproportionately in ICLR 2024 peer reviews.",
+          "examples": {
+            "matching": ["undoubtedly"],
+            "clean": []
+          }
+        }
+      }
+    }
+  ]
+}

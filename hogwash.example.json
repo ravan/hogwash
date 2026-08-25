@@ -1,0 +1,46 @@
+{
+  "register": "technical",
+  "threshold": 25,
+  "packs": [
+    "wikipedia-signs",
+    "claudisms",
+    "humanizer",
+    "stylometry",
+    "excess-vocab",
+    "vale-ai-tells",
+    "slop-gate",
+    "unslop"
+  ],
+  "gates": [],
+  "profile": {
+    "voice": "profile/voice.md",
+    "quality": "profile/quality.md",
+    "banList": "profile/ban-list.md"
+  },
+  "workflow": {
+    "maxPasses": 5,
+    "diff": {
+      "command": "code",
+      "args": ["--diff"],
+      "wait": false
+    },
+    "advanced": {
+      "enabled": false,
+      "useConsultant": true,
+      "useSubagent": true,
+      "consultant": "claude",
+      "subagent": "codex"
+    }
+  },
+  "includeDeprecatedRules": false,
+  "models": {
+    "claude": {
+      "model": "opus",
+      "effort": "high"
+    },
+    "codex": {
+      "model": "gpt-5.6-sol",
+      "effort": "high"
+    }
+  }
+}

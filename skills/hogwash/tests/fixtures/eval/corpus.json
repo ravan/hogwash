@@ -1,0 +1,161 @@
+{
+  "version": 1,
+  "classes": [
+    {
+      "name": "ai-dense",
+      "kind": "positive",
+      "items": [
+        {
+          "path": "tests/fixtures/corpus/ai-dense.md",
+          "register": "marketing",
+          "provenance": "planner-authored pastiche, slice S1 (2026-08-25)",
+          "adjudication": "tests/fixtures/eval/adjudications/ai-dense.json"
+        }
+      ]
+    },
+    {
+      "name": "ai-subtle",
+      "kind": "positive",
+      "items": [
+        {
+          "path": "tests/fixtures/corpus/ai-subtle.md",
+          "register": "technical",
+          "provenance": "planner-authored pastiche, slice S1 (2026-08-25)",
+          "adjudication": "tests/fixtures/eval/adjudications/ai-subtle.json"
+        }
+      ]
+    },
+    {
+      "name": "ai-lineage",
+      "kind": "positive",
+      "items": [
+        {
+          "path": "tests/fixtures/eval/ai-lineage/prose.md",
+          "register": "prose",
+          "provenance": "planner-authored pastiche, slice rule-sources-S9 (2026-08-26)",
+          "adjudication": "tests/fixtures/eval/adjudications/ai-lineage-prose.json"
+        }
+      ]
+    },
+    {
+      "name": "ai-claude",
+      "kind": "control",
+      "items": [
+        {
+          "path": "tests/fixtures/eval/ai-claude/technical.md",
+          "register": "technical",
+          "provenance": "fresh Claude Opus 5 output, unprompted for style, slice S9 (2026-08-25)",
+          "adjudication": "tests/fixtures/eval/adjudications/ai-claude-technical.json"
+        },
+        {
+          "path": "tests/fixtures/eval/ai-claude/prose.md",
+          "register": "prose",
+          "provenance": "fresh Claude Opus 5 output, unprompted for style, slice S9 (2026-08-25)",
+          "adjudication": "tests/fixtures/eval/adjudications/ai-claude-prose.json"
+        },
+        {
+          "path": "tests/fixtures/eval/ai-claude/marketing.md",
+          "register": "marketing",
+          "provenance": "fresh Claude Opus 5 output, unprompted for style, slice S9 (2026-08-25)",
+          "adjudication": "tests/fixtures/eval/adjudications/ai-claude-marketing.json"
+        }
+      ]
+    },
+    {
+      "name": "ai-gpt",
+      "kind": "positive",
+      "items": [
+        {
+          "path": "tests/fixtures/eval/ai-gpt/essay-1.md",
+          "register": "prose",
+          "provenance": "ChatGPT essay, ghostbuster-data essay/gpt/1.txt, Verma et al. NAACL 2024 (CC BY 3.0), fetched 2026-08-27",
+          "adjudication": "tests/fixtures/eval/adjudications/ai-gpt-essay-1.json"
+        },
+        {
+          "path": "tests/fixtures/eval/ai-gpt/essay-2.md",
+          "register": "prose",
+          "provenance": "ChatGPT essay, ghostbuster-data essay/gpt/2.txt, Verma et al. NAACL 2024 (CC BY 3.0), fetched 2026-08-27",
+          "adjudication": "tests/fixtures/eval/adjudications/ai-gpt-essay-2.json"
+        }
+      ]
+    },
+    {
+      "name": "human-technical",
+      "kind": "control",
+      "items": [
+        {
+          "path": "tests/fixtures/corpus/human-formal.md",
+          "register": "technical",
+          "provenance": "planner-authored fixture, slice S1 (2026-08-25)",
+          "adjudication": "tests/fixtures/eval/adjudications/human-formal.json"
+        },
+        {
+          "path": "tests/fixtures/corpus/human-plain.md",
+          "register": "technical",
+          "provenance": "planner-authored fixture, slice S1 (2026-08-25)",
+          "adjudication": "tests/fixtures/eval/adjudications/human-plain.json"
+        }
+      ]
+    },
+    {
+      "name": "human-article",
+      "kind": "control",
+      "items": [
+        {
+          "path": "tests/fixtures/eval/human-article/wiki-intro.md",
+          "register": "prose",
+          "provenance": "Wikipedia introduction 'Stepping on Roses' (pre-2023 snapshot) via GPT-wiki-intro dataset, Wikipedia contributors (CC BY-SA), fetched 2026-08-27",
+          "adjudication": "tests/fixtures/eval/adjudications/human-article-wiki-intro.json"
+        }
+      ]
+    },
+    {
+      "name": "human-mail",
+      "kind": "control",
+      "items": [
+        {
+          "path": "tests/fixtures/eval/human-mail/enron-project-update.md",
+          "register": "technical",
+          "provenance": "Enron corpus business email (1999-2002, public record) via Yale-LILY/aeslc, fetched 2026-08-27",
+          "adjudication": "tests/fixtures/eval/adjudications/human-mail-enron.json"
+        }
+      ]
+    },
+    {
+      "name": "human-marketing",
+      "kind": "control",
+      "items": [
+        {
+          "path": "tests/fixtures/eval/human-marketing/celsius-press-release.md",
+          "register": "marketing",
+          "provenance": "Celsius Holdings press release, 2019-06-18, SEC EDGAR 8-K exhibit 99.1 (public filing, company copyright), fetched 2026-08-27",
+          "adjudication": "tests/fixtures/eval/adjudications/human-marketing-celsius.json"
+        }
+      ]
+    },
+    {
+      "name": "human-edited-draft",
+      "kind": "control",
+      "items": [
+        {
+          "path": "tests/fixtures/eval/human-edited-draft/beemo-generation.md",
+          "register": "prose",
+          "provenance": "Expert-edited Llama-2-7b draft, toloka/beemo id 613 (MIT), Artemova et al. NAACL 2025, fetched 2026-08-27",
+          "adjudication": "tests/fixtures/eval/adjudications/human-edited-draft-beemo.json"
+        }
+      ]
+    },
+    {
+      "name": "non-native-formal",
+      "kind": "control",
+      "items": [
+        {
+          "path": "tests/fixtures/corpus/non-native-formal.md",
+          "register": "technical",
+          "provenance": "planner-authored fixture, slice S1 (2026-08-25)",
+          "adjudication": "tests/fixtures/eval/adjudications/non-native-formal.json"
+        }
+      ]
+    }
+  ]
+}

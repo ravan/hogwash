@@ -1,0 +1,72 @@
+{
+  "name": "stylometry",
+  "version": "1.0.0",
+  "attribution": "hogwash stylometry baselines (MIT), calibrated against tests/fixtures/corpus in slice S4",
+  "rules": [
+    {
+      "id": "rhythm.sentence-uniformity",
+      "category": "rhythm",
+      "engine": "stylometric",
+      "metric": "sentence-uniformity",
+      "severity": "info",
+      "era": "mixed",
+      "deprecated": false,
+      "gated": null,
+      "baselines": { "technical": 0.2, "prose": 0.2, "marketing": 0.2 },
+      "message": "Sentence lengths in this paragraph vary less than the register baseline; the rhythm reads flat.",
+      "attribution": "hogwash stylometry baselines (MIT), calibrated in slice S4"
+    },
+    {
+      "id": "rhythm.paragraph-uniformity",
+      "category": "rhythm",
+      "engine": "stylometric",
+      "metric": "paragraph-uniformity",
+      "severity": "info",
+      "era": "mixed",
+      "deprecated": false,
+      "gated": null,
+      "baselines": { "technical": 0.06, "prose": 0.06, "marketing": 0.06 },
+      "message": "Paragraph lengths across this document vary less than the register baseline.",
+      "attribution": "hogwash stylometry baselines (MIT), calibrated in slice S4"
+    },
+    {
+      "id": "rhythm.lexical-diversity",
+      "category": "rhythm",
+      "engine": "stylometric",
+      "metric": "lexical-diversity",
+      "severity": "info",
+      "era": "mixed",
+      "deprecated": false,
+      "gated": null,
+      "baselines": { "technical": 0.7, "prose": 0.7, "marketing": 0.72 },
+      "message": "Vocabulary turnover in this paragraph sits below the register baseline.",
+      "attribution": "hogwash stylometry baselines (MIT), calibrated in slice S4"
+    },
+    {
+      "id": "rhythm.contraction-rate",
+      "category": "rhythm",
+      "engine": "stylometric",
+      "metric": "contraction-rate",
+      "severity": "info",
+      "era": "mixed",
+      "deprecated": false,
+      "gated": null,
+      "baselines": { "technical": 0, "prose": 1, "marketing": 1.5 },
+      "message": "This paragraph uses fewer contractions than the register baseline.",
+      "attribution": "hogwash stylometry baselines (MIT), calibrated in slice S4"
+    },
+    {
+      "id": "rhythm.punctuation-density",
+      "category": "rhythm",
+      "engine": "stylometric",
+      "metric": "punctuation-density",
+      "severity": "info",
+      "era": "mixed",
+      "deprecated": false,
+      "gated": null,
+      "baselines": { "technical": 1.5, "prose": 2.5, "marketing": 3 },
+      "message": "Em dashes and semicolons in this paragraph exceed the register baseline.",
+      "attribution": "hogwash stylometry baselines (MIT), calibrated in slice S4"
+    }
+  ]
+}

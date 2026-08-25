@@ -1,0 +1,427 @@
+{
+  "name": "humanizer",
+  "version": "0.2.0",
+  "attribution": "Compiled from judetelan/ai-humanizer (scripts/lexicons.mjs, references/banned-words.md; MIT, Copyright (c) 2026 judetelan) and shir-danishyar/humanize (scripts/ai_pattern_lint.py, references/patterns.md; MIT, Copyright (c) 2026 Shirhussain Danishyar). The pack's sync lineage is blader/humanizer (SKILL.md; MIT, Copyright (c) 2025 Siqi Chen), the upstream both compilations derive from.",
+  "rules": [
+    {
+      "id": "opener.throat-clearing",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\bit('s| is) (worth (noting|mentioning)|important to note|important to remember)\\b|\\bneedless to say\\b|\\bno discussion would be complete\\b|\\bthat (being said|said),|\\brest assured\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2,
+      "era": "gpt4",
+      "reliable": true,
+      "message": "Throat-clearing: the sentence announces that a point is coming instead of making it.",
+      "examples": {
+        "matching": [
+          "It's worth noting that the API is rate limited",
+          "Needless to say, we shipped",
+          "That said, the tests pass"
+        ],
+        "clean": ["The API is rate limited.", "We shipped anyway."]
+      },
+      "attribution": "judetelan/ai-humanizer AI_OPENERS (MIT)",
+      "replacements": []
+    },
+    {
+      "id": "opener.era-framing",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\bin today('s| is) (fast[- ]paced |digital |modern |ever[- ]changing )?(world|age|era|landscape|economy)\\b|\\bin (an|the) era of\\b|\\bin (a|the) world where\\b|\\bin the (realm|world) of\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2.5,
+      "registers": {
+        "marketing": 0.6
+      },
+      "era": "gpt4",
+      "reliable": true,
+      "message": "Stock era-framing opener. Start with the subject instead.",
+      "examples": {
+        "matching": [
+          "In today's fast-paced world, teams need speed",
+          "in a world where data is cheap",
+          "In the realm of security"
+        ],
+        "clean": ["Teams need speed.", "Security teams see this weekly."]
+      },
+      "attribution": "judetelan/ai-humanizer AI_OPENERS (MIT)"
+    },
+    {
+      "id": "connective.wordy",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bdue to the fact that\\b|\\bin light of the fact that\\b|\\bin the event that\\b|\\bhas the ability to\\b|\\bat this point in time\\b",
+      "flags": ["i"],
+      "severity": "info",
+      "weight": 1,
+      "registers": {
+        "technical": 0.5
+      },
+      "advisory": true,
+      "era": "gpt4",
+      "reliable": false,
+      "message": "Wordy connective a human editor would collapse ('because', 'if', 'can', 'now'). Narrowed in 0.2.0: 'in terms of', 'with regard to' and 'for the purpose of' were dropped — ordinary human formal English fired them as often as machine prose.",
+      "replacements": [
+        {
+          "when": "due to the fact that|in light of the fact that",
+          "text": "because"
+        },
+        {
+          "when": "in the event that",
+          "text": "if"
+        },
+        {
+          "when": "has the ability to",
+          "text": "can"
+        },
+        {
+          "when": "at this point in time",
+          "text": "now"
+        }
+      ],
+      "examples": {
+        "matching": ["due to the fact that it failed", "has the ability to retry"],
+        "clean": ["because it failed", "can retry"]
+      },
+      "attribution": "judetelan/ai-humanizer WORDY_CONNECTIVES (MIT)",
+      "deprecated": false
+    },
+    {
+      "id": "attribution.weasel",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\bexperts (say|believe|argue|suggest|agree)\\b|\\b(studies|research) (show|shows|suggests|have shown)\\b|\\bobservers (noted|have noted)\\b|\\bindustry reports\\b|\\bwidely (regarded|considered|seen) as\\b|\\bit is (believed|said) that\\b|\\bmany believe\\b|\\bsome say\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2.5,
+      "era": "gpt4",
+      "reliable": true,
+      "message": "Weasel attribution: a claim sourced to nobody. Name the study, the report, or the person.",
+      "examples": {
+        "matching": [
+          "Experts agree that process matters",
+          "Research shows new hires stay longer",
+          "widely regarded as the standard"
+        ],
+        "clean": ["The 2025 DORA report puts the figure at 31 percent."]
+      },
+      "attribution": "judetelan/ai-humanizer WEASEL_ATTRIBUTION (MIT)"
+    },
+    {
+      "id": "hedge.stack",
+      "category": "rhythm",
+      "engine": "lexical",
+      "pattern": "\\b(could|may|might|can) potentially\\b|\\bpotentially possibly\\b|\\bcould possibly\\b|\\bgenerally speaking\\b|\\bbroadly speaking\\b|\\bmore often than not\\b|\\bfor the most part\\b|\\bto some extent\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.5,
+      "era": "gpt4",
+      "reliable": true,
+      "message": "Stacked hedge. One hedge is honest; two is mush. Keep the strongest and drop the rest.",
+      "replacements": [
+        {
+          "when": "could potentially|could possibly",
+          "text": "could"
+        },
+        {
+          "when": "may potentially",
+          "text": "may"
+        },
+        {
+          "when": "might potentially",
+          "text": "might"
+        },
+        {
+          "when": "can potentially",
+          "text": "can"
+        },
+        {
+          "when": "potentially possibly",
+          "text": "possibly"
+        },
+        {
+          "when": "generally speaking|broadly speaking",
+          "text": "generally"
+        },
+        {
+          "when": "more often than not",
+          "text": "usually"
+        },
+        {
+          "when": "for the most part",
+          "text": "mostly"
+        },
+        {
+          "when": "to some extent",
+          "text": "partly"
+        }
+      ],
+      "examples": {
+        "matching": [
+          "teams may potentially see delays",
+          "generally speaking it holds",
+          "for the most part it works"
+        ],
+        "clean": ["teams may see delays", "it holds in the tests we ran"]
+      },
+      "attribution": "judetelan/ai-humanizer HEDGES + shir-danishyar P9 (MIT)"
+    },
+    {
+      "id": "marketing.buzzword",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\b(streamline|empower|supercharge|unleash|revolutioniz|transform) (your|the) (business|team|workflow|potential|power)\\b|\\bunlock (your|the) (full )?potential\\b|\\b(harness|leverage) the power\\b|\\btake it to the next level\\b|\\bmove the needle\\b|\\bone[- ]stop shop\\b|\\bgame[- ]chang(er|ing)\\b|\\bmission[- ]critical\\b|\\bfuture[- ]proof\\b|\\btailored solutions\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2.5,
+      "registers": {
+        "marketing": 0.5
+      },
+      "era": "gpt4",
+      "reliable": true,
+      "message": "SaaS marketing filler. Say what the product does.",
+      "examples": {
+        "matching": [
+          "unlock your full potential",
+          "harness the power of data",
+          "a real game-changer"
+        ],
+        "clean": ["the exporter writes Parquet", "the change cut latency by half"]
+      },
+      "attribution": "judetelan/ai-humanizer BUZZWORDS (MIT)"
+    },
+    {
+      "id": "jargon.business",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bthought leader(ship)?\\b|\\bpain points?\\b|\\bvalue (add|proposition)\\b|\\bmoving forward\\b|\\btouch base\\b|\\bcircle back\\b|\\blow[- ]hanging fruit\\b|\\bsynerg(y|ies)\\b|\\blearnings\\b|\\bcommitment to excellence\\b|\\bbest of breed\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.5,
+      "era": "gpt4",
+      "reliable": true,
+      "message": "Business jargon. Plain words carry the same meaning and read as written by a person.",
+      "examples": {
+        "matching": [
+          "let's circle back next week",
+          "the main pain points",
+          "our learnings from the outage"
+        ],
+        "clean": ["let's talk again on Tuesday", "what we learned from the outage"]
+      },
+      "attribution": "judetelan/ai-humanizer BUSINESS_JARGON (MIT)"
+    },
+    {
+      "id": "closer.chatbot",
+      "category": "residue",
+      "engine": "lexical",
+      "pattern": "\\bi hope this (helps|email finds you well|finds you well)\\b|\\b(please )?don'?t hesitate to (reach out|ask|contact)\\b|\\bfeel free to (reach out|ask|adjust|modify|tweak)\\b|\\bhappy to help\\b|\\bis there anything else\\b|\\blet me know if you('d like| have any| need| want)\\b|\\bwould you like me to\\b|\\byou('re| are) absolutely right\\b|\\bwhat a (great|thoughtful) question\\b",
+      "flags": ["i"],
+      "severity": "error",
+      "weight": 3,
+      "era": "mixed",
+      "reliable": true,
+      "message": "Assistant closer left in the document. A document has no interlocutor.",
+      "examples": {
+        "matching": [
+          "I hope this helps!",
+          "Let me know if you'd like a longer version",
+          "Would you like me to expand this?"
+        ],
+        "clean": [
+          "Questions go to the operations team.",
+          "Ask Priya if the routing rule is unclear."
+        ]
+      },
+      "attribution": "judetelan/ai-humanizer CHATBOT_CLOSERS (MIT)"
+    },
+    {
+      "id": "conclusion.fluff",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\bthe future looks bright\\b|\\bexciting times (lie ahead|ahead)\\b|\\bstep in the right direction\\b|\\bonly time will tell\\b|\\bthe possibilities are endless\\b|\\bpoised for growth\\b|\\bwatch this space\\b|\\bshaping the future of\\b|\\bsetting the stage for\\b|\\bleaves an indelible mark\\b|\\bspeak for themselves\\b|\\bthe bottom line is\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2.5,
+      "era": "gpt4",
+      "reliable": true,
+      "message": "Weightless conclusion. End on the last real fact instead.",
+      "examples": {
+        "matching": [
+          "The future looks bright for the team",
+          "Only time will tell",
+          "the benefits speak for themselves"
+        ],
+        "clean": ["The next review is in October."]
+      },
+      "attribution": "judetelan/ai-humanizer CONCLUSION_FLUFF (MIT)"
+    },
+    {
+      "id": "meta.commentary",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\bin this (section|post|article|piece)\\b|\\bas (we'll|we will) see\\b|\\bas (mentioned earlier|discussed above)\\b|\\bwalk you through\\b|\\blet me explain\\b|\\bthe rest of this (essay|post|article)\\b|\\b(plot twist|spoiler):",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.5,
+      "registers": {
+        "technical": 0.5
+      },
+      "era": "gpt4",
+      "reliable": true,
+      "message": "Meta-commentary about the text's own structure. Readers can see the structure.",
+      "examples": {
+        "matching": [
+          "In this section we cover retries",
+          "as we'll see below",
+          "let me explain why"
+        ],
+        "clean": ["Retries are covered below.", "The reason is the retry budget."]
+      },
+      "attribution": "judetelan/ai-humanizer META_COMMENTARY (MIT)"
+    },
+    {
+      "id": "rhetoric.setup",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\bwhat if I told you\\b|\\bhere('s| is) what I mean\\b|\\bthink about it\\b|\\bask yourself\\b|\\bhear me out\\b|\\blet that (sink in|marinate)\\b|\\bbuckle up\\b|\\bmake no mistake\\b|\\blet me be clear\\b|\\bread that again\\b|\\bfull stop\\.",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2.5,
+      "era": "gpt5",
+      "reliable": true,
+      "message": "Rhetorical setup or emphasis crutch: manufactured weight carrying no information.",
+      "examples": {
+        "matching": [
+          "What if I told you it was cheaper",
+          "Let that sink in.",
+          "Make no mistake: this is a rewrite"
+        ],
+        "clean": ["It costs 40 percent less.", "This is a rewrite."]
+      },
+      "attribution": "judetelan/ai-humanizer RHETORICAL_SETUP + EMPHASIS_CRUTCH (MIT)"
+    },
+    {
+      "id": "declarative.vague-stakes",
+      "category": "structure",
+      "engine": "lexical",
+      "pattern": "\\bthe (implications|consequences|reasons) are (significant|real|structural)\\b|\\bthe stakes (are high|could ?n('|o)t be higher)\\b|\\bthe (significance|importance) cannot be overstated\\b|\\bthe real question is\\b|\\bwhat really matters\\b|\\bthe (deeper issue|heart of the matter)\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2.5,
+      "era": "gpt5",
+      "reliable": true,
+      "message": "Vague declarative: announces significance without naming the thing.",
+      "examples": {
+        "matching": [
+          "The stakes are high",
+          "The real question is whether it scales",
+          "the implications are significant"
+        ],
+        "clean": ["A failure here loses two hours of writes."]
+      },
+      "attribution": "judetelan/ai-humanizer VAGUE_DECLARATIVE (MIT)"
+    },
+    {
+      "id": "reasoning.chain-leak",
+      "category": "residue",
+      "engine": "lexical",
+      "pattern": "\\blet me think\\b|\\blet('s| us) (reason|work) through\\b|^[ \\t]*step [1-9]:|\\b(first|next|finally), let('s| us)\\b|\\b(if we )?break(ing)? this down\\b|\\blet('s| us) (consider|examine)\\b",
+      "flags": ["i", "m"],
+      "severity": "error",
+      "weight": 3,
+      "era": "gpt5",
+      "reliable": true,
+      "message": "Chain-of-thought scaffolding leaked into finished prose.",
+      "examples": {
+        "matching": [
+          "Let me think about this",
+          "First, let's establish the baseline",
+          "Breaking this down:"
+        ],
+        "clean": ["The baseline is 31 hours.", "Step 1. Install the CLI."]
+      },
+      "attribution": "judetelan/ai-humanizer REASONING_CHAIN (MIT)"
+    },
+    {
+      "id": "loop.acknowledgment",
+      "category": "residue",
+      "engine": "lexical",
+      "pattern": "\\byou('re| are) (asking about|wondering)\\b|\\byou (want to know|mentioned that)\\b|\\bgreat (question|observation)\\b|\\bthat('s| is) an? (interesting|thoughtful|excellent) (question|point)\\b|\\bI understand you('re| are) looking for\\b",
+      "flags": ["i"],
+      "severity": "error",
+      "weight": 3,
+      "era": "mixed",
+      "reliable": true,
+      "message": "Acknowledgment loop: the text parrots a question back at a reader who never asked one.",
+      "examples": {
+        "matching": ["Great question!", "You're asking about retries", "That's an excellent point"],
+        "clean": ["Retries are configurable.", "The point holds for batch jobs too."]
+      },
+      "attribution": "judetelan/ai-humanizer ACKNOWLEDGMENT_LOOP (MIT)"
+    },
+    {
+      "id": "gated.gpt.tics",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bnavigating the complexities\\b|\\bplays a (crucial|vital|significant|key) role\\b|\\bcharacterized by\\b|\\bunderscores the importance\\b",
+      "flags": ["i"],
+      "severity": "info",
+      "weight": 1,
+      "era": "gpt5",
+      "reliable": false,
+      "gated": "gpt",
+      "message": "GPT-family tic. Off unless the GPT gate is enabled.",
+      "examples": {
+        "matching": ["navigating the complexities of scale", "plays a crucial role in retention"],
+        "clean": ["scaling is hard for three reasons"]
+      },
+      "attribution": "judetelan/ai-humanizer GPT_TICS (MIT)"
+    },
+    {
+      "id": "gated.claude.tics",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bworth stating plainly\\b|\\bcarry the argument\\b|\\bone might argue\\b|\\bit could be suggested\\b|\\bI want to make sure\\b|\\bI should note\\b",
+      "flags": ["i"],
+      "severity": "info",
+      "weight": 1,
+      "era": "claude",
+      "reliable": false,
+      "gated": "claude",
+      "message": "Claude-family tic. Off unless the Claude gate is enabled.",
+      "examples": {
+        "matching": ["worth stating plainly", "One might argue the opposite"],
+        "clean": ["Plainly: it does not scale."]
+      },
+      "attribution": "judetelan/ai-humanizer CLAUDE_TICS (MIT)"
+    },
+    {
+      "id": "deprecated.gpt35.certainly",
+      "category": "residue",
+      "engine": "lexical",
+      "pattern": "\\bcertainly!\\s|\\bsure! here\\b|\\bof course! here\\b",
+      "flags": ["i"],
+      "severity": "info",
+      "weight": 1,
+      "era": "gpt35",
+      "deprecated": true,
+      "reliable": false,
+      "message": "GPT-3.5-era enthusiastic opener; largely gone from current models and shipped off by default.",
+      "examples": {
+        "matching": ["Certainly! The answer is 42", "Sure! Here is the list"],
+        "clean": ["The answer is 42."]
+      },
+      "attribution": "judetelan/ai-humanizer GPT_TICS (MIT)",
+      "replacements": [
+        {
+          "when": "certainly!\\s*",
+          "text": ""
+        }
+      ]
+    }
+  ]
+}

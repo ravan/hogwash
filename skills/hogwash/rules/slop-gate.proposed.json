@@ -1,0 +1,964 @@
+{
+  "version": 1,
+  "revision": 46306163,
+  "family": "claude",
+  "accepted": [
+    {
+      "kind": "add",
+      "rule": {
+        "id": "slop.vocabulary.elevate",
+        "category": "vocabulary",
+        "era": "mixed",
+        "deprecated": false,
+        "gated": null,
+        "message": "Describe the gain.",
+        "attribution": "hwajongpark/slop-gate § vocabulary (MIT)",
+        "severity": "warning",
+        "weight": 1.5,
+        "registers": {
+          "technical": 1,
+          "prose": 1,
+          "marketing": 1
+        },
+        "reliable": false,
+        "advisory": false,
+        "examples": {
+          "matching": ["elevate"],
+          "clean": []
+        },
+        "engine": "lexical",
+        "pattern": "\\belevate(s|d)?\\b",
+        "flags": ["i"],
+        "replacements": []
+      }
+    },
+    {
+      "kind": "add",
+      "rule": {
+        "id": "slop.vocabulary.embark",
+        "category": "vocabulary",
+        "era": "mixed",
+        "deprecated": false,
+        "gated": null,
+        "message": "Use 'start'.",
+        "attribution": "hwajongpark/slop-gate § vocabulary (MIT)",
+        "severity": "warning",
+        "weight": 1.5,
+        "registers": {
+          "technical": 1,
+          "prose": 1,
+          "marketing": 1
+        },
+        "reliable": false,
+        "advisory": false,
+        "examples": {
+          "matching": ["embark on"],
+          "clean": []
+        },
+        "engine": "lexical",
+        "pattern": "\\bembark(ing)? on\\b",
+        "flags": ["i"],
+        "replacements": [
+          {
+            "when": "embark on",
+            "text": "start"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "add",
+      "rule": {
+        "id": "slop.vocabulary.empower",
+        "category": "vocabulary",
+        "era": "mixed",
+        "deprecated": false,
+        "gated": null,
+        "message": "Say what the reader can now do.",
+        "attribution": "hwajongpark/slop-gate § vocabulary (MIT)",
+        "severity": "warning",
+        "weight": 1.5,
+        "registers": {
+          "technical": 1,
+          "prose": 1,
+          "marketing": 1
+        },
+        "reliable": false,
+        "advisory": false,
+        "examples": {
+          "matching": ["empower"],
+          "clean": []
+        },
+        "engine": "lexical",
+        "pattern": "\\bempower(s|ed|ing)?\\b",
+        "flags": ["i"],
+        "replacements": []
+      }
+    },
+    {
+      "kind": "add",
+      "rule": {
+        "id": "slop.vocabulary.furthermore",
+        "category": "vocabulary",
+        "era": "mixed",
+        "deprecated": false,
+        "gated": null,
+        "message": "Often deletable. Start a new sentence.",
+        "attribution": "hwajongpark/slop-gate § vocabulary (MIT)",
+        "severity": "warning",
+        "weight": 1.5,
+        "registers": {
+          "technical": 1,
+          "prose": 1,
+          "marketing": 1
+        },
+        "reliable": false,
+        "advisory": false,
+        "examples": {
+          "matching": ["furthermore"],
+          "clean": []
+        },
+        "engine": "lexical",
+        "pattern": "\\bfurthermore\\b",
+        "flags": ["i"],
+        "replacements": []
+      }
+    },
+    {
+      "kind": "add",
+      "rule": {
+        "id": "slop.vocabulary.moreover",
+        "category": "vocabulary",
+        "era": "mixed",
+        "deprecated": false,
+        "gated": null,
+        "message": "Often deletable. Start a new sentence.",
+        "attribution": "hwajongpark/slop-gate § vocabulary (MIT)",
+        "severity": "warning",
+        "weight": 1.5,
+        "registers": {
+          "technical": 1,
+          "prose": 1,
+          "marketing": 1
+        },
+        "reliable": false,
+        "advisory": false,
+        "examples": {
+          "matching": ["moreover"],
+          "clean": []
+        },
+        "engine": "lexical",
+        "pattern": "\\bmoreover\\b",
+        "flags": ["i"],
+        "replacements": []
+      }
+    },
+    {
+      "kind": "add",
+      "rule": {
+        "id": "slop.vocabulary.proactive",
+        "category": "vocabulary",
+        "era": "mixed",
+        "deprecated": false,
+        "gated": null,
+        "message": "Say the specific action taken in advance.",
+        "attribution": "hwajongpark/slop-gate § vocabulary (MIT)",
+        "severity": "warning",
+        "weight": 1.5,
+        "registers": {
+          "technical": 1,
+          "prose": 1,
+          "marketing": 1
+        },
+        "reliable": false,
+        "advisory": false,
+        "examples": {
+          "matching": ["proactive"],
+          "clean": []
+        },
+        "engine": "lexical",
+        "pattern": "\\bproactive(ly)?\\b",
+        "flags": ["i"],
+        "replacements": []
+      }
+    },
+    {
+      "kind": "add",
+      "rule": {
+        "id": "slop.vocabulary.top-notch",
+        "category": "vocabulary",
+        "era": "mixed",
+        "deprecated": false,
+        "gated": null,
+        "message": "Say why it is good.",
+        "attribution": "hwajongpark/slop-gate § vocabulary (MIT)",
+        "severity": "warning",
+        "weight": 1.5,
+        "registers": {
+          "technical": 1,
+          "prose": 1,
+          "marketing": 1
+        },
+        "reliable": false,
+        "advisory": false,
+        "examples": {
+          "matching": ["top-notch"],
+          "clean": []
+        },
+        "engine": "lexical",
+        "pattern": "\\btop[- ]notch\\b",
+        "flags": ["i"],
+        "replacements": []
+      }
+    },
+    {
+      "kind": "add",
+      "rule": {
+        "id": "slop.vocabulary.unlock",
+        "category": "vocabulary",
+        "era": "mixed",
+        "deprecated": false,
+        "gated": null,
+        "message": "Say what becomes available.",
+        "attribution": "hwajongpark/slop-gate § vocabulary (MIT)",
+        "severity": "warning",
+        "weight": 1.5,
+        "registers": {
+          "technical": 1,
+          "prose": 1,
+          "marketing": 1
+        },
+        "reliable": false,
+        "advisory": false,
+        "examples": {
+          "matching": ["unlock"],
+          "clean": []
+        },
+        "engine": "lexical",
+        "pattern": "\\bunlock(s|ed|ing)?\\b",
+        "flags": ["i"],
+        "replacements": []
+      }
+    }
+  ],
+  "rejected": [
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.punctuation.em-dash",
+          "category": "formatting",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "punctuation",
+          "pattern": "—",
+          "message": "The em-dash is the single most common AI-writing tell. Use a comma, a colon, or split the sentence. Allowlist this rule for languages where the em-dash is native punctuation, like Russian or Japanese.",
+          "replacements": [],
+          "examples": {
+            "matching": ["—"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "the rule id slop.vocabulary.bustling already exists",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.bustling",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bbustling\\b",
+          "message": "A travel-AI tell. Be specific.",
+          "replacements": [],
+          "examples": {
+            "matching": ["bustling"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.comprehensive-guide",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\b(comprehensive|complete|ultimate|definitive) guide\\b",
+          "message": "Drop it. A good guide proves itself.",
+          "replacements": [],
+          "examples": {
+            "matching": ["comprehensive guide"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.crucial",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bcrucial\\b",
+          "message": "Use 'important', or say why it matters.",
+          "replacements": [
+            {
+              "when": "crucial",
+              "text": "important"
+            }
+          ],
+          "examples": {
+            "matching": ["crucial"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.cutting-edge",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bcutting[- ]edge\\b",
+          "message": "Say what is actually new.",
+          "replacements": [],
+          "examples": {
+            "matching": ["cutting-edge"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.delve",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bdelve\\b",
+          "message": "Use 'look at', 'go into', or 'cover'.",
+          "replacements": [
+            {
+              "when": "delve",
+              "text": "look at"
+            }
+          ],
+          "examples": {
+            "matching": ["delve"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.dive-in",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\blet['’]?s dive (in|into)\\b",
+          "message": "Cut it. Start the section.",
+          "replacements": [],
+          "examples": {
+            "matching": ["let's dive in"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.end-of-the-day",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bat the end of the day\\b",
+          "message": "Cut it. State the point.",
+          "replacements": [],
+          "examples": {
+            "matching": ["at the end of the day"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.fast-paced-world",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bin today['’]?s (fast-paced|digital|modern|ever-changing) (world|age|landscape|era)\\b",
+          "message": "Delete it. Start with the subject.",
+          "replacements": [],
+          "examples": {
+            "matching": ["in today's fast-paced world"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.foster",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bfoster(s|ed|ing)? a (sense|culture|environment|spirit)\\b",
+          "message": "Say what is built.",
+          "replacements": [],
+          "examples": {
+            "matching": ["foster a sense"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.game-changer",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bgame[- ]chang(er|ing)\\b",
+          "message": "Say what specifically changes.",
+          "replacements": [],
+          "examples": {
+            "matching": ["game-changer"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.harness",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bharness(es|ed|ing)?\\b",
+          "message": "Use 'use'.",
+          "replacements": [
+            {
+              "when": "harness",
+              "text": "use"
+            }
+          ],
+          "examples": {
+            "matching": ["harness"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.in-conclusion",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bin conclusion\\b",
+          "message": "Cut it. State the conclusion.",
+          "replacements": [],
+          "examples": {
+            "matching": ["in conclusion"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.in-the-realm",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bin the realm of\\b",
+          "message": "Use 'in', or name the field.",
+          "replacements": [
+            {
+              "when": "in the realm of",
+              "text": "in"
+            }
+          ],
+          "examples": {
+            "matching": ["in the realm of"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.leverage",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bleverage\\b",
+          "message": "Use 'use' or 'take advantage of'.",
+          "replacements": [
+            {
+              "when": "leverage",
+              "text": "use' or 'take advantage of"
+            }
+          ],
+          "examples": {
+            "matching": ["leverage"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.meticulous",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bmeticulous(ly)?\\b",
+          "message": "Show the care concretely.",
+          "replacements": [],
+          "examples": {
+            "matching": ["meticulous"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.navigate-complexities",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bnavigat(e|ing) the complexit(y|ies)\\b",
+          "message": "Name the actual task: 'handle', 'work through'.",
+          "replacements": [
+            {
+              "when": "navigate the complexity",
+              "text": "handle"
+            }
+          ],
+          "examples": {
+            "matching": ["navigate the complexity"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.nestled",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bnestled\\b",
+          "message": "A travel-AI tell. Say where, plainly.",
+          "replacements": [],
+          "examples": {
+            "matching": ["nestled"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.pivotal",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bpivotal\\b",
+          "message": "Say what it determines.",
+          "replacements": [],
+          "examples": {
+            "matching": ["pivotal"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.realm",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\brealm\\b",
+          "message": "Use 'area' or 'field'.",
+          "replacements": [
+            {
+              "when": "realm",
+              "text": "area' or 'field"
+            }
+          ],
+          "examples": {
+            "matching": ["realm"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.robust",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\brobust\\b",
+          "message": "Name the specific strength.",
+          "replacements": [],
+          "examples": {
+            "matching": ["robust"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.seamless",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bseamless(ly)?\\b",
+          "message": "Describe what actually works without friction.",
+          "replacements": [],
+          "examples": {
+            "matching": ["seamless"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.streamline",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bstreamlin(e|es|ed|ing)\\b",
+          "message": "Say what gets faster or simpler.",
+          "replacements": [],
+          "examples": {
+            "matching": ["streamline"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.tapestry",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\b(rich )?tapestry\\b",
+          "message": "A classic AI tell. Be literal about what is there.",
+          "replacements": [],
+          "examples": {
+            "matching": ["tapestry"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.testament",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\b(a )?testament to\\b",
+          "message": "Say what it proves, plainly.",
+          "replacements": [],
+          "examples": {
+            "matching": ["testament to"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.transformative",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\btransformative\\b",
+          "message": "Show the change concretely.",
+          "replacements": [],
+          "examples": {
+            "matching": ["transformative"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.treasure-trove",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\btreasure trove\\b",
+          "message": "Say what is actually there.",
+          "replacements": [],
+          "examples": {
+            "matching": ["treasure trove"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.underscore",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bunderscore(s|d)? the (importance|need|value|significance)\\b",
+          "message": "Say why it matters, plainly.",
+          "replacements": [],
+          "examples": {
+            "matching": ["underscore the importance"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.vibrant",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bvibrant\\b",
+          "message": "Be specific about what you see.",
+          "replacements": [],
+          "examples": {
+            "matching": ["vibrant"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.when-it-comes-to",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bwhen it comes to\\b",
+          "message": "Often deletable. Name the subject.",
+          "replacements": [],
+          "examples": {
+            "matching": ["when it comes to"],
+            "clean": []
+          }
+        }
+      }
+    },
+    {
+      "reason": "duplicate: an enabled pack already matches every phrase this rule does",
+      "edit": {
+        "kind": "add",
+        "rule": {
+          "engine": "lexical",
+          "id": "slop.vocabulary.worth-noting",
+          "category": "vocabulary",
+          "era": "mixed",
+          "severity": "warning",
+          "weight": 1.5,
+          "section": "vocabulary",
+          "pattern": "\\bit['’]?s (worth|important) (noting|to note)\\b",
+          "message": "Delete it. Lead with the fact.",
+          "replacements": [],
+          "examples": {
+            "matching": ["it's worth noting"],
+            "clean": []
+          }
+        }
+      }
+    }
+  ],
+  "dropped": 1
+}

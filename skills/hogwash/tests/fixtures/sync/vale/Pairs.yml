@@ -1,0 +1,8 @@
+---
+extends: sequence
+message: "AI adjective-noun pair: '%s'. Name the thing plainly."
+level: error
+ignorecase: true
+tokens:
+  - tag: JJ
+  - pattern: comprehensive

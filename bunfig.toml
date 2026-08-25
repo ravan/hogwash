@@ -1,0 +1,7 @@
+# Run package bins (tsc has a node shebang) with bun itself: no node on the machine.
+[run]
+bun = true
+
+# Root-level tests only. Each skill runs its own suite from its own directory.
+[test]
+root = "tests"

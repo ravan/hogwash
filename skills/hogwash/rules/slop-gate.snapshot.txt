@@ -1,0 +1,40 @@
+punctuation	em-dash	—	The em-dash is the single most common AI-writing tell. Use a comma, a colon, or split the sentence. Allowlist this rule for languages where the em-dash is native punctuation, like Russian or Japanese.
+vocabulary	bustling	\bbustling\b	A travel-AI tell. Be specific.
+vocabulary	comprehensive-guide	\b(comprehensive|complete|ultimate|definitive) guide\b	Drop it. A good guide proves itself.
+vocabulary	crucial	\bcrucial\b	Use 'important', or say why it matters.
+vocabulary	cutting-edge	\bcutting[- ]edge\b	Say what is actually new.
+vocabulary	delve	\bdelve\b	Use 'look at', 'go into', or 'cover'.
+vocabulary	dive-in	\blet['’]?s dive (in|into)\b	Cut it. Start the section.
+vocabulary	elevate	\belevate(s|d)?\b	Describe the gain.
+vocabulary	embark	\bembark(ing)? on\b	Use 'start'.
+vocabulary	empower	\bempower(s|ed|ing)?\b	Say what the reader can now do.
+vocabulary	end-of-the-day	\bat the end of the day\b	Cut it. State the point.
+vocabulary	fast-paced-world	\bin today['’]?s (fast-paced|digital|modern|ever-changing) (world|age|landscape|era)\b	Delete it. Start with the subject.
+vocabulary	feel-free	\b(feel free to|don['’]?t hesitate to)\b	State the action directly.
+vocabulary	foster	\bfoster(s|ed|ing)? a (sense|culture|environment|spirit)\b	Say what is built.
+vocabulary	furthermore	\bfurthermore\b	Often deletable. Start a new sentence.
+vocabulary	game-changer	\bgame[- ]chang(er|ing)\b	Say what specifically changes.
+vocabulary	harness	\bharness(es|ed|ing)?\b	Use 'use'.
+vocabulary	in-conclusion	\bin conclusion\b	Cut it. State the conclusion.
+vocabulary	in-the-realm	\bin the realm of\b	Use 'in', or name the field.
+vocabulary	leverage	\bleverage\b	Use 'use' or 'take advantage of'.
+vocabulary	meticulous	\bmeticulous(ly)?\b	Show the care concretely.
+vocabulary	moreover	\bmoreover\b	Often deletable. Start a new sentence.
+vocabulary	navigate-complexities	\bnavigat(e|ing) the complexit(y|ies)\b	Name the actual task: 'handle', 'work through'.
+vocabulary	nestled	\bnestled\b	A travel-AI tell. Say where, plainly.
+vocabulary	pivotal	\bpivotal\b	Say what it determines.
+vocabulary	proactive	\bproactive(ly)?\b	Say the specific action taken in advance.
+vocabulary	realm	\brealm\b	Use 'area' or 'field'.
+vocabulary	robust	\brobust\b	Name the specific strength.
+vocabulary	seamless	\bseamless(ly)?\b	Describe what actually works without friction.
+vocabulary	streamline	\bstreamlin(e|es|ed|ing)\b	Say what gets faster or simpler.
+vocabulary	tapestry	\b(rich )?tapestry\b	A classic AI tell. Be literal about what is there.
+vocabulary	testament	\b(a )?testament to\b	Say what it proves, plainly.
+vocabulary	top-notch	\btop[- ]notch\b	Say why it is good.
+vocabulary	transformative	\btransformative\b	Show the change concretely.
+vocabulary	treasure-trove	\btreasure trove\b	Say what is actually there.
+vocabulary	underscore	\bunderscore(s|d)? the (importance|need|value|significance)\b	Say why it matters, plainly.
+vocabulary	unlock	\bunlock(s|ed|ing)?\b	Say what becomes available.
+vocabulary	vibrant	\bvibrant\b	Be specific about what you see.
+vocabulary	when-it-comes-to	\bwhen it comes to\b	Often deletable. Name the subject.
+vocabulary	worth-noting	\bit['’]?s (worth|important) (noting|to note)\b	Delete it. Lead with the fact.

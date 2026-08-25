@@ -1,0 +1,8 @@
+---
+extends: existence
+message: "AI punctuation: '%s'. Use a comma or a period."
+level: error
+nonword: true
+tokens:
+  - '—'
+  - "\\s--\\s"

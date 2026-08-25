@@ -1,0 +1,5 @@
+{
+  "note": "ChatGPT-written student essay (ghostbuster-data essay/gpt/2.txt). Chosen because it clears the shipped threshold; 5 of 8 sampled ghostbuster GPT essays scored under 40, which is recorded as a recall gap in ADR 0005.",
+  "falsePositives": [],
+  "missed": []
+}

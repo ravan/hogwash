@@ -1,0 +1,5 @@
+{
+  "note": "Pre-ChatGPT Wikipedia introduction; a hedge in human encyclopedic prose is not a machine tell.",
+  "falsePositives": [{ "ruleId": "hedge.stack", "quote": "could possibly" }],
+  "missed": []
+}

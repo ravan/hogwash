@@ -1,0 +1,24 @@
+{
+  "name": "unslop",
+  "version": "0.1.0",
+  "attribution": "Compiled from the unslop skill in cursor/plugins (pstack), by Lauren Tan and contributors, MIT. Rule wording is a derivative work; the patterns and the advice are the upstream's.",
+  "rules": [
+    {
+      "id": "unslop.jargon.metaphor-nouns",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\b(flywheel|substrate|nexus|locus|bedrock of|gold-plating)\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1,
+      "era": "mixed",
+      "reliable": false,
+      "message": "Abstract metaphor noun. It reads as technical but has a plainer concrete word: 'substrate' is 'base', 'gold-plating' is 'more than the job needs'. Pick the concrete word.",
+      "examples": {
+        "matching": ["the data flywheel compounds", "the substrate for agents"],
+        "clean": ["the base the agents run on"]
+      },
+      "attribution": "cursor/plugins pstack unslop § Jargon (MIT)"
+    }
+  ]
+}

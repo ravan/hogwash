@@ -1,0 +1,10 @@
+Guide to spotting machine writing
+== Language and grammar ==
+Words to watch: delve, tapestry, testament to
+LLM prose often puffs up a subject. It repeats the same verbs.
+Examples
+From this revision to Kumba, Cameroon
+Kumba stands as a testament to regional trade.
+See the 2025 report and .
+Editors often note oaicite residue & other artifacts.
+Not every sign is decisive.

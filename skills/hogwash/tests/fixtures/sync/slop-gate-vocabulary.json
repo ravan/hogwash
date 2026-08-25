@@ -1,0 +1,13 @@
+{
+  "id": "vocabulary",
+  "description": "Hand-written in the upstream idiom so the pinned counts never drift. Not copied from upstream.",
+  "flags": "i",
+  "rules": [
+    { "id": "gizmoish", "match": "\\bgizmoish\\b", "hint": "Use 'plain'." },
+    { "id": "widgetise", "match": "\\bwidgetis(e|es|ed|ing)\\b", "hint": "Say what it does." },
+    { "id": "flumping", "match": "\\bflump[- ]ing\\b", "hint": "Use 'falling'." },
+    { "id": "sprocket-hub", "match": "\\b(rusty )?sprocket hub\\b", "hint": "Name the part." },
+    { "id": "zorpy", "match": "\\bzorp+\\b", "hint": "Use 'zap'." },
+    { "id": "blatherskite", "match": "\\bblatherskite\\b", "hint": "" }
+  ]
+}

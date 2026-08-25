@@ -1,0 +1,41 @@
+{
+  "name": "excess-vocab",
+  "version": "0.1.0",
+  "attribution": "Fixture pack for the Liang one-shot importer. Not shipped.",
+  "rules": [
+    {
+      "id": "xv.fixture.commendable",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bcommendable\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1,
+      "era": "mixed",
+      "reliable": false,
+      "message": "'commendable' is over-used; say what was good.",
+      "examples": {
+        "matching": ["commendable"],
+        "clean": []
+      },
+      "attribution": "Fixture pack for the Liang one-shot importer. Not shipped."
+    },
+    {
+      "id": "xv.fixture.meticulously",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bmeticulously\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1,
+      "era": "mixed",
+      "reliable": false,
+      "message": "'meticulously' is over-used; say what care was taken.",
+      "examples": {
+        "matching": ["meticulously"],
+        "clean": []
+      },
+      "attribution": "Fixture pack for the Liang one-shot importer. Not shipped."
+    }
+  ]
+}

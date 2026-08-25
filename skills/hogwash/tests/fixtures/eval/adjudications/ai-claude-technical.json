@@ -1,0 +1,5 @@
+{
+  "note": "Unprompted Claude Opus 5 technical writing. A false-positive control, not a recall source: the catalog raises no lexical span here, and none is missing.",
+  "falsePositives": [],
+  "missed": []
+}

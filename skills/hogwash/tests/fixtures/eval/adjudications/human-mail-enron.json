@@ -1,0 +1,10 @@
+{
+  "note": "Real 2000-era Enron business email. Conversational connectives are human register here. The loose.wiki-ai-words entry this file used to carry was fixed at the rule level in wikipedia-signs 0.4.0.",
+  "falsePositives": [
+    {
+      "ruleId": "opener.throat-clearing",
+      "quote": "that being said,"
+    }
+  ],
+  "missed": []
+}

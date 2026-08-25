@@ -1,0 +1,7 @@
+---
+extends: occurrence
+message: "AI rhythm: too many tricolons in one paragraph."
+level: error
+scope: paragraph
+max: 2
+token: '\b\w+, \w+, and \w+\b'

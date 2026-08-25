@@ -1,0 +1,2914 @@
+{
+  "name": "excess-vocab",
+  "version": "0.1.0",
+  "attribution": "Derived from Kobak, Gonzalez-Marquez, Horvat and Lause, \"Delving into LLM-assisted writing in biomedical publications through excess vocabulary\", Science Advances 11(27):eadt3813, 2025 (berenslab/llm-excess-vocab, MIT). The focal-word lineage comes from Juzek and Ward, COLING 2025 (tjuzek/delve, code MIT-0, data CC0). The ranked adjective and adverb tables are transcribed from Liang et al., ICML 2024, PMLR 235:29575, with attribution.",
+  "rules": [
+    {
+      "id": "xv.vocab.surpassing",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bsurpassing\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2.1,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"surpassing\" appears 8.4 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["surpassing"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.accentuates",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\baccentuates\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"accentuates\" appears 3.0 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["accentuates"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.achieving",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bachieving\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"achieving\" appears 2.0 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["achieving"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.acknowledges",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\backnowledges\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"acknowledges\" appears 2.0 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["acknowledges"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.additionally",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\badditionally\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"additionally\" appears 2.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["additionally"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.addressing",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\baddressing\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"addressing\" appears 2.4 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["addressing"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.adept",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\badept\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.8,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"adept\" appears 3.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["adept"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.adhering",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\badhering\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"adhering\" appears 2.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["adhering"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.advancement",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\badvancement\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"advancement\" appears 2.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["advancement"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.advancements",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\badvancements\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"advancements\" appears 4.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["advancements"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.advancing",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\badvancing\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.8,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"advancing\" appears 3.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["advancing"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.advocating",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\badvocating\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.8,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"advocating\" appears 3.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["advocating"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.affirming",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\baffirming\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"affirming\" appears 2.5 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["affirming"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.aiding",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\baiding\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"aiding\" appears 3.9 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["aiding"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.akin",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bakin\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"akin\" appears 2.4 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["akin"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.align",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\balign\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"align\" appears 2.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["align"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.aligning",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\baligning\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"aligning\" appears 4.0 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["aligning"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.aligns",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\baligns\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"aligns\" appears 4.0 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["aligns"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.alongside",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\balongside\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"alongside\" appears 2.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["alongside"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.augmenting",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\baugmenting\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"augmenting\" appears 2.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["augmenting"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.avenue",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bavenue\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"avenue\" appears 2.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["avenue"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.avenues",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bavenues\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"avenues\" appears 2.4 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["avenues"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.burgeoning",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bburgeoning\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"burgeoning\" appears 2.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["burgeoning"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.capabilities",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bcapabilities\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"capabilities\" appears 2.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["capabilities"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.capitalizing",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bcapitalizing\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"capitalizing\" appears 2.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["capitalizing"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.categorizes",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bcategorizes\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"categorizes\" appears 2.6 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["categorizes"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.categorizing",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bcategorizing\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"categorizing\" appears 2.6 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["categorizing"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.combating",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bcombating\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"combating\" appears 2.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["combating"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.commendable",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bcommendable\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 2.1,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"commendable\" appears 8.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["commendable"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.comprehend",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bcomprehend\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"comprehend\" appears 2.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["comprehend"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.comprehending",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bcomprehending\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.4,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"comprehending\" appears 5.7 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["comprehending"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.consolidates",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bconsolidates\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"consolidates\" appears 3.9 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["consolidates"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.conversely",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bconversely\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"conversely\" appears 2.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["conversely"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.crafted",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bcrafted\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"crafted\" appears 2.4 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["crafted"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.crafting",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bcrafting\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.8,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"crafting\" appears 3.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["crafting"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.culminating",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bculminating\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"culminating\" appears 2.4 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["culminating"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.customizing",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bcustomizing\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"customizing\" appears 2.7 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["customizing"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.delineates",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bdelineates\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"delineates\" appears 2.6 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["delineates"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.dependability",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bdependability\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"dependability\" appears 2.5 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["dependability"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.dependable",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bdependable\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.9,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"dependable\" appears 3.8 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["dependable"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.detrimentally",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bdetrimentally\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"detrimentally\" appears 2.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["detrimentally"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.discern",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bdiscern\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"discern\" appears 2.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["discern"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.discerned",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bdiscerned\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"discerned\" appears 2.4 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["discerned"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.discernible",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bdiscernible\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.9,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"discernible\" appears 3.7 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["discernible"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.discerning",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bdiscerning\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"discerning\" appears 2.5 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["discerning"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.distinctions",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bdistinctions\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"distinctions\" appears 2.4 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["distinctions"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.elevates",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\belevates\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"elevates\" appears 2.0 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["elevates"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.emerges",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bemerges\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.8,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"emerges\" appears 3.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["emerges"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.emphasises",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bemphasises\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"emphasises\" appears 2.5 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["emphasises"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.emphasising",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bemphasising\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"emphasising\" appears 3.8 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["emphasising"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.emphasizes",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bemphasizes\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.8,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"emphasizes\" appears 3.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["emphasizes"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.emphasizing",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bemphasizing\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.4,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"emphasizing\" appears 5.4 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["emphasizing"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.employing",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bemploying\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"employing\" appears 2.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["employing"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.employs",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bemploys\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"employs\" appears 2.8 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["employs"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.empowers",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bempowers\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"empowers\" appears 2.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["empowers"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.emulating",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bemulating\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"emulating\" appears 2.0 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["emulating"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.emulation",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bemulation\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"emulation\" appears 2.4 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["emulation"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.encapsulates",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bencapsulates\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"encapsulates\" appears 2.8 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["encapsulates"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.endeavors",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bendeavors\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"endeavors\" appears 4.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["endeavors"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.endeavours",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bendeavours\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"endeavours\" appears 2.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["endeavours"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.enduring",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\benduring\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"enduring\" appears 2.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["enduring"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.enhancements",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\benhancements\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"enhancements\" appears 2.8 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["enhancements"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.equipping",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bequipping\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"equipping\" appears 2.0 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["equipping"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.escalating",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bescalating\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.9,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"escalating\" appears 3.5 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["escalating"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.exacerbating",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bexacerbating\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"exacerbating\" appears 2.5 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["exacerbating"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.exceeding",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bexceeding\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"exceeding\" appears 2.4 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["exceeding"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.excels",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bexcels\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.9,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"excels\" appears 7.7 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["excels"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.exceptional",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bexceptional\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.8,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"exceptional\" appears 3.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["exceptional"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.exhibiting",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bexhibiting\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"exhibiting\" appears 2.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["exhibiting"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.expediting",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bexpediting\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.9,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"expediting\" appears 3.6 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["expediting"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.explores",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bexplores\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"explores\" appears 2.7 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["explores"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.formidable",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bformidable\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"formidable\" appears 3.9 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["formidable"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.foundational",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bfoundational\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"foundational\" appears 2.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["foundational"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.gauged",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bgauged\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"gauged\" appears 2.5 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["gauged"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.grappling",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bgrappling\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.2,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"grappling\" appears 4.9 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["grappling"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.groundwork",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bgroundwork\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.8,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"groundwork\" appears 3.0 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["groundwork"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.heighten",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bheighten\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"heighten\" appears 2.0 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["heighten"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.heightened",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bheightened\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.9,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"heightened\" appears 3.6 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["heightened"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.hinges",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bhinges\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"hinges\" appears 2.5 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["hinges"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.hinting",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bhinting\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"hinting\" appears 2.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["hinting"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.illuminates",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\billuminates\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"illuminates\" appears 2.4 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["illuminates"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.impacting",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bimpacting\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"impacting\" appears 2.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["impacting"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.impeding",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bimpeding\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"impeding\" appears 2.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["impeding"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.imperative",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bimperative\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"imperative\" appears 2.0 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["imperative"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.impressive",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bimpressive\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"impressive\" appears 2.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["impressive"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.inadequately",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\binadequately\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"inadequately\" appears 2.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["inadequately"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.incorporating",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bincorporating\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"incorporating\" appears 2.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["incorporating"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.innovative",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\binnovative\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"innovative\" appears 2.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["innovative"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.inquiries",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\binquiries\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"inquiries\" appears 2.6 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["inquiries"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.insights",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\binsights\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"insights\" appears 2.4 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["insights"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.integrates",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bintegrates\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"integrates\" appears 2.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["integrates"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.integrating",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bintegrating\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"integrating\" appears 2.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["integrating"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.interconnectedness",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\binterconnectedness\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"interconnectedness\" appears 2.7 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["interconnectedness"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.intricately",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bintricately\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.4,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"intricately\" appears 5.7 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["intricately"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.introduces",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bintroduces\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"introduces\" appears 2.8 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["introduces"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.investigates",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\binvestigates\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"investigates\" appears 2.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["investigates"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.juxtaposed",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bjuxtaposed\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"juxtaposed\" appears 2.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["juxtaposed"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.necessitate",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bnecessitate\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"necessitate\" appears 2.5 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["necessitate"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.necessitates",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bnecessitates\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"necessitates\" appears 2.9 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["necessitates"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.necessitating",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bnecessitating\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.2,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"necessitating\" appears 4.9 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["necessitating"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.necessity",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bnecessity\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"necessity\" appears 2.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["necessity"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.notable",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bnotable\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.9,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"notable\" appears 3.7 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["notable"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.notably",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bnotably\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"notably\" appears 2.9 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["notably"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.noteworthy",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bnoteworthy\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"noteworthy\" appears 2.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["noteworthy"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.nuanced",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bnuanced\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.8,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"nuanced\" appears 3.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["nuanced"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.offering",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\boffering\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.2,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"offering\" appears 4.7 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["offering"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.offers",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\boffers\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"offers\" appears 2.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["offers"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.optimizing",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\boptimizing\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"optimizing\" appears 2.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["optimizing"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.orchestrating",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\borchestrating\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"orchestrating\" appears 2.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["orchestrating"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.overlook",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\boverlook\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"overlook\" appears 2.6 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["overlook"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.overlooking",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\boverlooking\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.9,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"overlooking\" appears 3.5 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["overlooking"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.paving",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bpaving\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"paving\" appears 2.8 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["paving"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.pinpoint",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bpinpoint\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"pinpoint\" appears 2.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["pinpoint"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.pinpointed",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bpinpointed\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.8,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"pinpointed\" appears 3.4 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["pinpointed"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.pinpointing",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bpinpointing\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.8,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"pinpointing\" appears 3.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["pinpointing"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.pioneering",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bpioneering\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"pioneering\" appears 2.8 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["pioneering"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.pioneers",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bpioneers\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.8,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"pioneers\" appears 3.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["pioneers"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.poised",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bpoised\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"poised\" appears 2.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["poised"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.poses",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bposes\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"poses\" appears 2.7 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["poses"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.posing",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bposing\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.8,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"posing\" appears 3.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["posing"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.pressing",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bpressing\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"pressing\" appears 2.0 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["pressing"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.promise",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bpromise\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"promise\" appears 2.6 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["promise"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.propelling",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bpropelling\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"propelling\" appears 2.4 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["propelling"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.refine",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\brefine\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"refine\" appears 2.0 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["refine"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.refines",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\brefines\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"refines\" appears 2.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["refines"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.refining",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\brefining\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"refining\" appears 2.8 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["refining"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.revolutionize",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\brevolutionize\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"revolutionize\" appears 3.9 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["revolutionize"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.revolutionizing",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\brevolutionizing\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"revolutionizing\" appears 4.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["revolutionizing"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.revolves",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\brevolves\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"revolves\" appears 2.4 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["revolves"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.scrutinize",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bscrutinize\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"scrutinize\" appears 2.5 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["scrutinize"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.scrutinizing",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bscrutinizing\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.8,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"scrutinizing\" appears 3.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["scrutinizing"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.shedding",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bshedding\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"shedding\" appears 2.0 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["shedding"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.signifying",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bsignifying\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"signifying\" appears 2.0 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["signifying"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.solidify",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bsolidify\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"solidify\" appears 2.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["solidify"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.spanning",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bspanning\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"spanning\" appears 2.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["spanning"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.stands",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bstands\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.8,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"stands\" appears 3.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["stands"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.strategically",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bstrategically\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"strategically\" appears 2.0 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["strategically"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.streamline",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bstreamline\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"streamline\" appears 2.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["streamline"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.streamlines",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bstreamlines\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"streamlines\" appears 2.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["streamlines"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.streamlining",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bstreamlining\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"streamlining\" appears 2.5 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["streamlining"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.substantiated",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bsubstantiated\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"substantiated\" appears 2.1 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["substantiated"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.surged",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bsurged\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"surged\" appears 2.6 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["surged"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.surmount",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bsurmount\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"surmount\" appears 2.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["surmount"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.surpass",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bsurpass\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"surpass\" appears 2.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["surpass"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.surpassed",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bsurpassed\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"surpassed\" appears 2.7 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["surpassed"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.surpasses",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bsurpasses\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.1,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"surpasses\" appears 4.6 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["surpasses"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.swift",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bswift\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"swift\" appears 2.9 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["swift"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.swiftly",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bswiftly\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"swiftly\" appears 2.0 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["swiftly"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.uncharted",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\buncharted\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"uncharted\" appears 2.3 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["uncharted"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.underexplored",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bunderexplored\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.8,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"underexplored\" appears 3.4 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["underexplored"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.unlocking",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bunlocking\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"unlocking\" appears 2.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["unlocking"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.unraveling",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bunraveling\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"unraveling\" appears 2.7 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["unraveling"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.unveil",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bunveil\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"unveil\" appears 2.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["unveil"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.unveiled",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bunveiled\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.9,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"unveiled\" appears 3.4 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["unveiled"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.unveiling",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bunveiling\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"unveiling\" appears 2.4 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["unveiling"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.unveils",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bunveils\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.9,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"unveils\" appears 3.8 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["unveils"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.uphold",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\buphold\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"uphold\" appears 2.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["uphold"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.upholding",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bupholding\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"upholding\" appears 2.7 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["upholding"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.urging",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\burging\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"urging\" appears 2.8 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["urging"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.vocab.warranting",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bwarranting\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"warranting\" appears 2.2 times more often in 2024 academic abstracts than in 2022.",
+      "examples": {
+        "matching": ["warranting"],
+        "clean": []
+      },
+      "attribution": "Kobak et al., Science Advances 2025, excess vocabulary (MIT)"
+    },
+    {
+      "id": "xv.liang.versatile",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bversatile\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.9,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"versatile\" is ranked 6 of the top 100 adjectives that grew most disproportionately in ICLR 2024 peer reviews.",
+      "examples": {
+        "matching": ["versatile"],
+        "clean": []
+      },
+      "attribution": "Liang et al., ICML 2024, PMLR 235:29575, top 100 adjectives (ranked word list, transcribed with attribution)"
+    },
+    {
+      "id": "xv.liang.potent",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bpotent\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"potent\" is ranked 10 of the top 100 adjectives that grew most disproportionately in ICLR 2024 peer reviews.",
+      "examples": {
+        "matching": ["potent"],
+        "clean": []
+      },
+      "attribution": "Liang et al., ICML 2024, PMLR 235:29575, top 100 adjectives (ranked word list, transcribed with attribution)"
+    },
+    {
+      "id": "xv.liang.reportedly",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\breportedly\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.4,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"reportedly\" is ranked 2 of the top 100 adverbs that grew most disproportionately in ICLR 2024 peer reviews.",
+      "examples": {
+        "matching": ["reportedly"],
+        "clean": []
+      },
+      "attribution": "Liang et al., ICML 2024, PMLR 235:29575, top 100 adverbs (ranked word list, transcribed with attribution)"
+    },
+    {
+      "id": "xv.liang.lucidly",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\blucidly\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.3,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"lucidly\" is ranked 3 of the top 100 adverbs that grew most disproportionately in ICLR 2024 peer reviews.",
+      "examples": {
+        "matching": ["lucidly"],
+        "clean": []
+      },
+      "attribution": "Liang et al., ICML 2024, PMLR 235:29575, top 100 adverbs (ranked word list, transcribed with attribution)"
+    },
+    {
+      "id": "xv.liang.innovatively",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\binnovatively\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.2,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"innovatively\" is ranked 4 of the top 100 adverbs that grew most disproportionately in ICLR 2024 peer reviews.",
+      "examples": {
+        "matching": ["innovatively"],
+        "clean": []
+      },
+      "attribution": "Liang et al., ICML 2024, PMLR 235:29575, top 100 adverbs (ranked word list, transcribed with attribution)"
+    },
+    {
+      "id": "xv.liang.aptly",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\baptly\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 1.1,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"aptly\" is ranked 5 of the top 100 adverbs that grew most disproportionately in ICLR 2024 peer reviews.",
+      "examples": {
+        "matching": ["aptly"],
+        "clean": []
+      },
+      "attribution": "Liang et al., ICML 2024, PMLR 235:29575, top 100 adverbs (ranked word list, transcribed with attribution)"
+    },
+    {
+      "id": "xv.liang.methodically",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bmethodically\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.9,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"methodically\" is ranked 6 of the top 100 adverbs that grew most disproportionately in ICLR 2024 peer reviews.",
+      "examples": {
+        "matching": ["methodically"],
+        "clean": []
+      },
+      "attribution": "Liang et al., ICML 2024, PMLR 235:29575, top 100 adverbs (ranked word list, transcribed with attribution)"
+    },
+    {
+      "id": "xv.liang.excellently",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bexcellently\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.8,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"excellently\" is ranked 7 of the top 100 adverbs that grew most disproportionately in ICLR 2024 peer reviews.",
+      "examples": {
+        "matching": ["excellently"],
+        "clean": []
+      },
+      "attribution": "Liang et al., ICML 2024, PMLR 235:29575, top 100 adverbs (ranked word list, transcribed with attribution)"
+    },
+    {
+      "id": "xv.liang.compellingly",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bcompellingly\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.7,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"compellingly\" is ranked 8 of the top 100 adverbs that grew most disproportionately in ICLR 2024 peer reviews.",
+      "examples": {
+        "matching": ["compellingly"],
+        "clean": []
+      },
+      "attribution": "Liang et al., ICML 2024, PMLR 235:29575, top 100 adverbs (ranked word list, transcribed with attribution)"
+    },
+    {
+      "id": "xv.liang.impressively",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bimpressively\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.6,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"impressively\" is ranked 9 of the top 100 adverbs that grew most disproportionately in ICLR 2024 peer reviews.",
+      "examples": {
+        "matching": ["impressively"],
+        "clean": []
+      },
+      "attribution": "Liang et al., ICML 2024, PMLR 235:29575, top 100 adverbs (ranked word list, transcribed with attribution)"
+    },
+    {
+      "id": "xv.liang.undoubtedly",
+      "category": "vocabulary",
+      "engine": "lexical",
+      "pattern": "\\bundoubtedly\\b",
+      "flags": ["i"],
+      "severity": "warning",
+      "weight": 0.5,
+      "era": "mixed",
+      "reliable": false,
+      "message": "\"undoubtedly\" is ranked 10 of the top 100 adverbs that grew most disproportionately in ICLR 2024 peer reviews.",
+      "examples": {
+        "matching": ["undoubtedly"],
+        "clean": []
+      },
+      "attribution": "Liang et al., ICML 2024, PMLR 235:29575, top 100 adverbs (ranked word list, transcribed with attribution)"
+    }
+  ]
+}

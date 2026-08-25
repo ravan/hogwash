@@ -1,0 +1,5 @@
+{
+  "note": "The wordy-connective and 'comprehensive' false positives this file used to record were fixed at the rule level in humanize-core 0.2.0 and wikipedia-signs 0.3.0; the scanner no longer raises them here.",
+  "falsePositives": [],
+  "missed": []
+}

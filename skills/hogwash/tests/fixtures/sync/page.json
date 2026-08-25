@@ -1,0 +1,13 @@
+{
+  "key": "Wikipedia:Signs of AI writing",
+  "latest": {
+    "id": 1371235958,
+    "timestamp": "2026-08-25T10:14:33Z"
+  },
+  "license": {
+    "url": "https://creativecommons.org/licenses/by-sa/4.0/deed.en",
+    "title": "Creative Commons Attribution-Share Alike 4.0"
+  },
+  "content_model": "wikitext",
+  "source": "{{short description|Guide to spotting machine writing}}<!-- do not remove -->\n== Language and grammar ==\n{{tmbox|image=none|text=Words to watch: {{strong|''delve'', ''tapestry'', ''testament to''}}}}\nLLM prose often [[Wikipedia:Puffery|puffs up]] a subject.<ref name=\"chronicle\" /> It repeats the same verbs.<ref name=\"sun\">Sun, 2025.</ref>\n\n'''Examples'''\n{{cot|bg=#ffffff|expand=yes|From [[Special:Diff/1252053288|this revision]] to [[Kumba, Cameroon]]}}\nKumba {{highlight|stands as a testament}} to regional trade.\n{{cob}}\n\n{| class=\"wikitable\"\n! Tell !! Era\n|-\n| delve || gpt4\n|}\n\nSee the [https://example.com/report 2025 report] and [https://example.com/raw].\nEditors&nbsp;often note <code>oaicite</code> residue &amp; other artifacts.\n<div class=\"note\">Not every sign is decisive.</div>\n"
+}

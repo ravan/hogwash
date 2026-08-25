@@ -1,0 +1,5 @@
+{
+  "note": "Formal non-native English legitimately uses heavy connectives and formal hedges. Flagging them is the false positive invariant 6.9 guards against. The connective.wordy and soft-technical entries this file used to record were fixed at the rule level in humanize-core 0.2.0 and wikipedia-signs 0.3.0.",
+  "falsePositives": [{ "ruleId": "opener.throat-clearing", "quote": "it is worth noting" }],
+  "missed": []
+}
