@@ -21,6 +21,8 @@ Every other command runs from the project directory, passing paths that are rela
 bun "$SKILL/scripts/hogwash.ts" scan --output json docs/post.md
 ```
 
+A scan exits nonzero when the scanned file has findings. That is the report, not a failure; the JSON on stdout is still valid. Redirect `--output json` scans to a scratch file and read the file, because a full report often overflows a terminal capture.
+
 The scripts read `hogwash.json` and the profile files from the current working directory, so keep the project directory as the working directory. Bun 1.4 or later is required. If `bun` is missing, report that and stop.
 
 ## Set the project up
@@ -139,7 +141,9 @@ Each autonomous feedback cycle gets `workflow.maxPasses` rewrite passes. Creatin
 
 If `workflow.advanced.enabled` is true, you may seek advice before stopping. If it is false, do not invoke a consultant or native subagent. Each mechanism also has its own flag: use the consultant only when `workflow.advanced.useConsultant` is true, and the native subagent only when `workflow.advanced.useSubagent` is true.
 
-- For `workflow.advanced.consultant`, put one non-empty question on stdin and run `bun "$SKILL/scripts/hogwash.ts" consult --family <family> <candidate>`. The command uses `models.<family>` as configured. Do not bypass it with a different model or effort. Include relevant findings in the question when you want the consultant to see them.
+The user may request a consultation at any point in the loop, not only when a stopping condition threatens. Treat it as user-directed advice under the same rules. When a required flag is false, do not flip it yourself and do not bypass it: ask the user to change the configuration, or to confirm the exact change, before running the consult.
+
+- For `workflow.advanced.consultant`, put one non-empty question on stdin and run `bun "$SKILL/scripts/hogwash.ts" consult --family <family> <candidate>`. The command uses `models.<family>` as configured. Do not bypass it with a different model or effort. Include relevant findings in the question when you want the consultant to see them, and always include the ban list and the profile rules that govern the passages under discussion; the consultant sees nothing you do not send, so without them it will propose banned or off-voice constructions. Check every suggestion against the baseline checklist, the ban list, and the profiles before applying any part of it.
 - For `workflow.advanced.subagent`, start a read-only task and provide the candidate plus all three profile documents. Use the exact model and effort from `models.<family>`. If the harness cannot provide both settings, report that limit and do not substitute settings.
 
 Advice is optional. Apply it yourself only when it fits the checklist and profiles. Advice does not reset either stopping condition or authorize another autonomous pass after a stopping condition fires. Never let an adviser edit the candidate, trigger a scan, or take over the loop.
@@ -161,7 +165,7 @@ Whenever the workflow needs a user decision — the next step at a review gate, 
 
 When the current scan has no actionable findings beyond owner-waived rows, the final textual diff has been judged under the proposition-boundary rules, the candidate is source-faithful, and it follows every profile rule that can be satisfied without new information, ask the user to review the candidate, and put the next step to them as a choice question (see "Put decisions to the user as choices"). If `workflow.diff` is a configured `{ command, args, wait }` object, also ask whether to run `bun "$SKILL/scripts/hogwash.ts" diff <original>`. If it is `null`, do not offer a diff. Defer an early diff request until this review gate.
 
-The review handoff reports five results separately: actionable scanner status, source-fidelity compliance, voice-profile compliance, combined quality-and-style-profile compliance, and ban-list compliance. It ends with the score block and the human polish list (see "Score the candidate"). State whether the candidate added, removed, strengthened, or weakened any substantive information. Give concrete evidence for each profile result instead of treating a clean scan as proof that the profiles were applied. Report each advisory finding's disposition in one line (fixed, or left and why). Raise review questions only for meaning-changing choices and source-versus-profile conflicts.
+The review handoff reports five results separately: actionable scanner status, source-fidelity compliance, voice-profile compliance, combined quality-and-style-profile compliance, and ban-list compliance. It ends with the score block and the human polish list (see "Score the candidate"). State whether the candidate added, removed, strengthened, or weakened any substantive information. Give concrete evidence for each profile result instead of treating a clean scan as proof that the profiles were applied. Report each advisory finding's disposition in one line (fixed, or left and why). If a consultation or subagent review happened since the last handoff, report its disposition too: which suggestions were applied, which were rejected, and why, one line each. Raise review questions only for meaning-changing choices and source-versus-profile conflicts.
 
 If the user requests revisions, edit only the candidate. Freeze the original baseline checklist as-is. The user-directed edit does not consume an autonomous pass. Reset both the autonomous pass budget and consecutive-rescan history, then restart the explicit verification and rescan loop.
 
