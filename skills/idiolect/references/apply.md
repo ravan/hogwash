@@ -33,6 +33,15 @@ Idiolect profile. The research behind each step is in
   fits beats three insertions.
 - Expect informal registers (chat, personal blog) to be the hard case;
   budget an extra pass there.
+- Keep the owner's rare words. Never swap an unusual but correct word for
+  a smoother synonym: the expected word everywhere is a strong machine
+  signal.
+- In a rewrite, leave a sentence that needs no change untouched. Human
+  documents are unevenly polished; smoothing the whole piece adds a
+  machine signal.
+- Delete an empty scaffold sentence ("In this section we...", a wrap-up
+  that restates the paragraph) instead of rewording it. Rewording keeps
+  the signal.
 
 ## Self-check before showing anyone
 
@@ -48,7 +57,9 @@ In order; earlier gates outrank later ones:
    function-word habits, paragraph shape.
 5. **Rhythm:** read the sentence lengths. If they hover around one mean,
    break the pattern the way the owner does — that uniformity is the
-   strongest machine tell. Also strip machine vocabulary and adjective
+   strongest machine tell. Check paragraph shapes too: a claim-support-wrap
+   shape repeated across paragraphs reads as machine even when sentence
+   lengths vary. Also strip machine vocabulary and adjective
    inflation ("delve", "showcase", "commendable", "meticulous") unless the
    owner demonstrably uses them.
 6. **The attribution test:** would someone who knows the owner's writing
