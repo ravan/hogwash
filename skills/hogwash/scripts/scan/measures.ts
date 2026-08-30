@@ -38,6 +38,26 @@ export function punctuationDensity(prose: string, wordCount: number): number {
   return (hits * 100) / wordCount
 }
 
+/** Share of sentence openers that repeat an earlier opener in the same
+ *  paragraph: 1 - distinct/total, case-insensitive. 0 when every sentence
+ *  starts differently; approaches 1 as one opener takes over. */
+export function repeatedOpenerShare(openers: readonly string[]): number {
+  if (openers.length === 0) return 0
+  const distinct = new Set(openers.map((opener) => opener.toLowerCase())).size
+  return (openers.length - distinct) / openers.length
+}
+
+/** Grammatical shape of a heading for parallelism checks: '?' for questions,
+ *  'ing' when the opener is an -ing form, otherwise the opener itself,
+ *  case-insensitive. Null when the heading has no words. */
+export function headingShape(prose: string): string | null {
+  const first = proseWords(prose)[0]
+  if (first === undefined) return null
+  if (prose.trimEnd().endsWith('?')) return '?'
+  const opener = first.toLowerCase()
+  return opener.length > 4 && opener.endsWith('ing') ? 'ing' : opener
+}
+
 export function proseWords(prose: string): readonly string[] {
   WORD_PATTERN.lastIndex = 0
   return prose.match(WORD_PATTERN) ?? []

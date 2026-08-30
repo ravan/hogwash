@@ -92,13 +92,15 @@ describe('lexicalRules', () => {
 })
 
 describe('stylometricRules', () => {
-  it('returns the five shipped rhythm rules, all advisory', () => {
+  it('returns the seven shipped stylometric rules, all advisory', () => {
     const rules = stylometricRules(
       selectRules(packs, { packs: allPackNames, gates: [], deprecated: false }),
     )
     expect(rules.map((rule) => rule.id)).toEqual([
       'rhythm.sentence-uniformity',
+      'rhythm.opener-repetition',
       'rhythm.paragraph-uniformity',
+      'structure.heading-uniformity',
       'rhythm.lexical-diversity',
       'rhythm.contraction-rate',
       'rhythm.punctuation-density',

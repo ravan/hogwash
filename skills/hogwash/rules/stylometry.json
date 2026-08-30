@@ -1,7 +1,7 @@
 {
   "name": "stylometry",
-  "version": "1.0.0",
-  "attribution": "hogwash stylometry baselines (MIT), calibrated against tests/fixtures/corpus in slice S4",
+  "version": "1.1.0",
+  "attribution": "hogwash stylometry baselines (MIT), calibrated against HAP-E human-ai-parallel-corpus-mini (browndw, MIT), 2026-08-30",
   "rules": [
     {
       "id": "rhythm.sentence-uniformity",
@@ -12,9 +12,30 @@
       "era": "mixed",
       "deprecated": false,
       "gated": null,
-      "baselines": { "technical": 0.2, "prose": 0.2, "marketing": 0.2 },
+      "baselines": {
+        "technical": 0.28,
+        "prose": 0.42,
+        "marketing": 0.42
+      },
       "message": "Sentence lengths in this paragraph vary less than the register baseline; the rhythm reads flat.",
-      "attribution": "hogwash stylometry baselines (MIT), calibrated in slice S4"
+      "attribution": "hogwash stylometry baselines (MIT), calibrated against HAP-E human-ai-parallel-corpus-mini (browndw, MIT), 2026-08-30"
+    },
+    {
+      "id": "rhythm.opener-repetition",
+      "category": "rhythm",
+      "engine": "stylometric",
+      "metric": "sentence-opener-repetition",
+      "severity": "info",
+      "era": "mixed",
+      "deprecated": false,
+      "gated": null,
+      "baselines": {
+        "technical": 0.44,
+        "prose": 0.48,
+        "marketing": 0.48
+      },
+      "message": "Sentences in this paragraph keep starting with the same word; vary the openings.",
+      "attribution": "hogwash stylometry baselines (MIT), calibrated against HAP-E human-ai-parallel-corpus-mini (browndw, MIT), 2026-08-30"
     },
     {
       "id": "rhythm.paragraph-uniformity",
@@ -25,9 +46,30 @@
       "era": "mixed",
       "deprecated": false,
       "gated": null,
-      "baselines": { "technical": 0.06, "prose": 0.06, "marketing": 0.06 },
+      "baselines": {
+        "technical": 0.06,
+        "prose": 0.06,
+        "marketing": 0.06
+      },
       "message": "Paragraph lengths across this document vary less than the register baseline.",
-      "attribution": "hogwash stylometry baselines (MIT), calibrated in slice S4"
+      "attribution": "hogwash stylometry baselines (MIT); no HAP-E samples for this metric, S4 value kept, 2026-08-30"
+    },
+    {
+      "id": "structure.heading-uniformity",
+      "category": "structure",
+      "engine": "stylometric",
+      "metric": "heading-uniformity",
+      "severity": "info",
+      "era": "mixed",
+      "deprecated": false,
+      "gated": null,
+      "baselines": {
+        "technical": 0.6,
+        "prose": 0.6,
+        "marketing": 0.6
+      },
+      "message": "Headings across this document follow one grammatical shape; vary the heading forms.",
+      "attribution": "hogwash stylometry baselines (MIT); no HAP-E samples for this metric, S4 value kept, 2026-08-30"
     },
     {
       "id": "rhythm.lexical-diversity",
@@ -38,9 +80,13 @@
       "era": "mixed",
       "deprecated": false,
       "gated": null,
-      "baselines": { "technical": 0.7, "prose": 0.7, "marketing": 0.72 },
+      "baselines": {
+        "technical": 0.79,
+        "prose": 0.79,
+        "marketing": 0.79
+      },
       "message": "Vocabulary turnover in this paragraph sits below the register baseline.",
-      "attribution": "hogwash stylometry baselines (MIT), calibrated in slice S4"
+      "attribution": "hogwash stylometry baselines (MIT), calibrated against HAP-E human-ai-parallel-corpus-mini (browndw, MIT), 2026-08-30"
     },
     {
       "id": "rhythm.contraction-rate",
@@ -51,9 +97,13 @@
       "era": "mixed",
       "deprecated": false,
       "gated": null,
-      "baselines": { "technical": 0, "prose": 1, "marketing": 1.5 },
+      "baselines": {
+        "technical": 0,
+        "prose": 0,
+        "marketing": 0
+      },
       "message": "This paragraph uses fewer contractions than the register baseline.",
-      "attribution": "hogwash stylometry baselines (MIT), calibrated in slice S4"
+      "attribution": "hogwash stylometry baselines (MIT); HAP-E shows no human/AI separation for this metric, disabled by baseline, 2026-08-30"
     },
     {
       "id": "rhythm.punctuation-density",
@@ -64,9 +114,13 @@
       "era": "mixed",
       "deprecated": false,
       "gated": null,
-      "baselines": { "technical": 1.5, "prose": 2.5, "marketing": 3 },
+      "baselines": {
+        "technical": 2.5,
+        "prose": 1.25,
+        "marketing": 3
+      },
       "message": "Em dashes and semicolons in this paragraph exceed the register baseline.",
-      "attribution": "hogwash stylometry baselines (MIT), calibrated in slice S4"
+      "attribution": "hogwash stylometry baselines (MIT), calibrated against HAP-E human-ai-parallel-corpus-mini (browndw, MIT), 2026-08-30"
     }
   ]
 }

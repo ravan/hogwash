@@ -4,6 +4,8 @@ import {
   contractionRate,
   proseWords,
   punctuationDensity,
+  headingShape,
+  repeatedOpenerShare,
   typeTokenRatio,
 } from './measures.js'
 
@@ -45,6 +47,31 @@ describe('punctuationDensity', () => {
     { prose: 'anything', words: 0, expected: 0 },
   ])('is $expected for $prose over $words words', ({ prose, words, expected }) => {
     expect(punctuationDensity(prose, words)).toBeCloseTo(expected, 10)
+  })
+})
+
+describe('repeatedOpenerShare', () => {
+  it.each([
+    { openers: ['We', 'The', 'we'], expected: 1 / 3 },
+    { openers: ['The', 'the', 'The'], expected: 2 / 3 },
+    { openers: ['A', 'B', 'C', 'D'], expected: 0 },
+    { openers: [], expected: 0 },
+  ])('is $expected for $openers', ({ openers, expected }) => {
+    expect(repeatedOpenerShare(openers)).toBeCloseTo(expected, 10)
+  })
+})
+
+describe('headingShape', () => {
+  it.each([
+    { heading: 'What breaks first?', expected: '?' },
+    { heading: 'Building the pipeline', expected: 'ing' },
+    { heading: 'Staffing', expected: 'ing' },
+    { heading: 'King of the hill', expected: 'king' },
+    { heading: 'The rollout plan', expected: 'the' },
+    { heading: 'THE ROLLOUT PLAN', expected: 'the' },
+    { heading: '   ', expected: null },
+  ])('is $expected for "$heading"', ({ heading, expected }) => {
+    expect(headingShape(heading)).toBe(expected)
   })
 })
 

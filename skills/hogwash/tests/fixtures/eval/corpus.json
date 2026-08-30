@@ -156,6 +156,96 @@
           "adjudication": "tests/fixtures/eval/adjudications/non-native-formal.json"
         }
       ]
+    },
+    {
+      "name": "hape-human",
+      "kind": "control",
+      "items": [
+        {
+          "path": "tests/fixtures/eval/hape-human/acad-0005.md",
+          "register": "technical",
+          "provenance": "HAP-E human-ai-parallel-corpus-mini (browndw, MIT), doc human_acad_0005, human continuation, fetched 2026-08-30",
+          "adjudication": "tests/fixtures/eval/adjudications/hape-human-acad-0005.json"
+        },
+        {
+          "path": "tests/fixtures/eval/hape-human/blog-0016.md",
+          "register": "prose",
+          "provenance": "HAP-E human-ai-parallel-corpus-mini (browndw, MIT), doc human_blog_0016, human continuation, fetched 2026-08-30",
+          "adjudication": "tests/fixtures/eval/adjudications/hape-human-blog-0016.json"
+        },
+        {
+          "path": "tests/fixtures/eval/hape-human/fic-0002.md",
+          "register": "prose",
+          "provenance": "HAP-E human-ai-parallel-corpus-mini (browndw, MIT), doc human_fic_0002, human continuation, fetched 2026-08-30",
+          "adjudication": "tests/fixtures/eval/adjudications/hape-human-fic-0002.json"
+        },
+        {
+          "path": "tests/fixtures/eval/hape-human/news-0002.md",
+          "register": "prose",
+          "provenance": "HAP-E human-ai-parallel-corpus-mini (browndw, MIT), doc human_news_0002, human continuation, fetched 2026-08-30",
+          "adjudication": "tests/fixtures/eval/adjudications/hape-human-news-0002.json"
+        }
+      ]
+    },
+    {
+      "name": "hape-gpt4o",
+      "kind": "stylometric-positive",
+      "items": [
+        {
+          "path": "tests/fixtures/eval/hape-gpt4o/acad-0005.md",
+          "register": "technical",
+          "provenance": "HAP-E human-ai-parallel-corpus-mini (browndw, MIT), doc gpt4_acad_0005, GPT-4o continuation, fetched 2026-08-30",
+          "adjudication": "tests/fixtures/eval/adjudications/hape-gpt4o-acad-0005.json"
+        },
+        {
+          "path": "tests/fixtures/eval/hape-gpt4o/blog-0016.md",
+          "register": "prose",
+          "provenance": "HAP-E human-ai-parallel-corpus-mini (browndw, MIT), doc gpt4_blog_0016, GPT-4o continuation, fetched 2026-08-30",
+          "adjudication": "tests/fixtures/eval/adjudications/hape-gpt4o-blog-0016.json"
+        },
+        {
+          "path": "tests/fixtures/eval/hape-gpt4o/fic-0009.md",
+          "register": "prose",
+          "provenance": "HAP-E human-ai-parallel-corpus-mini (browndw, MIT), doc gpt4_fic_0009, GPT-4o continuation, fetched 2026-08-30",
+          "adjudication": "tests/fixtures/eval/adjudications/hape-gpt4o-fic-0009.json"
+        },
+        {
+          "path": "tests/fixtures/eval/hape-gpt4o/news-0002.md",
+          "register": "prose",
+          "provenance": "HAP-E human-ai-parallel-corpus-mini (browndw, MIT), doc gpt4_news_0002, GPT-4o continuation, fetched 2026-08-30",
+          "adjudication": "tests/fixtures/eval/adjudications/hape-gpt4o-news-0002.json"
+        }
+      ]
+    },
+    {
+      "name": "hape-llama3",
+      "kind": "stylometric-positive",
+      "items": [
+        {
+          "path": "tests/fixtures/eval/hape-llama3/acad-0031.md",
+          "register": "technical",
+          "provenance": "HAP-E human-ai-parallel-corpus-mini (browndw, MIT), doc llama_acad_0031, Llama-3-8B-Instruct continuation, fetched 2026-08-30",
+          "adjudication": "tests/fixtures/eval/adjudications/hape-llama3-acad-0031.json"
+        },
+        {
+          "path": "tests/fixtures/eval/hape-llama3/blog-0016.md",
+          "register": "prose",
+          "provenance": "HAP-E human-ai-parallel-corpus-mini (browndw, MIT), doc llama_blog_0016, Llama-3-8B-Instruct continuation, fetched 2026-08-30",
+          "adjudication": "tests/fixtures/eval/adjudications/hape-llama3-blog-0016.json"
+        },
+        {
+          "path": "tests/fixtures/eval/hape-llama3/fic-0009.md",
+          "register": "prose",
+          "provenance": "HAP-E human-ai-parallel-corpus-mini (browndw, MIT), doc llama_fic_0009, Llama-3-8B-Instruct continuation, fetched 2026-08-30",
+          "adjudication": "tests/fixtures/eval/adjudications/hape-llama3-fic-0009.json"
+        },
+        {
+          "path": "tests/fixtures/eval/hape-llama3/news-0011.md",
+          "register": "prose",
+          "provenance": "HAP-E human-ai-parallel-corpus-mini (browndw, MIT), doc llama_news_0011, Llama-3-8B-Instruct continuation, fetched 2026-08-30",
+          "adjudication": "tests/fixtures/eval/adjudications/hape-llama3-news-0011.json"
+        }
+      ]
     }
   ]
 }

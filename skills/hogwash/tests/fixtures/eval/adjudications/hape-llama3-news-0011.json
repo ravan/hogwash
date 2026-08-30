@@ -1,0 +1,5 @@
+{
+  "note": "HAP-E mini doc llama_news_0011: Llama-3-8B-Instruct continuation of a human-written opening; class label comes from the dataset, no span-level hand adjudication.",
+  "falsePositives": [],
+  "missed": []
+}

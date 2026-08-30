@@ -7,7 +7,10 @@ import { RegisterSchema, RuleIdSchema } from '../types.js'
 export const CorpusClassNameSchema = z.string().min(1).brand<'CorpusClassName'>()
 export type CorpusClassName = z.infer<typeof CorpusClassNameSchema>
 
-export const CorpusClassKindSchema = z.enum(['positive', 'control'])
+/** `positive` must exceed the density threshold, `control` must stay under it,
+ *  `stylometric-positive` is AI text the lexical engine cannot see: rhythm
+ *  rules must fire, but no density gate applies. */
+export const CorpusClassKindSchema = z.enum(['positive', 'stylometric-positive', 'control'])
 export type CorpusClassKind = z.infer<typeof CorpusClassKindSchema>
 
 export const CorpusItemSchema = z.object({

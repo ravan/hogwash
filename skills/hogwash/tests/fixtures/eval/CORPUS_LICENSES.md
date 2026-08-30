@@ -11,6 +11,7 @@ licences and provenance. Each entry names the file, the source, and the terms.
 | `human-mail/enron-project-update.md` | Enron email corpus via [Yale-LILY/aeslc](https://huggingface.co/datasets/Yale-LILY/aeslc) | public record | 1999-2002 business email, released through FERC |
 | `human-marketing/celsius-press-release.md` | [SEC EDGAR 8-K exhibit 99.1](https://www.sec.gov/Archives/edgar/data/1341766/000121390019010954/f8k061819ex99-1_celsiushold.htm), Celsius Holdings, 2019-06-18 | public filing | company copyright persists; press releases are written for republication |
 | `human-edited-draft/beemo-generation.md` | [toloka/beemo](https://huggingface.co/datasets/toloka/beemo) id 613, Artemova et al., NAACL 2025 | MIT | expert-edited Llama-2-7b draft |
+| `hape-human/*.md`, `hape-gpt4o/*.md`, `hape-llama3/*.md` | [HAP-E mini](https://huggingface.co/datasets/browndw/human-ai-parallel-corpus-mini), Reinhart et al. | MIT | paired ~500-word continuations: human, GPT-4o, and Llama-3-8B-Instruct each continue the same human-written opening; human sources are pre-LLM (Elsevier articles, US news, public-domain fiction, blogs) |
 
 The planner-authored fixtures in `tests/fixtures/corpus/` and the ai-claude
 documents were written for this repository and are MIT like the code.

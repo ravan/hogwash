@@ -38,7 +38,9 @@ const measure = (item: LoadedItem): FileReport => {
   return file
 }
 
-const itemsOf = (kind: 'positive' | 'control'): readonly [string, LoadedItem][] =>
+const itemsOf = (
+  kind: 'positive' | 'stylometric-positive' | 'control',
+): readonly [string, LoadedItem][] =>
   corpus
     .filter((entry) => entry.kind === kind)
     .flatMap((entry) =>
@@ -48,7 +50,7 @@ const itemsOf = (kind: 'positive' | 'control'): readonly [string, LoadedItem][] 
 describe('the evaluation corpus', () => {
   it('declares every class exactly once', () => {
     const names = corpus.map((entry) => entry.name)
-    expect(names).toHaveLength(11)
+    expect(names).toHaveLength(14)
     expect(new Set(names).size).toBe(names.length)
   })
 
@@ -58,6 +60,14 @@ describe('the evaluation corpus', () => {
 
   it.each(itemsOf('positive'))('pushes %s over the threshold', (_label, item) => {
     expect(measure(item).density).toBeGreaterThan(DEFAULT_THRESHOLD)
+  })
+
+  // AI text the lexical word lists cannot see; only the rhythm engine
+  // (HAP-E-calibrated stylometry) is expected to notice it.
+  it.each(itemsOf('stylometric-positive'))('raises a rhythm finding on %s', (_label, item) => {
+    expect(
+      measure(item).findings.filter((finding) => finding.engine === 'stylometric').length,
+    ).toBeGreaterThan(0)
   })
 
   const claudeItems = corpus

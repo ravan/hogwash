@@ -88,21 +88,74 @@ describe.each([...REGISTERS])('register %s', (register) => {
   })
 })
 
-describe('stylometry in the technical register', () => {
-  it.each([...HUMAN_FIXTURES])('leaves %s free of rhythm findings', (name) => {
-    expect(measure(name, 'technical').findings.filter(engineIs('stylometric'))).toHaveLength(0)
+const measureEval = (name: string, register: Register): FileReport => {
+  const text = readFileSync(new URL(`./fixtures/eval/${name}`, import.meta.url), 'utf8')
+  const config = ConfigSchema.parse({ register })
+  const file = buildReport([{ path: name, text }], rules, config, 'fixed').files[0]
+  if (file === undefined) throw new Error(`no file report for ${name}`)
+  return file
+}
+
+const HAPE_HUMAN = [
+  ['hape-human/acad-0005.md', 'technical'],
+  ['hape-human/blog-0016.md', 'prose'],
+  ['hape-human/fic-0002.md', 'prose'],
+  ['hape-human/news-0002.md', 'prose'],
+] as const
+
+const HAPE_AI = [
+  ['hape-gpt4o/acad-0005.md', 'technical'],
+  ['hape-gpt4o/blog-0016.md', 'prose'],
+  ['hape-gpt4o/fic-0009.md', 'prose'],
+  ['hape-gpt4o/news-0002.md', 'prose'],
+  ['hape-llama3/acad-0031.md', 'technical'],
+  ['hape-llama3/blog-0016.md', 'prose'],
+  ['hape-llama3/fic-0009.md', 'prose'],
+  ['hape-llama3/news-0011.md', 'prose'],
+] as const
+
+describe('stylometry against the HAP-E baselines', () => {
+  it.each([...HAPE_HUMAN])('leaves genuinely human %s free of rhythm findings', (name, register) => {
+    expect(measureEval(name, register).findings.filter(engineIs('stylometric'))).toHaveLength(0)
   })
 
-  it('reads ai-subtle.md differently under technical and marketing', () => {
+  it.each([...HAPE_AI])('fires at least one rhythm finding on %s', (name, register) => {
+    expect(
+      measureEval(name, register).findings.filter(engineIs('stylometric')).length,
+    ).toBeGreaterThan(0)
+  })
+
+  // The corpus "human" fixtures were written by Claude when the skill was
+  // built. Under baselines calibrated on genuinely human text, two of them
+  // now trip rhythm rules — which is the detector working, not a regression.
+  it('keeps human-plain.md quiet but flags the Claude-written human-formal.md', () => {
+    const rhythm = (name: string): readonly string[] =>
+      measure(name, 'technical')
+        .findings.filter(engineIs('stylometric'))
+        .map((finding) => String(finding.ruleId))
+    expect(rhythm('human-plain.md')).toHaveLength(0)
+    expect(rhythm('human-formal.md')).toEqual([
+      'rhythm.sentence-uniformity',
+      'rhythm.sentence-uniformity',
+    ])
+    // Known false-positive shape: lower lexical turnover is common in
+    // non-native writing; the rule stays info-severity and weight zero.
+    expect(rhythm('non-native-formal.md')).toEqual([
+      'rhythm.lexical-diversity',
+      'rhythm.lexical-diversity',
+    ])
+  })
+
+  it('reads hape-gpt4o/news-0002.md differently under technical and prose', () => {
     const spansOf = (register: Register): readonly string[] =>
-      measure('ai-subtle.md', register)
+      measureEval('hape-gpt4o/news-0002.md', register)
         .findings.filter(engineIs('stylometric'))
         .map((finding) => `${finding.ruleId}:${finding.start}-${finding.end}`)
     const technical = spansOf('technical')
-    const marketing = spansOf('marketing')
+    const prose = spansOf('prose')
     expect(technical.length).toBeGreaterThan(0)
-    expect(marketing.length).toBeGreaterThan(0)
-    expect(new Set(technical)).not.toEqual(new Set(marketing))
+    expect(prose.length).toBeGreaterThan(0)
+    expect(new Set(technical)).not.toEqual(new Set(prose))
   })
 })
 

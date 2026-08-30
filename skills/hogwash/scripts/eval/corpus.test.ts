@@ -28,7 +28,7 @@ const temporaryRoot = (manifestText: string | null): string => {
 describe('CorpusManifestSchema', () => {
   it('parses the shipped manifest', () => {
     const parsed = CorpusManifestSchema.parse(manifest())
-    expect(parsed.classes).toHaveLength(11)
+    expect(parsed.classes).toHaveLength(14)
     const names = parsed.classes.map((entry) => entry.name)
     expect(new Set(names).size).toBe(names.length)
     expect(parsed.classes.find((entry) => entry.name === 'ai-claude')?.items).toHaveLength(3)
@@ -60,7 +60,7 @@ describe('AdjudicationSchema', () => {
 describe('loadCorpus', () => {
   it('loads every declared class, collected or not', () => {
     const classes = loadCorpus(root)
-    expect(classes).toHaveLength(11)
+    expect(classes).toHaveLength(14)
     expect(classes.map((entry) => entry.name)).toEqual(
       CorpusManifestSchema.parse(manifest()).classes.map((entry) => entry.name),
     )

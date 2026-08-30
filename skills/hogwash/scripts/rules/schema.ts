@@ -40,7 +40,9 @@ export type RuleExamples = z.infer<typeof RuleExamplesSchema>
 
 export const StylometricMetricSchema = z.enum([
   'sentence-uniformity',
+  'sentence-opener-repetition',
   'paragraph-uniformity',
+  'heading-uniformity',
   'lexical-diversity',
   'contraction-rate',
   'punctuation-density',
