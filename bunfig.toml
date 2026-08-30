@@ -2,6 +2,6 @@
 [run]
 bun = true
 
-# Root-level tests only. Each skill runs its own suite from its own directory.
+# All suites live under tests/ (skill tests in tests/<skill>/), outside the shipped skill folders.
 [test]
 root = "tests"

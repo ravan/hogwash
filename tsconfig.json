@@ -15,6 +15,5 @@
     "verbatimModuleSyntax": true,
     "isolatedModules": true
   },
-  "include": ["skills/*/scripts"],
-  "exclude": ["skills/*/scripts/**/*.test.ts"]
+  "include": ["skills/*/scripts"]
 }

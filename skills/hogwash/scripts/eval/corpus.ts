@@ -46,7 +46,7 @@ export const AdjudicationSchema = z.object({
 })
 export type Adjudication = z.infer<typeof AdjudicationSchema>
 
-export const CORPUS_MANIFEST_PATH = 'tests/fixtures/eval/corpus.json'
+export const CORPUS_MANIFEST_PATH = 'tests/hogwash/fixtures/eval/corpus.json'
 
 export type LoadedItem = {
   readonly item: CorpusItem

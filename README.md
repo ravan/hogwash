@@ -128,14 +128,10 @@ The sync never commits. Review the git diff and any `*.proposed.json` proposals,
 
 ```sh
 bun install
-bun run check          # lint, typecheck, and both test suites
+bun run check          # lint, typecheck, and the test suite
 bun run eval --gate
 ```
 
-`bun run check` runs the repo-level tests from the root and each skill's own tests from that skill's directory. To run one skill's suite alone:
-
-```sh
-cd skills/hogwash && bun test
-```
+All tests live under [tests/](tests), outside the shipped skill folders, so installing a skill never pulls in test code or test data. `bun test` from the root runs everything; `bun test tests/hogwash` runs one skill's suite.
 
 `bun run sync`, `bun run import-liang`, and `bun run eval` are thin wrappers in [tools/](tools). Each one runs the matching script inside `skills/hogwash`.

@@ -60,8 +60,8 @@ try {
     stylometric: stylometricRules(selected),
     structural: structuralRules(selected),
   }
-  // The corpus ships with the skill; the config and the output belong to the project.
-  const corpus = loadCorpus(fileURLToPath(new URL('../../', import.meta.url)))
+  // The corpus lives in the repo's tests tree, not in the shipped skill; the config and the output belong to the project.
+  const corpus = loadCorpus(fileURLToPath(new URL('../../../../', import.meta.url)))
   const classes: ClassScore[] = []
   const notCollected: LoadedClass['name'][] = []
 

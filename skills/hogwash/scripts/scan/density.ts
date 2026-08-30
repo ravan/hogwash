@@ -2,7 +2,7 @@ import type { LexicalRule, StructuralRule } from '../rules/schema.js'
 import type { Density, Finding, Register, Threshold, WordCount } from '../types.js'
 import { DensitySchema, ThresholdSchema } from '../types.js'
 
-/** Calibrated against tests/fixtures/corpus in plan S1 Step 12. */
+/** Calibrated against tests/hogwash/fixtures/corpus in plan S1 Step 12. */
 export const DEFAULT_THRESHOLD: Threshold = ThresholdSchema.parse(25)
 
 export function effectiveWeight(rule: LexicalRule | StructuralRule, register: Register): number {

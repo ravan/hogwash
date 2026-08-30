@@ -10,7 +10,7 @@
   },
   "scripts": {
     "typecheck": "tsc -p tsconfig.test.json",
-    "test": "bun test && cd skills/hogwash && bun test",
+    "test": "bun test",
     "lint": "biome check .",
     "format": "biome format --write .",
     "check": "bun run lint && bun run typecheck && bun run test",
