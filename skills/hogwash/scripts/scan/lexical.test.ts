@@ -70,7 +70,7 @@ describe('scanText', () => {
   })
 
   it('ignores tells that sit inside a fenced code block', () => {
-    expect(scanText(fixture('corpus/human-plain.md'), rules, 'technical')).toHaveLength(0)
+    expect(scanText(fixture('corpus/pastiche-plain.md'), rules, 'technical')).toHaveLength(0)
   })
 
   it('drops a match strictly contained in another rule’s match', () => {

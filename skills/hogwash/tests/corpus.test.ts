@@ -14,7 +14,10 @@ import type { FileReport, Finding, Register } from '../scripts/types.js'
 
 const REGISTERS: readonly Register[] = ['technical', 'prose', 'marketing']
 
-const HUMAN_FIXTURES = ['human-plain.md', 'human-formal.md', 'non-native-formal.md'] as const
+// Claude-written imitations of human prose — negative controls for the
+// lexical rules, NOT genuine human text. Genuine human text lives in
+// tests/fixtures/eval/hape-human/.
+const PASTICHE_FIXTURES = ['pastiche-plain.md', 'pastiche-formal.md', 'pastiche-non-native.md'] as const
 const AI_FIXTURES = ['ai-dense.md', 'ai-subtle.md'] as const
 
 const selected = selectRules(loadBundledPacks(), {
@@ -43,7 +46,7 @@ const measure = (name: string, register: Register): FileReport => {
 }
 
 describe.each([...REGISTERS])('register %s', (register) => {
-  it.each([...HUMAN_FIXTURES])('keeps %s under the threshold', (name) => {
+  it.each([...PASTICHE_FIXTURES])('keeps %s under the threshold', (name) => {
     expect(measure(name, register).density).toBeLessThan(DEFAULT_THRESHOLD)
   })
 
@@ -51,11 +54,11 @@ describe.each([...REGISTERS])('register %s', (register) => {
     expect(measure(name, register).density).toBeGreaterThan(DEFAULT_THRESHOLD)
   })
 
-  it('finds nothing in human-plain.md', () => {
-    expect(measure('human-plain.md', register).findings.filter(engineIs('lexical'))).toHaveLength(0)
+  it('finds nothing in pastiche-plain.md', () => {
+    expect(measure('pastiche-plain.md', register).findings.filter(engineIs('lexical'))).toHaveLength(0)
   })
 
-  it.each([...HUMAN_FIXTURES, ...AI_FIXTURES])(
+  it.each([...PASTICHE_FIXTURES, ...AI_FIXTURES])(
     'keeps stylometry out of the density of %s',
     (name) => {
       const file = measure(name, register)
@@ -63,14 +66,14 @@ describe.each([...REGISTERS])('register %s', (register) => {
     },
   )
 
-  it.each([...HUMAN_FIXTURES, ...AI_FIXTURES])('keeps stylometry advisory in %s', (name) => {
+  it.each([...PASTICHE_FIXTURES, ...AI_FIXTURES])('keeps stylometry advisory in %s', (name) => {
     for (const finding of measure(name, register).findings.filter(engineIs('stylometric'))) {
       expect(finding.effectiveWeight).toBe(0)
       expect(finding.severity).toBe('info')
     }
   })
 
-  it.each([...HUMAN_FIXTURES, ...AI_FIXTURES])('de-duplicates spans in %s', (name) => {
+  it.each([...PASTICHE_FIXTURES, ...AI_FIXTURES])('de-duplicates spans in %s', (name) => {
     const findings = measure(name, register).findings.filter(engineIs('lexical'))
     for (const [index, finding] of findings.entries()) {
       for (const other of findings.slice(index + 1)) {
@@ -125,22 +128,22 @@ describe('stylometry against the HAP-E baselines', () => {
     ).toBeGreaterThan(0)
   })
 
-  // The corpus "human" fixtures were written by Claude when the skill was
-  // built. Under baselines calibrated on genuinely human text, two of them
-  // now trip rhythm rules — which is the detector working, not a regression.
-  it('keeps human-plain.md quiet but flags the Claude-written human-formal.md', () => {
+  // The pastiche fixtures were written by Claude when the skill was built
+  // (they were once named human-*). Under baselines calibrated on genuinely
+  // human text, two of them now trip rhythm rules — the detector working.
+  it('keeps pastiche-plain.md quiet but flags the Claude-written pastiche-formal.md', () => {
     const rhythm = (name: string): readonly string[] =>
       measure(name, 'technical')
         .findings.filter(engineIs('stylometric'))
         .map((finding) => String(finding.ruleId))
-    expect(rhythm('human-plain.md')).toHaveLength(0)
-    expect(rhythm('human-formal.md')).toEqual([
+    expect(rhythm('pastiche-plain.md')).toHaveLength(0)
+    expect(rhythm('pastiche-formal.md')).toEqual([
       'rhythm.sentence-uniformity',
       'rhythm.sentence-uniformity',
     ])
     // Known false-positive shape: lower lexical turnover is common in
     // non-native writing; the rule stays info-severity and weight zero.
-    expect(rhythm('non-native-formal.md')).toEqual([
+    expect(rhythm('pastiche-non-native.md')).toEqual([
       'rhythm.lexical-diversity',
       'rhythm.lexical-diversity',
     ])

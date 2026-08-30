@@ -80,20 +80,20 @@
       ]
     },
     {
-      "name": "human-technical",
+      "name": "pastiche-technical",
       "kind": "control",
       "items": [
         {
-          "path": "tests/fixtures/corpus/human-formal.md",
+          "path": "tests/fixtures/corpus/pastiche-formal.md",
           "register": "technical",
-          "provenance": "planner-authored fixture, slice S1 (2026-08-25)",
-          "adjudication": "tests/fixtures/eval/adjudications/human-formal.json"
+          "provenance": "Claude-written pastiche fixture, slice S1 (2026-08-25); not human text",
+          "adjudication": "tests/fixtures/eval/adjudications/pastiche-formal.json"
         },
         {
-          "path": "tests/fixtures/corpus/human-plain.md",
+          "path": "tests/fixtures/corpus/pastiche-plain.md",
           "register": "technical",
-          "provenance": "planner-authored fixture, slice S1 (2026-08-25)",
-          "adjudication": "tests/fixtures/eval/adjudications/human-plain.json"
+          "provenance": "Claude-written pastiche fixture, slice S1 (2026-08-25); not human text",
+          "adjudication": "tests/fixtures/eval/adjudications/pastiche-plain.json"
         }
       ]
     },
@@ -146,14 +146,14 @@
       ]
     },
     {
-      "name": "non-native-formal",
+      "name": "pastiche-non-native",
       "kind": "control",
       "items": [
         {
-          "path": "tests/fixtures/corpus/non-native-formal.md",
+          "path": "tests/fixtures/corpus/pastiche-non-native.md",
           "register": "technical",
-          "provenance": "planner-authored fixture, slice S1 (2026-08-25)",
-          "adjudication": "tests/fixtures/eval/adjudications/non-native-formal.json"
+          "provenance": "Claude-written pastiche fixture, slice S1 (2026-08-25); not human text",
+          "adjudication": "tests/fixtures/eval/adjudications/pastiche-non-native.json"
         }
       ]
     },

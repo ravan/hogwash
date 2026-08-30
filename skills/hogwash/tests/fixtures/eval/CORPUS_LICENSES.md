@@ -13,5 +13,7 @@ licences and provenance. Each entry names the file, the source, and the terms.
 | `human-edited-draft/beemo-generation.md` | [toloka/beemo](https://huggingface.co/datasets/toloka/beemo) id 613, Artemova et al., NAACL 2025 | MIT | expert-edited Llama-2-7b draft |
 | `hape-human/*.md`, `hape-gpt4o/*.md`, `hape-llama3/*.md` | [HAP-E mini](https://huggingface.co/datasets/browndw/human-ai-parallel-corpus-mini), Reinhart et al. | MIT | paired ~500-word continuations: human, GPT-4o, and Llama-3-8B-Instruct each continue the same human-written opening; human sources are pre-LLM (Elsevier articles, US news, public-domain fiction, blogs) |
 
-The planner-authored fixtures in `tests/fixtures/corpus/` and the ai-claude
-documents were written for this repository and are MIT like the code.
+The pastiche fixtures in `tests/fixtures/corpus/` (renamed from `human-*`
+on 2026-08-30) and the ai-claude documents were written by Claude for this
+repository and are MIT like the code. None of them are human text; the
+genuinely human documents are the ones with external provenance above.

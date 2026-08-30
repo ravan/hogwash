@@ -44,7 +44,7 @@ describe('CorpusManifestSchema', () => {
 describe('AdjudicationSchema', () => {
   it('parses an adjudication file', () => {
     const source = readFileSync(
-      join(root, 'tests/fixtures/eval/adjudications/non-native-formal.json'),
+      join(root, 'tests/fixtures/eval/adjudications/pastiche-non-native.json'),
       'utf8',
     )
     const parsed = AdjudicationSchema.parse(JSON.parse(source))
@@ -65,11 +65,11 @@ describe('loadCorpus', () => {
       CorpusManifestSchema.parse(manifest()).classes.map((entry) => entry.name),
     )
     expect(classes.find((entry) => entry.name === 'ai-gpt')?.items).toHaveLength(2)
-    expect(classes.find((entry) => entry.name === 'human-technical')?.items).toHaveLength(2)
+    expect(classes.find((entry) => entry.name === 'pastiche-technical')?.items).toHaveLength(2)
   })
 
   it('carries each item text and adjudication', () => {
-    const loaded = loadCorpus(root).find((entry) => entry.name === 'human-technical')
+    const loaded = loadCorpus(root).find((entry) => entry.name === 'pastiche-technical')
     const first = loaded?.items[0]
     if (first === undefined) throw new Error('no human-technical item')
     expect(first.text.startsWith('# Quarterly review: warehouse receiving process')).toBe(true)
