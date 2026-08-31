@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises'
-import { join } from 'node:path'
+import { homedir } from 'node:os'
+import { isAbsolute, join } from 'node:path'
 import { z } from 'zod'
 import type { Config } from './config.js'
 import { HogwashError } from './errors.js'
@@ -12,30 +13,56 @@ export type LoadedProfile = {
   readonly banList: string
 }
 
-async function readProfileDocument(path: string, name: string): Promise<string> {
-  let text: string
-  try {
-    text = await readFile(path, 'utf8')
-  } catch (error) {
-    const missing = ErrnoSchema.safeParse(error).data?.code === 'ENOENT'
-    throw new HogwashError({
-      kind: 'config',
-      message: missing
-        ? `Could not read the ${name} ${path}: no such file.`
-        : `Could not read the ${name} ${path}: ${error instanceof Error ? error.message : String(error)}`,
-    })
+/** Project copy first; a relative path missing there falls back to ~/.idiolect/<path>. */
+function candidatePaths(cwd: string, home: string, path: string): readonly string[] {
+  if (isAbsolute(path)) return [path]
+  return [join(cwd, path), join(home, '.idiolect', path)]
+}
+
+async function readProfileDocument(paths: readonly string[], name: string): Promise<string> {
+  for (const [index, path] of paths.entries()) {
+    let text: string
+    try {
+      text = await readFile(path, 'utf8')
+    } catch (error) {
+      const missing = ErrnoSchema.safeParse(error).data?.code === 'ENOENT'
+      if (missing && index < paths.length - 1) continue
+      throw new HogwashError({
+        kind: 'config',
+        message: missing
+          ? `Could not read the ${name}: no such file. Tried ${paths.join(', ')}.`
+          : `Could not read the ${name} ${path}: ${error instanceof Error ? error.message : String(error)}`,
+      })
+    }
+    if (text.trim().length === 0) {
+      throw new HogwashError({ kind: 'config', message: `The ${name} ${path} is empty.` })
+    }
+    return text
   }
-  if (text.trim().length === 0) {
-    throw new HogwashError({ kind: 'config', message: `The ${name} ${path} is empty.` })
-  }
-  return text
+  throw new HogwashError({
+    kind: 'config',
+    message: `Could not read the ${name}: no path configured.`,
+  })
 }
 
 /** Read the three mandatory profile documents named by the config. */
-export async function loadProfile(cwd: string, config: Config): Promise<LoadedProfile> {
+export async function loadProfile(
+  cwd: string,
+  config: Config,
+  home = homedir(),
+): Promise<LoadedProfile> {
   return {
-    voice: await readProfileDocument(join(cwd, config.profile.voice), 'voice profile'),
-    quality: await readProfileDocument(join(cwd, config.profile.quality), 'quality profile'),
-    banList: await readProfileDocument(join(cwd, config.profile.banList), 'ban list'),
+    voice: await readProfileDocument(
+      candidatePaths(cwd, home, config.profile.voice),
+      'voice profile',
+    ),
+    quality: await readProfileDocument(
+      candidatePaths(cwd, home, config.profile.quality),
+      'quality profile',
+    ),
+    banList: await readProfileDocument(
+      candidatePaths(cwd, home, config.profile.banList),
+      'ban list',
+    ),
   }
 }

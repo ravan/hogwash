@@ -36,8 +36,11 @@ the evidence behind every rule is in
 
 One directory holds any number of named profiles (default `profiles/`, or
 wherever the project's config points), so a project can keep several voices —
-a personal voice, a house voice, a docs voice. Each profile is a named
-subdirectory:
+a personal voice, a house voice, a docs voice. Profiles live in two places
+with one lookup rule: the project's own directory first, then the shared
+`~/.idiolect/profiles/` in the owner's home directory. A shared profile lets
+many projects use the same voice without copies. On a name clash the project
+copy wins. Each profile is a named subdirectory:
 
 ```
 profiles/<name>/
@@ -66,13 +69,17 @@ then `calibrated`.
 
 Every build starts here, in order. Do not skip ahead to capture.
 
-1. **Find the profiles directory.** The project's config wins; otherwise
-   default to `profiles/`. List the profiles already in it.
+1. **Find the profiles.** The project's config wins; otherwise default to
+   `profiles/` in the project. Also check the shared `~/.idiolect/profiles/`.
+   List the profiles from both places, marked project or shared; a name that
+   exists in both resolves to the project copy.
 2. **If any profile exists, ask the owner to choose:** improve an existing
    profile (continue in Critique or Refine on that profile) or create a new
    one beside it. Never choose for them, and never overwrite.
-3. **For a new profile, ask for a name.** It becomes `profiles/<name>/`,
-   started from the templates.
+3. **For a new profile, ask for a name and a home.** Project-only voice →
+   `profiles/<name>/` in the project. Voice shared across projects →
+   `~/.idiolect/profiles/<name>/`. Either way it starts from the templates.
+   Never decide the location for the owner.
 4. **Ask whether the owner has authentic past writing.** If yes, ask them to
    point at the directory (or specific files) that holds it, and work from
    exactly that material → [references/corpus.md](references/corpus.md).

@@ -23,7 +23,7 @@ bun "$SKILL/scripts/hogwash.ts" scan --output json docs/post.md
 
 A scan exits nonzero when the scanned file has findings. That is the report, not a failure; the JSON on stdout is still valid. Redirect `--output json` scans to a scratch file and read the file, because a full report often overflows a terminal capture.
 
-The scripts read `hogwash.json` and the profile files from the current working directory, so keep the project directory as the working directory. Bun 1.4 or later is required. If `bun` is missing, report that and stop.
+The scripts read `hogwash.json` and the profile files from the current working directory, so keep the project directory as the working directory. A relative profile path that does not exist in the project resolves against `~/.idiolect/` instead, so several projects can share one voice through `~/.idiolect/profiles/<name>/`. The project copy always wins when both exist. Bun 1.4 or later is required. If `bun` is missing, report that and stop.
 
 ## Set the project up
 
@@ -87,7 +87,7 @@ Hogwash is an editing workflow, not a research or authorship workflow. The origi
 
 ## Validate the project
 
-Before any workflow action, read `hogwash.json` and confirm that all three `profile` paths exist and contain text. Confirm that `workflow.maxPasses` is a positive integer. One missing profile means that the scaffold is incomplete. Run `bun "$SKILL/scripts/hogwash.ts" init` to create missing scaffold files. The command preserves every profile that already exists.
+Before any workflow action, read `hogwash.json` and confirm that all three `profile` paths exist and contain text. Resolve each relative path in the project first; when the file is not there, resolve the same path under `~/.idiolect/` (for example `profiles/rav/voice.md` → `~/.idiolect/profiles/rav/voice.md`). A profile counts as present when either copy exists; the project copy wins when both do. Confirm that `workflow.maxPasses` is a positive integer. One missing profile means that the scaffold is incomplete. Run `bun "$SKILL/scripts/hogwash.ts" init` to create missing scaffold files. The command preserves every profile that already exists.
 
 A malformed or schema-invalid `hogwash.json` stops the workflow. If reading the file fails or any Hogwash command reports a configuration error, report the exact error and ask the user to fix the configuration. Do not edit or bypass the configuration, create or resume a candidate, or continue with another workflow action.
 
