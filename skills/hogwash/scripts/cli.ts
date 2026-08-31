@@ -10,6 +10,7 @@ import { preCommitScript } from './hook/script.js'
 import { initProject } from './init.js'
 import { profileCandidates } from './profile.js'
 import { type ProgressCommand, reportProgress } from './progress.js'
+import { runRedline } from './redline/run.js'
 import { loadBanList, loadBanListIfPresent } from './rules/banlist.js'
 import { renderRuleExplanation, renderRuleList } from './rules/explain.js'
 import type { LoadedRule } from './rules/packs.js'
@@ -27,6 +28,8 @@ const USAGE =
   '                                   [--verbose] [--short] [--register <name>] [--threshold <n>] <files...>\n' +
   '       bun scripts/hogwash.ts consult --family <claude|codex|gemini> <candidate>\n' +
   '       bun scripts/hogwash.ts diff <original>\n' +
+  '       bun scripts/hogwash.ts diff-report [--notes <json>] [--out <html>] [--register <name>]\n' +
+  '                                          [--open] <original>\n' +
   '       bun scripts/hogwash.ts accept --approved <original>\n' +
   '       bun scripts/hogwash.ts rules [--explain <rule-id>]\n' +
   '       bun scripts/hogwash.ts report [--md]\n' +
@@ -95,6 +98,37 @@ const parseScan = (rest: readonly string[]): Command => {
   return { kind: 'scan', files, format, verbose, overrides: { register, threshold, short } }
 }
 
+const parseRedline = (rest: readonly string[]): Command => {
+  const files: string[] = []
+  let notes: string | null = null
+  let out: string | null = null
+  let register: Register | null = null
+  let open = false
+  const value = (rest: readonly string[], index: number): string => {
+    const argument = rest[index]
+    return argument === undefined || argument.startsWith('-') ? usageFailure() : argument
+  }
+  for (let index = 0; index < rest.length; index += 1) {
+    const argument = rest[index]
+    if (argument === '--notes') {
+      notes = value(rest, ++index)
+    } else if (argument === '--out') {
+      out = value(rest, ++index)
+    } else if (argument === '--register') {
+      register = parseRegister(rest[++index])
+    } else if (argument === '--open') {
+      open = true
+    } else if (argument === undefined || argument.startsWith('-')) {
+      return usageFailure()
+    } else {
+      files.push(argument)
+    }
+  }
+  const [original] = files
+  if (original === undefined || files.length > 1) return usageFailure()
+  return { kind: 'redline', original, notes, out, register, open }
+}
+
 const parseFamily = (value: string | undefined): ModelFamily => {
   const result = ModelFamilySchema.safeParse(value)
   return result.success ? result.data : usageFailure()
@@ -148,6 +182,8 @@ export function parseArgs(argv: readonly string[]): Command {
       return parseConsult(rest)
     case 'diff':
       return parseOnePath('diff', rest)
+    case 'diff-report':
+      return parseRedline(rest)
     case 'accept':
       return parseAccept(rest)
     case 'rules':
@@ -227,6 +263,22 @@ export async function run(argv: readonly string[], shell: Shell): Promise<ExitCo
       case 'diff':
         await runDiff(command.original, config, shell)
         return 0
+      case 'redline': {
+        const effective = applyOverrides(config, {
+          register: command.register,
+          threshold: null,
+          short: false,
+        })
+        shell.stdout(
+          await runRedline({
+            command,
+            config: effective,
+            selected: await loadRules(shell, effective, fromFile),
+            shell,
+          }),
+        )
+        return 0
+      }
       case 'accept':
         shell.stdout(await acceptCandidate(command.original))
         return 0

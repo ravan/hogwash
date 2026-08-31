@@ -1,6 +1,6 @@
 import type { ConfigOverrides } from './config.js'
 import type { HookAction, ReportFormat, ScanFormat } from './shell.js'
-import type { ModelFamily } from './types.js'
+import type { ModelFamily, Register } from './types.js'
 
 export type ScanCommand = {
   readonly kind: 'scan'
@@ -10,8 +10,19 @@ export type ScanCommand = {
   readonly overrides: ConfigOverrides
 }
 
+export type RedlineCommand = {
+  readonly kind: 'redline'
+  readonly original: string
+  readonly notes: string | null
+  readonly out: string | null
+  readonly register: Register | null
+  /** Launch the written report in the system's default browser. */
+  readonly open: boolean
+}
+
 export type Command =
   | ScanCommand
+  | RedlineCommand
   | { readonly kind: 'consult'; readonly family: ModelFamily; readonly candidate: string }
   | { readonly kind: 'diff'; readonly original: string }
   | { readonly kind: 'accept'; readonly original: string; readonly approved: true }

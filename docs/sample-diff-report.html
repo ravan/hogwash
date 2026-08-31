@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sovereignty PoV Redline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+:root {
+  --paper:#FBFAF7; --surface:#FFFFFF; --ink:#1B1A17; --muted:#6E6A62;
+  --rule:#E4E0D6; --accent:#2E4B6B; --accent-soft:#EAF0F6;
+  --del-bg:#F8E6E2; --del-ink:#8C2F22; --del-edge:#D9B4AC;
+  --ins-bg:#DEEDE4; --ins-ink:#1C6741; --ins-edge:#A8CDB8;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:#15161A; --surface:#1C1E22; --ink:#E9E7E2; --muted:#97938B;
+    --rule:#2C2F35; --accent:#8FB3D9; --accent-soft:#1F2833;
+    --del-bg:#3B2421; --del-ink:#EBA99C; --del-edge:#5C3833;
+    --ins-bg:#1D3A2B; --ins-ink:#95D2AC; --ins-edge:#2F5A44;
+  }
+}
+:root[data-theme="dark"] {
+  --paper:#15161A; --surface:#1C1E22; --ink:#E9E7E2; --muted:#97938B;
+  --rule:#2C2F35; --accent:#8FB3D9; --accent-soft:#1F2833;
+  --del-bg:#3B2421; --del-ink:#EBA99C; --del-edge:#5C3833;
+  --ins-bg:#1D3A2B; --ins-ink:#95D2AC; --ins-edge:#2F5A44;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  font-size:16px; line-height:1.55;
+}
+.wrap { max-width:1180px; margin:0 auto; padding:0 24px 96px; }
+
+header.top { padding:56px 0 28px; border-bottom:1px solid var(--rule); }
+h1 {
+  font-family:"Source Serif 4",Georgia,serif; font-weight:600;
+  font-size:clamp(28px,4vw,42px); line-height:1.15; margin:0 0 10px;
+  text-wrap:balance; letter-spacing:-0.01em;
+}
+.sub { color:var(--muted); margin:0; max-width:62ch; }
+.sub code { font-family:"IBM Plex Mono",monospace; font-size:0.88em; }
+
+.stats { display:flex; flex-wrap:wrap; gap:0; margin:28px 0 0;
+  border:1px solid var(--rule); border-radius:3px; background:var(--surface); overflow:hidden; }
+.stat { flex:1 1 130px; padding:14px 18px; border-right:1px solid var(--rule); }
+.stat:last-child { border-right:none; }
+.stat .n { font-family:"IBM Plex Mono",monospace; font-size:24px; font-variant-numeric:tabular-nums;
+  display:block; line-height:1.2; }
+.stat .k { font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); }
+.stat .n .arrow { color:var(--muted); font-size:16px; padding:0 2px; }
+.stat .n .to { color:var(--accent); }
+
+.legend { display:flex; gap:20px; flex-wrap:wrap; align-items:center;
+  margin:22px 0 0; font-size:13px; color:var(--muted); }
+.swatch { display:inline-block; padding:1px 7px; border-radius:2px;
+  font-family:"Source Serif 4",Georgia,serif; }
+.swatch.d { background:var(--del-bg); color:var(--del-ink); text-decoration:line-through; }
+.swatch.i { background:var(--ins-bg); color:var(--ins-ink); }
+
+h2 { font-family:"Source Serif 4",Georgia,serif; font-weight:600; font-size:22px;
+  margin:56px 0 6px; }
+.note { color:var(--muted); margin:0 0 22px; max-width:64ch; font-size:14.5px; }
+
+.row { border:1px solid var(--rule); border-radius:3px; background:var(--surface);
+  margin:0 0 18px; overflow:hidden; }
+.row-head { display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  padding:10px 16px; background:var(--accent-soft); border-bottom:1px solid var(--rule); }
+.ln { font-family:"IBM Plex Mono",monospace; font-size:12.5px; font-weight:500;
+  color:var(--accent); font-variant-numeric:tabular-nums; }
+.sec { font-size:12.5px; color:var(--muted); }
+.chips { margin-left:auto; display:flex; gap:6px; flex-wrap:wrap; }
+.chip { font-family:"IBM Plex Mono",monospace; font-size:11px; padding:2px 7px;
+  border:1px solid var(--rule); border-radius:2px; color:var(--muted); background:var(--surface); }
+
+.cols { display:grid; grid-template-columns:1fr 1fr; }
+.col { padding:16px 18px 20px; }
+.col-a { border-right:1px solid var(--rule); }
+.col-label { font-size:10.5px; text-transform:uppercase; letter-spacing:.09em;
+  color:var(--muted); margin:0 0 8px; }
+.txt { font-family:"Source Serif 4",Georgia,serif; font-size:16.5px; line-height:1.62;
+  margin:0; }
+del { background:var(--del-bg); color:var(--del-ink); text-decoration:line-through;
+  text-decoration-thickness:1px; border-radius:2px; box-shadow:0 0 0 1px var(--del-edge) inset; }
+ins { background:var(--ins-bg); color:var(--ins-ink); text-decoration:none;
+  border-radius:2px; box-shadow:0 0 0 1px var(--ins-edge) inset; }
+
+.tablewrap { overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--surface); }
+table { border-collapse:collapse; width:100%; font-size:14px; min-width:640px; }
+th,td { text-align:left; padding:10px 14px; border-bottom:1px solid var(--rule); vertical-align:top; }
+th { font-size:10.5px; text-transform:uppercase; letter-spacing:.09em; color:var(--muted); font-weight:600; }
+tr:last-child td { border-bottom:none; }
+td code { font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--muted); }
+.why { color:var(--muted); }
+
+footer { margin-top:56px; padding-top:22px; border-top:1px solid var(--rule);
+  color:var(--muted); font-size:13.5px; }
+footer code { font-family:"IBM Plex Mono",monospace; font-size:0.92em; }
+
+@media (max-width:760px) {
+  .cols { grid-template-columns:1fr; }
+  .col-a { border-right:none; border-bottom:1px solid var(--rule); }
+  .chips { margin-left:0; width:100%; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+<h1>Your supervisor is about to ask a question your Linux estate cannot answer</h1>
+<p class="sub">Hogwash redline, scanner register <code>prose</code>. Fifteen passages changed in one rewrite pass. The original is unchanged on disk; this compares it against the candidate.</p>
+
+<div class="stats">
+<div class="stat"><span class="n">24<span class="arrow">&rarr;</span><span class="to">6</span></span><span class="k">Actionable findings</span></div>
+<div class="stat"><span class="n">7.2<span class="arrow">&rarr;</span><span class="to">1.9</span></span><span class="k">Density / 25 allowed</span></div>
+<div class="stat"><span class="n">15</span><span class="k">Passages changed</span></div>
+<div class="stat"><span class="n">6</span><span class="k">Owner-waived</span></div>
+<div class="stat"><span class="n">0</span><span class="k">Facts altered</span></div>
+</div>
+
+<p class="legend">
+<span><span class="swatch d">removed</span> cut from the original</span>
+<span><span class="swatch i">added</span> in the revision</span>
+<span>Rule that triggered the edit sits on the right of each header.</span>
+</p>
+</header>
+
+<h2>The fifteen changes</h2>
+<p class="note">Every edit is the smallest local change that clears its finding. Paragraph count, heading structure and sentence-length spread are unchanged, so the rhythm of the piece is not evened out.</p>
+
+<article class="row">
+<header class="row-head">
+<span class="ln">L10</span>
+<span class="sec">Summary</span>
+<span class="chips"><span class="chip">vale.hedging-phrases.at-the-same-time</span><span class="chip">tic.pseudo-elevated-diction</span></span>
+</header>
+<div class="cols">
+<div class="col col-a"><p class="col-label">Original</p><p class="txt">I know that three separate pressures are now landing on that exact layer at <del>the same time. </del>AI has broken the vulnerability backlog. Your regulator has turned vendor concentration from a procurement preference into a supervised fact. And your own staff are <del>quietly </del>feeding customer data to AI tools nobody approved.</p></div>
+<div class="col col-b"><p class="col-label">Revised</p><p class="txt">I know that three separate pressures are now landing on that exact layer at <ins>once. </ins>AI has broken the vulnerability backlog. Your regulator has turned vendor concentration from a procurement preference into a supervised fact. And your own staff are feeding customer data to AI tools nobody approved.</p></div>
+</div>
+</article>
+<article class="row">
+<header class="row-head">
+<span class="ln">L26</span>
+<span class="sec">1. The question you cannot answer yet</span>
+<span class="chips"><span class="chip">tic.placement-metaphor</span></span>
+</header>
+<div class="cols">
+<div class="col col-a"><p class="col-label">Original</p><p class="txt">That is a different question, and it has a different owner. <del>Operational risk lives with your </del>platform <del>team. </del>Evidential risk lands on the board.</p></div>
+<div class="col col-b"><p class="col-label">Revised</p><p class="txt">That is a different question, and it has a different owner. <ins>Your </ins>platform <ins>team owns the operational risk. </ins>Evidential risk lands on the board.</p></div>
+</div>
+</article>
+<article class="row">
+<header class="row-head">
+<span class="ln">L38</span>
+<span class="sec">2. AI broke the vulnerability backlog</span>
+<span class="chips"><span class="chip">rhetoric.setup</span><span class="chip">tic.pseudo-elevated-diction</span></span>
+</header>
+<div class="cols">
+<div class="col col-a"><p class="col-label">Original</p><p class="txt"><del>Read that again as a bank. </del>The public reference your risk process <del>quietly </del>depends on has told you it cannot keep up. It is a good, honest decision by NIST. It is also a decision that pushes the triage work back onto you.</p></div>
+<div class="col col-b"><p class="col-label">Revised</p><p class="txt">The public reference your risk process depends on has told you it cannot keep up. It is a good, honest decision by NIST. It is also a decision that pushes the triage work back onto you.</p></div>
+</div>
+</article>
+<article class="row">
+<header class="row-head">
+<span class="ln">L54</span>
+<span class="sec">3. Concentration stopped being your opinion</span>
+<span class="chips"><span class="chip">tic.pseudo-elevated-diction</span><span class="chip">tic.hype-vocabulary</span></span>
+</header>
+<div class="cols">
+<div class="col col-a"><p class="col-label">Original</p><p class="txt">Then read the European Central Bank (ECB) supervisory priorities for 2026 to 2028. The language is unusually direct. Banks are &quot;heavily dependent on a handful of third-party service providers, many of which are based outside the EU.&quot; Supervisors have committed to <del>a deep dive into </del>cloud provider dependency and preparedness for service disruption.</p></div>
+<div class="col col-b"><p class="col-label">Revised</p><p class="txt">Then read the European Central Bank (ECB) supervisory priorities for 2026 to 2028. The language is unusually direct. Banks are &quot;heavily dependent on a handful of third-party service providers, many of which are based outside the EU.&quot; Supervisors have committed to <ins>examining </ins>cloud provider dependency and preparedness for service disruption.</p></div>
+</div>
+</article>
+<article class="row">
+<header class="row-head">
+<span class="ln">L92</span>
+<span class="sec">4. Shadow AI reached the payment rails</span>
+<span class="chips"><span class="chip">tic.reflective-pose</span></span>
+</header>
+<div class="cols">
+<div class="col col-a"><p class="col-label">Original</p><p class="txt">I <del>keep coming back to </del>this with <del>banks, </del>because the framing is usually wrong. Treat Shadow AI as an employee discipline problem and it will keep happening. **It is a supply problem.** People use the outside tool because the inside tool does not exist. Block the outside tool and the work does not stop. It moves to a phone.</p></div>
+<div class="col col-b"><p class="col-label">Revised</p><p class="txt">I <ins>raise </ins>this with <ins>banks often, </ins>because the framing is usually wrong. Treat Shadow AI as an employee discipline problem and it will keep happening. **It is a supply problem.** People use the outside tool because the inside tool does not exist. Block the outside tool and the work does not stop. It moves to a phone.</p></div>
+</div>
+</article>
+<article class="row">
+<header class="row-head">
+<span class="ln">L104</span>
+<span class="sec">5. Why nothing has happened yet</span>
+<span class="chips"><span class="chip">xv.vocab.strategically</span></span>
+</header>
+<div class="cols">
+<div class="col col-a"><p class="col-label">Original</p><p class="txt">**Your advisers have reason to defer.** The integrators who would run the work are deep in the incumbent platform. Their certifications, delivery methods and reference architectures are built on it, and their commercial interest sits in work they can already staff. The advice that comes back is technically sound and <del>strategically conservative. </del>I am not accusing anyone of bad faith. Read the incentive and you get the outcome without needing to.</p></div>
+<div class="col col-b"><p class="col-label">Revised</p><p class="txt">**Your advisers have reason to defer.** The integrators who would run the work are deep in the incumbent platform. Their certifications, delivery methods and reference architectures are built on it, and their commercial interest sits in work they can already staff. The advice that comes back is technically sound and <ins>cautious on strategy. </ins>I am not accusing anyone of bad faith. Read the incentive and you get the outcome without needing to.</p></div>
+</div>
+</article>
+<article class="row">
+<header class="row-head">
+<span class="ln">L126</span>
+<span class="sec">5. Why nothing has happened yet</span>
+<span class="chips"><span class="chip">tic.value-claim</span></span>
+</header>
+<div class="cols">
+<div class="col col-a"><p class="col-label">Original</p><p class="txt"><del>That distinction is worth being </del>strict <del>about, </del>because getting it wrong is how these programmes get half-funded and then stall.</p></div>
+<div class="col col-b"><p class="col-label">Revised</p><p class="txt"><ins>Be </ins>strict <ins>about that distinction, </ins>because getting it wrong is how these programmes get half-funded and then stall.</p></div>
+</div>
+</article>
+<article class="row">
+<header class="row-head">
+<span class="ln">L155</span>
+<span class="sec">5. Who you should be talking to</span>
+<span class="chips"><span class="chip">tic.value-claim</span></span>
+</header>
+<div class="cols">
+<div class="col col-a"><p class="col-label">Original</p><p class="txt">One consequence <del>is worth sitting with, because it </del>reorders your internal conversation.</p></div>
+<div class="col col-b"><p class="col-label">Revised</p><p class="txt">One consequence reorders your internal conversation.</p></div>
+</div>
+</article>
+<article class="row">
+<header class="row-head">
+<span class="ln">L157</span>
+<span class="sec">5. Who you should be talking to</span>
+<span class="chips"><span class="chip">tic.value-claim</span></span>
+</header>
+<div class="cols">
+<div class="col col-a"><p class="col-label">Original</p><p class="txt">The CIO owns the roadmap and, this year, <del>genuinely </del>cannot fund the structural work. The CISO and the chief risk officer own a register, a reserve and a supervisory relationship. Everything in this paper that can be described as a mitigation belongs in that second conversation, and most banks are only having the first one.</p></div>
+<div class="col col-b"><p class="col-label">Revised</p><p class="txt">The CIO owns the roadmap and, this year, cannot fund the structural work. The CISO and the chief risk officer own a register, a reserve and a supervisory relationship. Everything in this paper that can be described as a mitigation belongs in that second conversation, and most banks are only having the first one.</p></div>
+</div>
+</article>
+<article class="row">
+<header class="row-head">
+<span class="ln">L197</span>
+<span class="sec">6. Reframe three: the cost of leaving</span>
+<span class="chips"><span class="chip">tic.staccato-negation</span><span class="chip">voice: not-this-but-that</span></span>
+</header>
+<div class="cols">
+<div class="col col-a"><p class="col-label">Original</p><p class="txt">The exit cost is what sets your negotiating position, so leaving it out systematically overstates how good your incumbent deal is. It is also how a repricing works: a vendor can raise the price up to the level of your exit cost and remain the rational choice. <del>That is not a hypothetical, it is what the </del>virtualisation market watched happen.</p></div>
+<div class="col col-b"><p class="col-label">Revised</p><p class="txt">The exit cost is what sets your negotiating position, so leaving it out systematically overstates how good your incumbent deal is. It is also how a repricing works: a vendor can raise the price up to the level of your exit cost and remain the rational choice. <ins>The </ins>virtualisation market watched <ins>that </ins>happen.</p></div>
+</div>
+</article>
+<article class="row">
+<header class="row-head">
+<span class="ln">L199</span>
+<span class="sec">6. Reframe three: the cost of leaving</span>
+<span class="chips"><span class="chip">tic.value-claim</span></span>
+</header>
+<div class="cols">
+<div class="col col-a"><p class="col-label">Original</p><p class="txt">Once you write TCO the honest way, something changes in how the work gets funded. Portable workloads, open interfaces and automated verification stop being sovereignty spending. They become a correction to a calculation that was already wrong. **This does not add a cost centre. It puts a deadline on work <del>that was </del>already <del>worth doing.**</del></p></div>
+<div class="col col-b"><p class="col-label">Revised</p><p class="txt">Once you write TCO the honest way, something changes in how the work gets funded. Portable workloads, open interfaces and automated verification stop being sovereignty spending. They become a correction to a calculation that was already wrong. **This does not add a cost centre. It puts a deadline on work <ins>you </ins>already <ins>had reason to do.**</ins></p></div>
+</div>
+</article>
+<article class="row">
+<header class="row-head">
+<span class="ln">L211</span>
+<span class="sec">6. The filter: three tests</span>
+<span class="chips"><span class="chip">vale.formal-transitions.in-turn</span></span>
+</header>
+<div class="cols">
+<div class="col col-a"><p class="col-label">Original</p><p class="txt">Apply them to us as well. Any recommendation SUSE makes should be able to state what it would cost to replace SUSE <del>in turn. </del>A test you will not apply to yourself is marketing.</p></div>
+<div class="col col-b"><p class="col-label">Revised</p><p class="txt">Apply them to us as well. Any recommendation SUSE makes should be able to state what it would cost to replace SUSE <ins>too. </ins>A test you will not apply to yourself is marketing.</p></div>
+</div>
+</article>
+<article class="row">
+<header class="row-head">
+<span class="ln">L217</span>
+<span class="sec">7. Split the partner strategy</span>
+<span class="chips"><span class="chip">tic.value-claim</span></span>
+</header>
+<div class="cols">
+<div class="col col-a"><p class="col-label">Original</p><p class="txt">The reason is the work itself. The two halves of your platform have <del>genuinely </del>different jobs.</p></div>
+<div class="col col-b"><p class="col-label">Revised</p><p class="txt">The reason is the work itself. The two halves of your platform have different jobs.</p></div>
+</div>
+</article>
+<article class="row">
+<header class="row-head">
+<span class="ln">L225</span>
+<span class="sec">7. Split the partner strategy</span>
+<span class="chips"><span class="chip">tic.docs-gate-vocabulary</span></span>
+</header>
+<div class="cols">
+<div class="col col-a"><p class="col-label">Original</p><p class="txt">Uptime redundancy you already have. **The design goal here is that <del>losing </del>one supplier relationship <del>is survivable**, </del>commercially, politically and legally.</p></div>
+<div class="col col-b"><p class="col-label">Revised</p><p class="txt">Uptime redundancy you already have. **The design goal here is that <ins>you can lose </ins>one supplier relationship <ins>and keep running**, </ins>commercially, politically and legally.</p></div>
+</div>
+</article>
+<article class="row">
+<header class="row-head">
+<span class="ln">L241</span>
+<span class="sec">8. Move zero: out-of-support estate</span>
+<span class="chips"><span class="chip">xv.vocab.alongside</span></span>
+</header>
+<div class="cols">
+<div class="col col-a"><p class="col-label">Original</p><p class="txt">SUSE Multi-Linux Support provides sustained maintenance and security updates for RHEL versions 6 through 9 and for CentOS, <del>alongside </del>SUSE Linux Enterprise Server (SLES), and does it **with no migration**. CentOS 7 coverage extends to 30 June 2028. Security updates run against a defined threshold, CVSS 7 and above on the base system, which is the language a risk register can use.</p></div>
+<div class="col col-b"><p class="col-label">Revised</p><p class="txt">SUSE Multi-Linux Support provides sustained maintenance and security updates for RHEL versions 6 through 9 and for CentOS, <ins>as well as </ins>SUSE Linux Enterprise Server (SLES), and does it **with no migration**. CentOS 7 coverage extends to 30 June 2028. Security updates run against a defined threshold, CVSS 7 and above on the base system, which is the language a risk register can use.</p></div>
+</div>
+</article>
+
+<h2>Six findings left standing</h2>
+<p class="note">These were put to the author as choices and waived deliberately. They stay in the report so the decision is visible rather than silently edited away.</p>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Line</th><th>Rule</th><th>Match</th><th>Why it stands</th></tr></thead>
+<tbody><tr><td class="ln">L54</td><td><code>vale.figurative-quantities.a-handful</code></td><td>&ldquo;a handful&rdquo;</td><td class="why">Verbatim ECB quotation. Altering a citation to satisfy a style rule is a fidelity problem.</td></tr><tr><td class="ln">L253</td><td><code>xv.vocab.promise</code></td><td>&ldquo;we promise we will not&rdquo;</td><td class="why">Author&rsquo;s own quoted contrast. Rewriting it changes the claim.</td></tr><tr><td class="ln">L253</td><td><code>tic.docs-gate-vocabulary</code></td><td>&ldquo;we structurally cannot&rdquo;</td><td class="why">Carries the actual claim rather than filling space.</td></tr><tr><td class="ln">L287</td><td><code>ban/empowers</code></td><td>&ldquo;empowers&rdquo;</td><td class="why">About SUSE boilerplate: a fixed brand asset, exempt by the author&rsquo;s own rule.</td></tr><tr><td class="ln">L287</td><td><code>wiki.vocab.promotional</code></td><td>&ldquo;industry-leading&rdquo;</td><td class="why">Same boilerplate exemption.</td></tr><tr><td class="ln">L287</td><td><code>marketing.buzzword</code></td><td>&ldquo;mission-critical&rdquo;</td><td class="why">Same boilerplate exemption.</td></tr></tbody>
+</table>
+</div>
+
+<footer>
+Generated from <code>docs/sovereignty-pov-banking.md</code> and <code>docs/sovereignty-pov-banking-hogwash.md</code> in <code>~/projects/writing</code>. Scores: reads-human 7&rarr;8, content quality 8&rarr;8 (unchanged, as source fidelity requires).
+</footer>
+</div>
+</body>
+</html>
