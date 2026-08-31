@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test'
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { candidatePath } from '../../skills/hogwash/scripts/candidate.js'
 import { run } from '../../skills/hogwash/scripts/cli.js'
@@ -36,6 +36,63 @@ describe('scan', () => {
     const report = ReportSchema.parse(readWrittenReport(created.cwd))
     const advisory = report.files[0]?.findings.filter((finding) => !finding.actionable) ?? []
     expect(advisory.length).toBeGreaterThan(0)
+  })
+})
+
+describe('scan --short', () => {
+  it('runs without hogwash.json, resolving the ban list through the home .idiolect', async () => {
+    const created = harness()
+    rmSync(join(created.cwd, 'hogwash.json'))
+    rmSync(join(created.cwd, 'profile'), { recursive: true })
+    mkdirSync(join(created.home, '.idiolect', 'profile'), { recursive: true })
+    writeFileSync(
+      join(created.home, '.idiolect', 'profile', 'ban-list.md'),
+      '- delve \u2014 filler\n',
+      'utf8',
+    )
+    const target = join(created.cwd, 'draft.md')
+    writeFileSync(target, 'We delve into it.\n', 'utf8')
+    expect(await run(['scan', '--short', '--output', 'json', target], created.shell)).toBe(1)
+    const report = ReportSchema.parse(JSON.parse(created.stdout[0] ?? ''))
+    const rules = report.files[0]?.findings.map((finding) => finding.ruleId) ?? []
+    expect(rules).toContain('ban/delve')
+  })
+
+  it('scans with bundled defaults when hogwash.json and every profile are missing', async () => {
+    const created = harness()
+    rmSync(join(created.cwd, 'hogwash.json'))
+    rmSync(join(created.cwd, 'profile'), { recursive: true })
+    const target = join(created.cwd, 'draft.md')
+    writeFileSync(target, 'It is a game-changer.\n', 'utf8')
+    expect(await run(['scan', '--output', 'json', target], created.shell)).toBe(1)
+    const report = ReportSchema.parse(JSON.parse(created.stdout[0] ?? ''))
+    const rules = report.files[0]?.findings.map((finding) => finding.ruleId) ?? []
+    expect(rules).toContain('marketing.buzzword')
+    expect(created.stderr.join('\n')).toContain('defaults')
+  })
+
+  it('keeps the ban list mandatory when hogwash.json exists', async () => {
+    const created = harness()
+    rmSync(join(created.cwd, 'profile'), { recursive: true })
+    const target = join(created.cwd, 'draft.md')
+    writeFileSync(target, 'Hello.\n', 'utf8')
+    expect(await run(['scan', target], created.shell)).toBe(2)
+    expect(created.stderr.join('\n')).toContain('ban list')
+  })
+
+  it('selects fewer rules than a full scan', async () => {
+    const full = harness()
+    const short = harness()
+    for (const created of [full, short]) {
+      writeFileSync(join(created.cwd, 'draft.md'), 'Hello.\n', 'utf8')
+    }
+    await run(['scan', join(full.cwd, 'draft.md')], full.shell)
+    await run(['scan', '--short', join(short.cwd, 'draft.md')], short.shell)
+    const active = (lines: readonly string[]): number => {
+      const line = lines.find((entry) => entry.includes('active rules'))
+      return Number(/with (\d+) active rules/.exec(line ?? '')?.[1] ?? Number.NaN)
+    }
+    expect(active(short.stderr)).toBeLessThan(active(full.stderr))
   })
 })
 

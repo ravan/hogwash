@@ -16,6 +16,7 @@ export type QueryFactory = (family: ModelFamily, models: Models) => AgentQuery |
 export type Harness = {
   readonly shell: Shell
   readonly cwd: string
+  readonly home: string
   readonly stdout: string[]
   readonly stderr: string[]
   readonly processes: { command: string; args: readonly string[]; wait: boolean }[]
@@ -26,6 +27,7 @@ export type Harness = {
 
 export const harness = (queryFor: QueryFactory = () => null): Harness => {
   const cwd = mkdtempSync(join(tmpdir(), 'hogwash-cli-'))
+  const home = mkdtempSync(join(tmpdir(), 'hogwash-home-'))
   const stdout: string[] = []
   const stderr: string[] = []
   const processes: { command: string; args: readonly string[]; wait: boolean }[] = []
@@ -37,6 +39,7 @@ export const harness = (queryFor: QueryFactory = () => null): Harness => {
   writeFileSync(join(cwd, 'profile', 'ban-list.md'), '# Ban list\n\n- delve — filler\n', 'utf8')
   return {
     cwd,
+    home,
     stdout,
     stderr,
     processes,
@@ -52,6 +55,7 @@ export const harness = (queryFor: QueryFactory = () => null): Harness => {
     },
     shell: {
       cwd,
+      home,
       now: () => '2026-01-01T00:00:00.000Z',
       stdout: (line) => stdout.push(line),
       stderr: (line) => stderr.push(line),

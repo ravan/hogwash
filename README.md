@@ -77,7 +77,7 @@ The scan exit code is density-based, where density is the weighted actionable fi
 
 ### Configure
 
-Hogwash reads `hogwash.json` from the working directory. Unknown and retired keys are errors, and paths resolve from the working directory. [hogwash.example.json](hogwash.example.json) shows the complete defaults. The main settings:
+Hogwash reads `hogwash.json` from the working directory. The file is optional: when it is absent, the built-in defaults apply (advanced consultation stays off; both advisers default to Claude once a project enables it), profile paths resolve through `~/.idiolect/` after the project, and a missing ban list is tolerated for scanning. Write the file only when the project needs fine-tuning. Unknown and retired keys are errors, and paths resolve from the working directory, then from `~/.idiolect/`. [hogwash.example.json](hogwash.example.json) shows the complete defaults. The main settings:
 
 - `register`: the project's default writing context, which selects stylometric baselines and rule weights: `technical`, `prose`, or `marketing`. `scan --register <name>` overrides it per document.
 - `threshold`: the density above which `scan` exits `1`.

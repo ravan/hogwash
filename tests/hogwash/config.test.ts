@@ -14,8 +14,8 @@ import { ThresholdSchema } from '../../skills/hogwash/scripts/types.js'
 const directory = (): string => mkdtempSync(join(tmpdir(), 'hogwash-config-'))
 
 describe('strict configuration', () => {
-  it('requires hogwash.json', async () => {
-    await expect(loadConfig(directory())).rejects.toBeInstanceOf(HogwashError)
+  it('falls back to defaults when hogwash.json is missing', async () => {
+    expect(await loadConfig(directory())).toEqual(ConfigSchema.parse({}))
   })
 
   it('fills the runtime defaults', () => {
@@ -33,7 +33,7 @@ describe('strict configuration', () => {
         useConsultant: true,
         useSubagent: true,
         consultant: 'claude',
-        subagent: 'codex',
+        subagent: 'claude',
       },
     })
     expect(config.models).toEqual({
@@ -135,10 +135,45 @@ describe('strict configuration', () => {
     writeFileSync(join(cwd, 'hogwash.json'), '{"register":"marketing","threshold":40}', 'utf8')
     const config = await loadConfig(cwd)
     expect(
-      applyOverrides(config, { register: 'prose', threshold: ThresholdSchema.parse(10) }),
+      applyOverrides(config, {
+        register: 'prose',
+        threshold: ThresholdSchema.parse(10),
+        short: false,
+      }),
     ).toMatchObject({
       register: 'prose',
       threshold: 10,
     })
+  })
+})
+
+describe('applyOverrides short mode', () => {
+  const none = { register: null, threshold: null, short: false } as const
+
+  it('keeps every configured pack when short mode is off', () => {
+    const config = ConfigSchema.parse({})
+    expect(applyOverrides(config, { ...none }).packs).toEqual(config.packs)
+  })
+
+  it('drops the long-document statistics packs in short mode', () => {
+    const config = ConfigSchema.parse({})
+    const short = applyOverrides(config, { ...none, short: true })
+    expect(short.packs).not.toContain('stylometry')
+    expect(short.packs).not.toContain('excess-vocab')
+    expect(short.packs).toContain('claudisms')
+    expect(short.packs).toContain('slop-gate')
+  })
+
+  it('composes short mode with a register override', () => {
+    const config = ConfigSchema.parse({})
+    const short = applyOverrides(config, { ...none, short: true, register: 'prose' })
+    expect(short.register).toBe('prose')
+    expect(short.packs).not.toContain('stylometry')
+  })
+
+  it('defaults to claude for both advisers', () => {
+    const advanced = ConfigSchema.parse({}).workflow.advanced
+    expect(advanced.consultant).toBe('claude')
+    expect(advanced.subagent).toBe('claude')
   })
 })

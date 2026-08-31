@@ -1,16 +1,16 @@
-import { join } from 'node:path'
 import { acceptCandidate, requireCandidate } from './candidate.js'
 import { reportFailure, runReport } from './command.js'
 import type { Command } from './commands.js'
 import type { Config } from './config.js'
-import { banListPath, loadConfig } from './config.js'
+import { applyOverrides, banListPath, loadConfigDetailed } from './config.js'
 import { runConsult } from './consult.js'
 import { HogwashError } from './errors.js'
 import { installHook } from './hook/install.js'
 import { preCommitScript } from './hook/script.js'
 import { initProject } from './init.js'
+import { profileCandidates } from './profile.js'
 import { type ProgressCommand, reportProgress } from './progress.js'
-import { loadBanList } from './rules/banlist.js'
+import { loadBanList, loadBanListIfPresent } from './rules/banlist.js'
 import { renderRuleExplanation, renderRuleList } from './rules/explain.js'
 import type { LoadedRule } from './rules/packs.js'
 import { loadBundledPacks, selectRules } from './rules/packs.js'
@@ -24,7 +24,7 @@ export type { HookAction, ReportFormat, ScanFormat, Shell } from './shell.js'
 
 const USAGE =
   'usage: bun scripts/hogwash.ts scan [--output <terminal|json|sarif>] [--json] [--sarif]\n' +
-  '                                   [--verbose] [--register <name>] [--threshold <n>] <files...>\n' +
+  '                                   [--verbose] [--short] [--register <name>] [--threshold <n>] <files...>\n' +
   '       bun scripts/hogwash.ts consult --family <claude|codex|gemini> <candidate>\n' +
   '       bun scripts/hogwash.ts diff <original>\n' +
   '       bun scripts/hogwash.ts accept --approved <original>\n' +
@@ -65,6 +65,7 @@ const parseScan = (rest: readonly string[]): Command => {
   let alias = false
   let output = false
   let verbose = false
+  let short = false
   let register: Register | null = null
   let threshold: Threshold | null = null
   for (let index = 0; index < rest.length; index += 1) {
@@ -78,6 +79,8 @@ const parseScan = (rest: readonly string[]): Command => {
       output = true
     } else if (argument === '--verbose') {
       verbose = true
+    } else if (argument === '--short') {
+      short = true
     } else if (argument === '--register') {
       register = parseRegister(rest[++index])
     } else if (argument === '--threshold') {
@@ -89,7 +92,7 @@ const parseScan = (rest: readonly string[]): Command => {
     }
   }
   if (files.length === 0 || (alias && output)) return usageFailure()
-  return { kind: 'scan', files, format, verbose, overrides: { register, threshold } }
+  return { kind: 'scan', files, format, verbose, overrides: { register, threshold, short } }
 }
 
 const parseFamily = (value: string | undefined): ModelFamily => {
@@ -160,11 +163,17 @@ export function parseArgs(argv: readonly string[]): Command {
   }
 }
 
-async function loadRules(cwd: string, config: Config): Promise<readonly LoadedRule[]> {
-  const banPath = banListPath(config)
-  const banPack = await loadBanList(join(cwd, banPath))
-  return selectRules([...loadBundledPacks(), banPack], {
-    packs: [...config.packs, banPack.name],
+async function loadRules(
+  shell: Shell,
+  config: Config,
+  banListRequired: boolean,
+): Promise<readonly LoadedRule[]> {
+  const candidates = profileCandidates(shell.cwd, banListPath(config), shell.home)
+  const banPack = banListRequired
+    ? await loadBanList(candidates)
+    : await loadBanListIfPresent(candidates)
+  return selectRules([...loadBundledPacks(), ...(banPack === null ? [] : [banPack])], {
+    packs: banPack === null ? [...config.packs] : [...config.packs, banPack.name],
     gates: config.gates,
     deprecated: config.includeDeprecatedRules,
   })
@@ -190,7 +199,10 @@ export async function run(argv: readonly string[], shell: Shell): Promise<ExitCo
     if (progressCommand !== null) {
       reportProgress(shell, progressCommand, 'loading configuration', 'info')
     }
-    const config = await loadConfig(shell.cwd)
+    const { config, fromFile } = await loadConfigDetailed(shell.cwd)
+    if (progressCommand !== null && !fromFile) {
+      reportProgress(shell, progressCommand, 'no hogwash.json; scanning with defaults', 'info')
+    }
     switch (command.kind) {
       case 'report':
         return await runReport(command.format, shell)
@@ -199,14 +211,16 @@ export async function run(argv: readonly string[], shell: Shell): Promise<ExitCo
           command.action === 'install' ? await installHook(shell.cwd) : preCommitScript(),
         )
         return 0
-      case 'scan':
+      case 'scan': {
         reportProgress(shell, 'scan', 'loading rules', 'info')
+        const effective = applyOverrides(config, command.overrides)
         return await runScan({
           command,
-          config,
-          selected: await loadRules(shell.cwd, config),
+          config: effective,
+          selected: await loadRules(shell, effective, fromFile),
           shell,
         })
+      }
       case 'consult':
         await runConsult({ ...command, config, shell })
         return 0
@@ -217,7 +231,7 @@ export async function run(argv: readonly string[], shell: Shell): Promise<ExitCo
         shell.stdout(await acceptCandidate(command.original))
         return 0
       case 'rules': {
-        const selected = await loadRules(shell.cwd, config)
+        const selected = await loadRules(shell, config, fromFile)
         shell.stdout(
           command.explain === null
             ? renderRuleList(selected)

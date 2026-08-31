@@ -9,6 +9,8 @@ export type HookAction = 'print' | 'install'
 /** Every host-owned side effect used by the CLI core. */
 export type Shell = {
   readonly cwd: string
+  /** Home directory override; os.homedir() when absent. */
+  readonly home?: string
   readonly now: () => string
   readonly stdout: (line: string) => void
   readonly stderr: (line: string) => void

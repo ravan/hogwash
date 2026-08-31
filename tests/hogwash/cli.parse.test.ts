@@ -16,7 +16,7 @@ describe('parseArgs', () => {
       files: ['a.md'],
       format: 'json',
       verbose: false,
-      overrides: { register: 'prose', threshold: ThresholdSchema.parse(12) },
+      overrides: { register: 'prose', threshold: ThresholdSchema.parse(12), short: false },
     })
   })
 

@@ -16,7 +16,7 @@ describe('init', () => {
       useConsultant: true,
       useSubagent: true,
       consultant: 'claude',
-      subagent: 'codex',
+      subagent: 'claude',
     })
     expect(config.models).toEqual({
       claude: { model: 'opus', effort: 'high' },

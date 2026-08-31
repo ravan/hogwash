@@ -1,6 +1,6 @@
 ---
 name: hogwash
-description: Use when the user wants to scan prose for machine-writing artifacts, rewrite a document in a sibling file, review a Hogwash candidate, accept an approved rewrite, configure Hogwash, build the required voice, quality, and ban-list profiles, or sync the scanner rule packs from their upstream sources.
+description: Use when the user wants to scan prose for machine-writing artifacts, rewrite a document in a sibling file, review a Hogwash candidate, accept an approved rewrite, configure Hogwash, build the required voice, quality, and ban-list profiles, sync the scanner rule packs from their upstream sources, or when another skill needs a short message (email, chat reply, PR or commit comment) cleaned in one pass via short mode.
 ---
 
 # Hogwash
@@ -23,11 +23,11 @@ bun "$SKILL/scripts/hogwash.ts" scan --output json docs/post.md
 
 A scan exits nonzero when the scanned file has findings. That is the report, not a failure; the JSON on stdout is still valid. Redirect `--output json` scans to a scratch file and read the file, because a full report often overflows a terminal capture.
 
-The scripts read `hogwash.json` and the profile files from the current working directory, so keep the project directory as the working directory. A relative profile path that does not exist in the project resolves against `~/.idiolect/` instead, so several projects can share one voice through `~/.idiolect/profiles/<name>/`. The project copy always wins when both exist. Bun 1.4 or later is required. If `bun` is missing, report that and stop.
+The scripts read `hogwash.json` and the profile files from the current working directory, so keep the project directory as the working directory. `hogwash.json` is optional: when it is absent, the built-in defaults apply and the scripts say so on stderr. The defaults keep `workflow.advanced` off — no consultant, no subagent; when a project turns it on, both advisers default to Claude. A relative profile path that does not exist in the project resolves against `~/.idiolect/` instead, so several projects can share one voice through `~/.idiolect/profiles/<name>/`. The project copy always wins when both exist. Bun 1.4 or later is required. If `bun` is missing, report that and stop.
 
 ## Set the project up
 
-If `hogwash.json` does not exist in the project, run:
+No setup is required to scan: without `hogwash.json` the defaults apply, and profiles are found in the project or under `~/.idiolect/`. Run init only when the project needs its own fine-tuning (packs, threshold, register, models, diff viewer) or its own local profile seeds:
 
 ```sh
 bun "$SKILL/scripts/hogwash.ts" init
@@ -36,6 +36,19 @@ bun "$SKILL/scripts/hogwash.ts" init
 This writes `hogwash.json` and copies `profile/voice.md`, `profile/quality.md`, and `profile/ban-list.md` from the bundled templates. It never overwrites a profile that already exists. It installs nothing else, because this skill is already installed.
 
 The copied profiles are seeds. The `/idiolect` skill builds the real ones: it captures the voice as evidence-backed mechanics and may add per-format overlays in a `registers/` directory beside the voice profile. Only the user runs `/idiolect`. Suggest it when the profiles need work; never invoke it yourself.
+
+## Short mode: one pass for short messages
+
+Short mode cleans one short message — an email, a chat reply, a PR or commit comment. It is the entry point other skills call. Callers stay on this surface: they never pick packs, read rule internals, or touch the document workflow. None of the document machinery applies in short mode: no candidate file, no baseline ledger, no pass counter, no advisers, no review gate, no plan surface, no score block. The caller owns the draft and the send decision.
+
+The contract:
+
+1. Write the draft to a scratch file.
+2. Scan it: `bun "$SKILL/scripts/hogwash.ts" scan --short --output json <file>`. Add `--register prose` for email and chat; the default `technical` register fits code-adjacent comments. `--short` turns off the rules whose statistics need a long document.
+3. Rewrite the draft once. Fix every actionable finding and apply the voice profile, the register overlay matching the format when one exists, and the ban list — all inside the source-fidelity boundary below.
+4. Rescan once. Return the rewritten text with a one-line status: clean, or each remaining finding and why it stands.
+
+Like every hogwash command, short mode works without a project `hogwash.json`: defaults apply, and profile paths resolve through `~/.idiolect/` as described above. A finding that would need the author's call (a flagged claim, a meaning change) is never resolved silently: leave the text as written and name it in the status line.
 
 ## Keep these boundaries
 
@@ -87,7 +100,9 @@ Hogwash is an editing workflow, not a research or authorship workflow. The origi
 
 ## Validate the project
 
-Before any workflow action, read `hogwash.json` and confirm that all three `profile` paths exist and contain text. Resolve each relative path in the project first; when the file is not there, resolve the same path under `~/.idiolect/` (for example `profiles/rav/voice.md` → `~/.idiolect/profiles/rav/voice.md`). A profile counts as present when either copy exists; the project copy wins when both do. Confirm that `workflow.maxPasses` is a positive integer. One missing profile means that the scaffold is incomplete. Run `bun "$SKILL/scripts/hogwash.ts" init` to create missing scaffold files. The command preserves every profile that already exists.
+Before any workflow action, read `hogwash.json` when it exists and confirm that all three `profile` paths exist and contain text. Resolve each relative path in the project first; when the file is not there, resolve the same path under `~/.idiolect/` (for example `profiles/rav/voice.md` → `~/.idiolect/profiles/rav/voice.md`). A profile counts as present when either copy exists; the project copy wins when both do. Confirm that `workflow.maxPasses` is a positive integer.
+
+A missing `hogwash.json` is not an error: the defaults apply, and this validation continues against the default profile paths. Only in this no-config default mode does a scan-only run tolerate a missing ban list. When `hogwash.json` exists, the configured ban list must resolve for every scan: an explicit config is validated strictly. The document rewrite workflow requires all three profiles to resolve in both modes. When a profile is missing everywhere, run `bun "$SKILL/scripts/hogwash.ts" init` to create the scaffold files (it preserves every profile that already exists), and suggest `/idiolect` for the real voice.
 
 A malformed or schema-invalid `hogwash.json` stops the workflow. If reading the file fails or any Hogwash command reports a configuration error, report the exact error and ask the user to fix the configuration. Do not edit or bypass the configuration, create or resume a candidate, or continue with another workflow action.
 

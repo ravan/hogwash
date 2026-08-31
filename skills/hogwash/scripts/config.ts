@@ -37,7 +37,7 @@ export const AdvancedSchema = z.strictObject({
   useConsultant: z.boolean().default(true),
   useSubagent: z.boolean().default(true),
   consultant: ModelFamilySchema.default('claude'),
-  subagent: ModelFamilySchema.default('codex'),
+  subagent: ModelFamilySchema.default('claude'),
 })
 export type Advanced = z.infer<typeof AdvancedSchema>
 
@@ -94,23 +94,33 @@ export const CONFIG_FILE = 'hogwash.json'
 export type ConfigOverrides = {
   readonly register: Config['register'] | null
   readonly threshold: Config['threshold'] | null
+  /** Short-message tuning: drop the packs whose statistics need a long document. */
+  readonly short: boolean
 }
+
+const SHORT_EXCLUDED_PACKS: ReadonlySet<string> = new Set(['stylometry', 'excess-vocab'])
 
 const ErrnoSchema = z.object({ code: z.string() })
 const isMissing = (error: unknown): boolean => ErrnoSchema.safeParse(error).data?.code === 'ENOENT'
 
 /** Read and strictly validate the required project configuration. */
-export async function loadConfig(cwd: string): Promise<Config> {
+export type LoadedConfig = {
+  readonly config: Config
+  /** False when hogwash.json is absent and the built-in defaults apply. */
+  readonly fromFile: boolean
+}
+
+/** Read the project configuration; a missing file means the defaults. */
+export async function loadConfigDetailed(cwd: string): Promise<LoadedConfig> {
   const path = join(cwd, CONFIG_FILE)
   let source: string
   try {
     source = await readFile(path, 'utf8')
   } catch (error) {
+    if (isMissing(error)) return { config: ConfigSchema.parse({}), fromFile: false }
     throw new HogwashError({
       kind: 'config',
-      message: isMissing(error)
-        ? `Missing required config ${path}; run hogwash init.`
-        : `Could not read ${path}: ${error instanceof Error ? error.message : String(error)}`,
+      message: `Could not read ${path}: ${error instanceof Error ? error.message : String(error)}`,
     })
   }
   let parsed: unknown
@@ -123,11 +133,16 @@ export async function loadConfig(cwd: string): Promise<Config> {
     })
   }
   const result = ConfigSchema.safeParse(parsed)
-  if (result.success) return result.data
+  if (result.success) return { config: result.data, fromFile: true }
   const issues = result.error.issues
     .map((issue) => `${issue.path.join('.') || '(root)'}: ${issue.message}`)
     .join('; ')
   throw new HogwashError({ kind: 'config', message: `Invalid config in ${path}: ${issues}` })
+}
+
+/** Read and validate the configuration, applying defaults when the file is missing. */
+export async function loadConfig(cwd: string): Promise<Config> {
+  return (await loadConfigDetailed(cwd)).config
 }
 
 export function defaultConfigJson(): string {
@@ -157,5 +172,8 @@ export function applyOverrides(config: Config, overrides: ConfigOverrides): Conf
     ...config,
     register: overrides.register ?? config.register,
     threshold: overrides.threshold ?? config.threshold,
+    packs: overrides.short
+      ? config.packs.filter((pack) => !SHORT_EXCLUDED_PACKS.has(pack))
+      : config.packs,
   }
 }

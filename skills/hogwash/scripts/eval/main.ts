@@ -74,6 +74,7 @@ try {
       const itemConfig = applyOverrides(config, {
         register: item.item.register,
         threshold: null,
+        short: false,
       })
       const file = buildReport(
         [{ path: item.item.path, text: item.text }],

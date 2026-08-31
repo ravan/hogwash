@@ -108,19 +108,47 @@ export function banPackOf(entries: readonly BanEntry[], origin: string): RulePac
 
 const ErrnoSchema = z.object({ code: z.string() })
 
+/** Try each candidate in order; null when every one is missing. Other errors throw. */
+async function readBanSource(
+  candidates: readonly string[],
+): Promise<{ readonly source: string; readonly path: string } | null> {
+  for (const candidate of candidates) {
+    try {
+      return { source: await readFile(candidate, 'utf8'), path: candidate }
+    } catch (error) {
+      if (ErrnoSchema.safeParse(error).data?.code === 'ENOENT') continue
+      throw new HogwashError({
+        kind: 'config',
+        message: `Could not read the ban list ${candidate}: ${error instanceof Error ? error.message : String(error)}`,
+      })
+    }
+  }
+  return null
+}
+
+const candidatesOf = (path: string | readonly string[]): readonly string[] =>
+  typeof path === 'string' ? [path] : path
+
 /** Reads the configured ban list at the I/O boundary; a missing file is an error. */
-export async function loadBanList(path: string): Promise<RulePack> {
-  let source: string
-  try {
-    source = await readFile(path, 'utf8')
-  } catch (error) {
-    const missing = ErrnoSchema.safeParse(error).data?.code === 'ENOENT'
+export async function loadBanList(path: string | readonly string[]): Promise<RulePack> {
+  const candidates = candidatesOf(path)
+  const found = await readBanSource(candidates)
+  if (found === null) {
     throw new HogwashError({
       kind: 'config',
-      message: missing
-        ? `Could not read the ban list ${path}: no such file.`
-        : `Could not read the ban list ${path}: ${error instanceof Error ? error.message : String(error)}`,
+      message:
+        candidates.length === 1
+          ? `Could not read the ban list ${candidates[0]}: no such file.`
+          : `Could not read the ban list: no such file. Tried ${candidates.join(', ')}.`,
     })
   }
-  return banPackOf(parseBanList(source), path)
+  return banPackOf(parseBanList(found.source), found.path)
+}
+
+/** The configured ban list, or null when no candidate file exists. */
+export async function loadBanListIfPresent(
+  path: string | readonly string[],
+): Promise<RulePack | null> {
+  const found = await readBanSource(candidatesOf(path))
+  return found === null ? null : banPackOf(parseBanList(found.source), found.path)
 }

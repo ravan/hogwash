@@ -14,7 +14,11 @@ export type LoadedProfile = {
 }
 
 /** Project copy first; a relative path missing there falls back to ~/.idiolect/<path>. */
-function candidatePaths(cwd: string, home: string, path: string): readonly string[] {
+export function profileCandidates(
+  cwd: string,
+  path: string,
+  home: string = homedir(),
+): readonly string[] {
   if (isAbsolute(path)) return [path]
   return [join(cwd, path), join(home, '.idiolect', path)]
 }
@@ -53,15 +57,15 @@ export async function loadProfile(
 ): Promise<LoadedProfile> {
   return {
     voice: await readProfileDocument(
-      candidatePaths(cwd, home, config.profile.voice),
+      profileCandidates(cwd, config.profile.voice, home),
       'voice profile',
     ),
     quality: await readProfileDocument(
-      candidatePaths(cwd, home, config.profile.quality),
+      profileCandidates(cwd, config.profile.quality, home),
       'quality profile',
     ),
     banList: await readProfileDocument(
-      candidatePaths(cwd, home, config.profile.banList),
+      profileCandidates(cwd, config.profile.banList, home),
       'ban list',
     ),
   }

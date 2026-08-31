@@ -29,7 +29,7 @@
       "useConsultant": true,
       "useSubagent": true,
       "consultant": "claude",
-      "subagent": "codex"
+      "subagent": "claude"
     }
   },
   "includeDeprecatedRules": false,

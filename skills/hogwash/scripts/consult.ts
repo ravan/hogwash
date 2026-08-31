@@ -73,7 +73,7 @@ export async function runConsult(input: {
   if (document.text.trim().length === 0) {
     throw new HogwashError({ kind: 'io', path: input.candidate, message: 'candidate is empty' })
   }
-  const profile = await loadProfile(shell.cwd, config)
+  const profile = await loadProfile(shell.cwd, config, shell.home)
   let advice: string
   try {
     advice = await query({
