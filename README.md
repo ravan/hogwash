@@ -52,6 +52,22 @@ The skill drives the scripts; you drive the skill. Ask your agent to run hogwash
 
 A finding is `actionable` when the loop must resolve it before acceptance. Advisory findings stay visible but never block. When a finding can only be resolved by changing one of your claims, the agent asks instead of deciding; you can waive the finding and keep the claim.
 
+### Scrub by default, re-voice on request
+
+The rewrite loop has two modes, and what you say decides which one runs.
+
+Ask for hogwash on a file with nothing more — "run hogwash on `docs/post.md`" — and you get **scrub mode**: the smallest faithful edits that clear the findings and profile violations. A sentence with no finding and no violation stays exactly as you wrote it, because uniform polish is itself a machine signal. Scrub assumes the document is already in your voice and only removes the artifacts.
+
+Say **"re-voice this"** or **"rewrite it in my voice"** and you get **re-voice mode**: a voice transfer for a document someone else wrote. The candidate is rebuilt paragraph by paragraph in the profile owner's voice — rhythm, emphasis habits, punctuation mechanics, and all — with the source author's delivery devices replaced by the owner's. The loop alternates machine-smell passes and voice passes until a full cycle changes nothing, because each kind of fix can reintroduce the other kind of problem. Keeping a sentence is a per-sentence decision in this mode, never a default. The agent only enters re-voice on that explicit direction; it never upgrades a scrub to a voice transfer on its own.
+
+Both modes hold the same source-fidelity boundary: every fact, claim, number, name, scope, and quotation keeps its exact meaning, and headings, citations, code, and table data stay untouched. Re-voice changes how the document sounds, never what it says. And both modes end the same way: you review the candidate and give an explicit verdict before `accept` touches the original.
+
+### Short mode: one pass for short messages
+
+Documents get the loop; messages get one pass. Short mode cleans a single short text — an email, a chat reply, a PR or commit comment — without any of the document machinery: no candidate file, no baseline checklist, no pass counter, no review gate. It is also the surface other skills call when they need a message cleaned before it goes out.
+
+The contract is four steps: write the draft to a scratch file, scan it with `--short`, rewrite it once, and rescan once. The single rewrite does both jobs: it fixes every actionable finding and applies your voice profile, the register overlay that matches the format, and your ban list — so the message comes back in your voice with the machine smell gone, and still says what you meant. The result comes back with a one-line status — clean, or what stands and why. The `--short` flag turns off the rules whose statistics need a long document, so a three-sentence reply is not judged against essay-length baselines. You keep ownership of the draft and the decision to send it.
+
 ### Run the scripts by hand
 
 The same scripts work without an agent. `$SKILL` is the skill directory; run each command from your project directory:
@@ -60,6 +76,7 @@ The same scripts work without an agent. `$SKILL` is the skill directory; run eac
 SKILL=~/.claude/skills/hogwash
 bun "$SKILL/scripts/hogwash.ts" init                       # scaffold hogwash.json and profile/
 bun "$SKILL/scripts/hogwash.ts" scan --register prose docs/post.md  # scan; also --output json|sarif
+bun "$SKILL/scripts/hogwash.ts" scan --short --output json note.md  # short-message scan, long-document rules off
 bun "$SKILL/scripts/hogwash.ts" report --md                # render the stored report
 bun "$SKILL/scripts/hogwash.ts" rules --explain <rule-id>  # list or explain scanner rules
 bun "$SKILL/scripts/hogwash.ts" diff docs/post.md          # open original vs candidate in your viewer
