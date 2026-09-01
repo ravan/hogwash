@@ -1,6 +1,6 @@
 import type { ConfigOverrides } from './config.js'
 import type { HookAction, ReportFormat, ScanFormat } from './shell.js'
-import type { ModelFamily, Register } from './types.js'
+import type { ModelFamily, Register, Severity } from './types.js'
 
 export type ScanCommand = {
   readonly kind: 'scan'
@@ -8,6 +8,13 @@ export type ScanCommand = {
   readonly format: ScanFormat
   readonly verbose: boolean
   readonly overrides: ConfigOverrides
+  /**
+   * Fail on any finding at or above this severity, whatever the density says.
+   * Density answers "does this read as machine writing"; a house rule answers
+   * "is this mine", and one breach of it is one too many. Null leaves the exit
+   * code to the density alone.
+   */
+  readonly failOn: Severity | null
 }
 
 export type RedlineCommand = {

@@ -1,0 +1,92 @@
+{
+  "name": "mechanics",
+  "version": "0.1.0",
+  "attribution": "hogwash house-mechanics pack (MIT). Punctuation and length rules a writer sets for their own prose; off by default, enabled by naming \"mechanics\" in hogwash.json packs.",
+  "rules": [
+    {
+      "id": "mechanics.dash.em",
+      "category": "formatting",
+      "engine": "lexical",
+      "pattern": "—",
+      "flags": [],
+      "severity": "error",
+      "weight": 3,
+      "era": "mixed",
+      "reliable": true,
+      "message": "Em dash. It is the most-copied machine punctuation there is. Use a full stop, a colon, or a pair of commas.",
+      "examples": {
+        "matching": ["the plan — such as it was — held"],
+        "clean": ["the plan, such as it was, held", "the plan held. Just."]
+      },
+      "attribution": "hogwash house-mechanics pack (MIT)"
+    },
+    {
+      "id": "mechanics.dash.en",
+      "category": "formatting",
+      "engine": "lexical",
+      "pattern": "–(?!\\s?\\d)|(?<!\\d\\s?)–",
+      "flags": [],
+      "severity": "error",
+      "weight": 3,
+      "era": "mixed",
+      "reliable": true,
+      "message": "En dash used as a connector. A range between two numbers is fine; a pause in a sentence is not. Use a full stop, a colon, or commas.",
+      "examples": {
+        "matching": ["the build – slow as it is – passed"],
+        "clean": ["63–75 percent", "the build passed. Slowly."]
+      },
+      "attribution": "hogwash house-mechanics pack (MIT)"
+    },
+    {
+      "id": "mechanics.dash.spaced-hyphen",
+      "category": "formatting",
+      "engine": "lexical",
+      "pattern": "(?<=\\S)[ \\t]+--?(?=[ \\t])",
+      "flags": [],
+      "severity": "error",
+      "weight": 3,
+      "era": "mixed",
+      "reliable": true,
+      "message": "Spaced hyphen standing in for a dash. Same pause, same problem. Use a full stop, a colon, or commas.",
+      "examples": {
+        "matching": ["the build - slow as it is - passed", "the build -- slow -- passed"],
+        "clean": ["the build passed, slowly", "a well-known problem"]
+      },
+      "attribution": "hogwash house-mechanics pack (MIT)"
+    },
+    {
+      "id": "mechanics.sentence.commas",
+      "category": "rhythm",
+      "engine": "structural",
+      "check": "over-commaed-sentence",
+      "limit": 1,
+      "severity": "error",
+      "weight": 2,
+      "era": "mixed",
+      "reliable": true,
+      "message": "More than one comma in this sentence. Two clauses is the sentence's job; a third wants its own sentence.",
+      "examples": {
+        "matching": ["The build ran, the tests passed, and the deploy went out."],
+        "clean": ["The build ran and the tests passed. The deploy went out."]
+      },
+      "attribution": "hogwash house-mechanics pack (MIT)"
+    },
+    {
+      "id": "mechanics.paragraph.length",
+      "category": "structure",
+      "engine": "structural",
+      "check": "long-paragraph",
+      "limit": 3,
+      "severity": "warning",
+      "weight": 1,
+      "era": "mixed",
+      "reliable": true,
+      "message": "Paragraph runs past three sentences. Break it, or cut what the reader does not need.",
+      "examples": {
+        "matching": ["One. Two. Three. Four."],
+        "clean": ["One. Two. Three."]
+      },
+      "attribution": "hogwash house-mechanics pack (MIT)"
+    }
+  ]
+}

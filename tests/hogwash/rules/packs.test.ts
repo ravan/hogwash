@@ -34,6 +34,7 @@ describe('loadBundledPacks', () => {
       'vale-ai-tells',
       'slop-gate',
       'unslop',
+      'mechanics',
     ])
     for (const pack of packs) {
       expect(pack.attribution.length).toBeGreaterThan(0)

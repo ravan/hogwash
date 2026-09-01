@@ -66,5 +66,5 @@ export async function runScan(input: {
     )}`,
     'success',
   )
-  return exitCodeForReport(report)
+  return exitCodeForReport(report, command.failOn)
 }

@@ -7,6 +7,9 @@ import { GateSchema } from './rules/schema.js'
 import { DEFAULT_THRESHOLD } from './scan/density.js'
 import { ModelFamilySchema, PackNameSchema, RegisterSchema, ThresholdSchema } from './types.js'
 
+// The packs on by default. `mechanics` is deliberately absent: its punctuation
+// and length rules are a writer's house preference rather than a machine-writing
+// tell, so a project opts in by naming it here.
 const DEFAULT_PACKS = [
   'wikipedia-signs',
   'claudisms',

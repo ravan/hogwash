@@ -16,8 +16,15 @@ describe('parseArgs', () => {
       files: ['a.md'],
       format: 'json',
       verbose: false,
+      failOn: null,
       overrides: { register: 'prose', threshold: ThresholdSchema.parse(12), short: false },
     })
+  })
+
+  it('parses the severity gate, and refuses a severity it does not know', () => {
+    const command = parseArgs(['scan', '--fail-on', 'error', 'a.md'])
+    expect(command.kind === 'scan' && command.failOn).toBe('error')
+    expect(() => parseArgs(['scan', '--fail-on', 'fatal', 'a.md'])).toThrow()
   })
 
   it('parses consultation, diff, acceptance, and initialization', () => {

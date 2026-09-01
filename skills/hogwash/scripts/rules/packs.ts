@@ -33,6 +33,7 @@ const BUNDLED_PACK_FILES = [
   'vale-ai-tells',
   'slop-gate',
   'unslop',
+  'mechanics',
 ] as const
 
 export function loadBundledPacks(): readonly RulePack[] {

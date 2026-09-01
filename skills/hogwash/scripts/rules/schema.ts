@@ -136,13 +136,25 @@ export type LexicalRule = z.infer<typeof LexicalRuleSchema>
  * than by a model. One check today: a heading in Title Case in a document whose
  * other headings are sentence case.
  */
-export const StructuralCheckSchema = z.enum(['title-case-heading'])
+export const StructuralCheckSchema = z.enum([
+  'title-case-heading',
+  'over-commaed-sentence',
+  'long-paragraph',
+])
 export type StructuralCheck = z.infer<typeof StructuralCheckSchema>
 
 export const StructuralRuleSchema = z.object({
   ...catalogFields,
   engine: z.literal('structural'),
   check: StructuralCheckSchema,
+  /**
+   * The ceiling a counting check allows before it reports: commas in a
+   * sentence, sentences in a paragraph. Null takes the check's own default, and
+   * checks that count nothing ignore it. It lives in the pack rather than in
+   * code because the number is a house preference, not a property of machine
+   * writing.
+   */
+  limit: z.number().int().nonnegative().nullable().default(null),
 })
 export type StructuralRule = z.infer<typeof StructuralRuleSchema>
 

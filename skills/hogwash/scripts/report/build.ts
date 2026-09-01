@@ -5,7 +5,7 @@ import { scanText } from '../scan/lexical.js'
 import { scanStructure } from '../scan/structural.js'
 import { scanStylometry } from '../scan/stylometry.js'
 import { countProseWords, segment } from '../segment/markdown.js'
-import type { Finding, Register, Report } from '../types.js'
+import type { Finding, Register, Report, Severity } from '../types.js'
 import { buildLineIndex, lineColumnAt } from './position.js'
 
 export type Document = { readonly path: string; readonly text: string }
@@ -61,6 +61,21 @@ export function buildReport(
   }
 }
 
-export function exitCodeForReport(report: Report): 0 | 1 {
-  return report.files.some((file) => file.density > report.threshold) ? 1 : 0
+const SEVERITY_ORDER: Record<Severity, number> = { info: 0, warning: 1, error: 2 }
+
+/**
+ * The exit code. Density answers whether the document as a whole reads as
+ * machine writing. `failOn` answers a different question — whether any single
+ * rule at that severity fired at all — and a house rule is the sort of rule one
+ * breach of already fails. Either one is enough to fail the run.
+ */
+export function exitCodeForReport(report: Report, failOn: Severity | null = null): 0 | 1 {
+  if (report.files.some((file) => file.density > report.threshold)) return 1
+  if (failOn === null) return 0
+  const floor = SEVERITY_ORDER[failOn]
+  return report.files.some((file) =>
+    file.findings.some((finding) => SEVERITY_ORDER[finding.severity] >= floor),
+  )
+    ? 1
+    : 0
 }

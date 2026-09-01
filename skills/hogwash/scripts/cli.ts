@@ -17,15 +17,16 @@ import type { LoadedRule } from './rules/packs.js'
 import { loadBundledPacks, selectRules } from './rules/packs.js'
 import { runScan } from './scan/run.js'
 import type { ScanFormat, Shell } from './shell.js'
-import type { ExitCode, ModelFamily, Register, Threshold } from './types.js'
-import { ModelFamilySchema, RegisterSchema, ThresholdSchema } from './types.js'
+import type { ExitCode, ModelFamily, Register, Severity, Threshold } from './types.js'
+import { ModelFamilySchema, RegisterSchema, SeveritySchema, ThresholdSchema } from './types.js'
 
 export type { Command, ScanCommand } from './commands.js'
 export type { HookAction, ReportFormat, ScanFormat, Shell } from './shell.js'
 
 const USAGE =
   'usage: bun scripts/hogwash.ts scan [--output <terminal|json|sarif>] [--json] [--sarif]\n' +
-  '                                   [--verbose] [--short] [--register <name>] [--threshold <n>] <files...>\n' +
+  '                                   [--verbose] [--short] [--register <name>] [--threshold <n>]\n' +
+  '                                   [--fail-on <info|warning|error>] <files...>\n' +
   '       bun scripts/hogwash.ts consult --family <claude|codex|gemini> <candidate>\n' +
   '       bun scripts/hogwash.ts diff <original>\n' +
   '       bun scripts/hogwash.ts diff-report [--notes <json>] [--out <html>] [--register <name>]\n' +
@@ -42,6 +43,11 @@ const usageFailure = (): never => {
 
 const parseRegister = (value: string | undefined): Register => {
   const result = RegisterSchema.safeParse(value)
+  return result.success ? result.data : usageFailure()
+}
+
+const parseSeverity = (value: string | undefined): Severity => {
+  const result = SeveritySchema.safeParse(value)
   return result.success ? result.data : usageFailure()
 }
 
@@ -71,6 +77,7 @@ const parseScan = (rest: readonly string[]): Command => {
   let short = false
   let register: Register | null = null
   let threshold: Threshold | null = null
+  let failOn: Severity | null = null
   for (let index = 0; index < rest.length; index += 1) {
     const argument = rest[index]
     if (argument === '--json' || argument === '--sarif') {
@@ -88,6 +95,8 @@ const parseScan = (rest: readonly string[]): Command => {
       register = parseRegister(rest[++index])
     } else if (argument === '--threshold') {
       threshold = parseThreshold(rest[++index])
+    } else if (argument === '--fail-on') {
+      failOn = parseSeverity(rest[++index])
     } else if (argument === undefined || argument.startsWith('-')) {
       return usageFailure()
     } else {
@@ -95,7 +104,7 @@ const parseScan = (rest: readonly string[]): Command => {
     }
   }
   if (files.length === 0 || (alias && output)) return usageFailure()
-  return { kind: 'scan', files, format, verbose, overrides: { register, threshold, short } }
+  return { kind: 'scan', files, format, verbose, failOn, overrides: { register, threshold, short } }
 }
 
 const parseRedline = (rest: readonly string[]): Command => {

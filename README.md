@@ -92,13 +92,20 @@ The scan exit code is density-based, where density is the weighted actionable fi
 - `1`: at least one file exceeds the threshold.
 - `2`: usage, configuration, adapter, or I/O failure.
 
+`scan --fail-on <info|warning|error>` adds a second way to fail: any finding at
+or above that severity exits `1`, whatever the density says. Density asks
+whether a document as a whole reads as machine writing. A house rule, your own
+punctuation or your own length limits, is the sort of rule one breach of already
+fails, and a long enough document dilutes any single breach below the threshold.
+Use the gate when a rule has to hold every time.
+
 ### Configure
 
 Hogwash reads `hogwash.json` from the working directory. The file is optional: when it is absent, the built-in defaults apply (advanced consultation stays off; both advisers default to Claude once a project enables it), profile paths resolve through `~/.idiolect/` after the project, and a missing ban list is tolerated for scanning. Write the file only when the project needs fine-tuning. Unknown and retired keys are errors, and paths resolve from the working directory, then from `~/.idiolect/`. [hogwash.example.json](hogwash.example.json) shows the complete defaults. The main settings:
 
 - `register`: the project's default writing context, which selects stylometric baselines and rule weights: `technical`, `prose`, or `marketing`. `scan --register <name>` overrides it per document.
 - `threshold`: the density above which `scan` exits `1`.
-- `packs` and `gates`: which rule packs run, plus explicitly enabled model-specific rule groups. Hogwash never infers a gate from document authorship.
+- `packs` and `gates`: which rule packs run, plus explicitly enabled model-specific rule groups. Hogwash never infers a gate from document authorship. One pack ships off by default: `mechanics` holds punctuation and length rules (connector dashes, more than one comma in a sentence, paragraphs past three sentences) that are a writer's house preference rather than a machine-writing tell, so a project turns it on by naming it here. Its two counting rules take their ceiling from a `limit` field in the pack, so a fork can set its own numbers without touching code.
 - `profile`: paths to your voice, quality, and ban-list files.
 - `workflow.diff`: the viewer `diff` launches (`code --diff` by default; set it to `null` to disable it).
 - `workflow.advanced` and `models`: opt-in model consultation. With `advanced.enabled`, `consult` reads the candidate plus all three profiles, makes exactly one configured model call (Claude or Codex), and returns advice as JSON. The consultant never scans, edits files, or owns the loop, and an unavailable family fails instead of falling back to another model.

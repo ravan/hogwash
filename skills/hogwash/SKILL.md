@@ -35,6 +35,12 @@ bun "$SKILL/scripts/hogwash.ts" init
 
 This writes `hogwash.json` and copies `profile/voice.md`, `profile/quality.md`, and `profile/ban-list.md` from the bundled templates. It never overwrites a profile that already exists. It installs nothing else, because this skill is already installed.
 
+### House mechanics
+
+One pack ships off by default. `mechanics` holds punctuation and length rules: connector dashes (em dash, en dash outside a number range, spaced hyphen), more than one comma in a sentence, and paragraphs past three sentences. These are a writer's house preference rather than a machine-writing tell, so a project turns the pack on by naming `"mechanics"` in the `packs` array of `hogwash.json`. The two counting rules read their ceiling from a `limit` field in the pack, so a project that wants different numbers forks the pack rather than the code.
+
+A house rule usually has to hold every time, and density alone will not enforce that: one dash in a long document sits far under the threshold. Add `--fail-on error` to the scan when a single breach should fail the run.
+
 The copied profiles are seeds. The `/idiolect` skill builds the real ones: it captures the voice as evidence-backed mechanics and may add per-format overlays in a `registers/` directory beside the voice profile. Only the user runs `/idiolect`. Suggest it when the profiles need work; never invoke it yourself.
 
 ## Short mode: one pass for short messages

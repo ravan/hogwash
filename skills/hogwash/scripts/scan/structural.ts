@@ -1,6 +1,7 @@
-import type { StructuralCheck, StructuralRule } from '../rules/schema.js'
-import type { Block } from '../segment/markdown.js'
-import { segment } from '../segment/markdown.js'
+import type { StructuralRule } from '../rules/schema.js'
+import type { Block, DocumentStructure, Span } from '../segment/markdown.js'
+import { proseSlice, segment } from '../segment/markdown.js'
+import { sentenceSpans } from '../segment/sentences.js'
 import type { Finding, Register } from '../types.js'
 import { FindingSchema } from '../types.js'
 import { effectiveWeight } from './density.js'
@@ -76,10 +77,60 @@ function titleCaseHeadings(text: string): readonly Block[] {
   return headings.filter((_, at) => cases[at] === 'title')
 }
 
-const blocksFor = (check: StructuralCheck, text: string): readonly Block[] => {
-  switch (check) {
+/**
+ * The sentences of a block, over the raw text, with fenced and inline code
+ * blanked out first. A command line is full of commas and full stops that are
+ * not prose, and counting them would train the reader to skip these findings.
+ */
+const sentencesOf = (text: string, structure: DocumentStructure, block: Block): readonly Span[] =>
+  sentenceSpans(proseSlice(text, structure, block), block.start)
+
+/** The sentence as prose: its raw span, with any code inside it blanked out. */
+const proseOf = (text: string, structure: DocumentStructure, span: Span): string =>
+  proseSlice(text, structure, span)
+
+/**
+ * Commas that separate clauses. A thousands separator sits between two digits
+ * and is not a clause boundary, so it does not count.
+ */
+const clauseCommas = (sentence: string): number =>
+  sentence.replace(/(\d),(\d)/g, '$1$2').split(',').length - 1
+
+/**
+ * Sentences carrying more commas than the limit. Headings are titles rather
+ * than sentences, so they are left out; list items are prose and are not.
+ */
+function overCommaedSentences(text: string, limit: number): readonly Span[] {
+  const structure = segment(text)
+  const found: Span[] = []
+  for (const block of structure.blocks) {
+    if (block.kind === 'heading') continue
+    for (const span of sentencesOf(text, structure, block)) {
+      if (clauseCommas(proseOf(text, structure, span)) > limit) found.push(span)
+    }
+  }
+  return found
+}
+
+/** Paragraphs running longer than the limit in sentences. Lists are not paragraphs. */
+function longParagraphs(text: string, limit: number): readonly Span[] {
+  const structure = segment(text)
+  return structure.blocks.filter(
+    (block) => block.kind === 'paragraph' && sentencesOf(text, structure, block).length > limit,
+  )
+}
+
+/** The limit a counting check falls back to when its pack names none. */
+const DEFAULT_LIMIT = { 'over-commaed-sentence': 1, 'long-paragraph': 3 } as const
+
+const spansFor = (rule: StructuralRule, text: string): readonly Span[] => {
+  switch (rule.check) {
     case 'title-case-heading':
       return titleCaseHeadings(text)
+    case 'over-commaed-sentence':
+      return overCommaedSentences(text, rule.limit ?? DEFAULT_LIMIT['over-commaed-sentence'])
+    case 'long-paragraph':
+      return longParagraphs(text, rule.limit ?? DEFAULT_LIMIT['long-paragraph'])
   }
 }
 
@@ -91,7 +142,7 @@ export function scanStructure(
 ): readonly Finding[] {
   const findings: Finding[] = []
   for (const rule of rules) {
-    for (const block of blocksFor(rule.check, text)) {
+    for (const block of spansFor(rule, text)) {
       findings.push(
         FindingSchema.parse({
           ruleId: rule.id,
