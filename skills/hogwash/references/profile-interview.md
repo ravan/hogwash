@@ -1,35 +1,16 @@
-# Build the Hogwash profile
+# When the profiles need work
 
-Use this how-to when one or more profile files are missing, generic, or inaccurate.
+The profiles are the `idiolect` skill's job. It captures a voice as evidence-backed mechanics: a portrait, sixteen scored dimensions, punctuation and function-word habits, a lexicon, per-format register overlays, an evidence ledger, and a changelog. Only the user runs it (`/idiolect`). When a profile is missing, generic, or inaccurate, say so, name the profile file, and suggest `/idiolect`. Do not run your own interview when that skill is installed; two interviews with two vocabularies produce two profiles that disagree.
 
-## Start from writing samples
+## Fallback when idiolect is not installed
 
-Ask the user for three to five documents they wrote without model assistance. Draft `voice.md` from repeated evidence in those samples. Ask only about choices the samples do not settle.
+Check for `$SKILL/../idiolect/SKILL.md` first. Only when it is absent, gather the minimum yourself, using the idiolect vocabulary so a later `/idiolect` run can take over the files:
 
-When no samples exist, ask one question at a time. Offer these three anchors so the user can choose, mix, or answer freely:
+- Ask the user for three to five documents they wrote without model assistance, and work only from the files they name. Never go looking for samples in the repository, the git history, or chat.
+- Tag every claim you write into `voice.md` as `reported` (the user said it) or `observed` (seen in the named samples). Never write `confirmed`; that needs both.
+- Fill the template sections that the evidence settles and leave the rest blank under "Unknowns". Blank beats guessed.
+- For `quality.md`, ask which formats matter and propose one checkable rule at a time for each. Do not infer publishing requirements from voice samples alone.
+- For `ban-list.md`, record only literal words or phrases the user declares, one bullet per matched form, reason after a spaced hyphen (` - `). An observed absence is never a ban.
+- Draft one short paragraph in the captured voice and ask whether it sounds right. Record the answer in the profile's notes.
 
-- A warm teacher uses familiar examples and patient explanations.
-- A sharp analyst leads with the claim and puts evidence next to it.
-- A playful storyteller uses scenes, restrained humor, and concrete detail.
-
-Ask these questions in order:
-
-1. Who is the reader, and what must the reader know or do afterward?
-2. Does the writing open with a scene, a question, or a claim?
-3. Does the writer prefer short sentences, long sentences, or deliberate variation?
-4. Which words, phrases, punctuation, and sentence shapes are banned?
-5. Which words does the writer use naturally?
-6. Which headings, lists, emphasis, and paragraph lengths fit?
-7. What kind of humor fits, if any?
-8. What makes the user distrust a piece of writing?
-9. What single instruction best separates the user's voice from an imitation?
-
-## Write the files
-
-Fill the templates beside this reference. Address the host agent directly. Label an absolute constraint `Hard rule`. Label a common habit `Tendency` and state how often it applies.
-
-Draft a short sample in the captured voice. Ask the user whether it sounds right. Revise the profile until the user agrees.
-
-For `quality.md`, ask which formats matter. Propose concrete rules for each format and ask the user to approve them. Do not infer publishing requirements from voice samples alone.
-
-For `ban-list.md`, put only literal words or phrases in bullets. Put the reason after the term. Add separate bullets for inflections that must also match.
+Mark the profile `provisional` in its status line. It hardens only through the idiolect skill's calibration.

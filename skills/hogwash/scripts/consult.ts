@@ -1,7 +1,7 @@
 import type { Config } from './config.js'
 import { HogwashError } from './errors.js'
 import { readDocument } from './io.js'
-import { loadProfile } from './profile.js'
+import { idiolectHomeOf, loadProfile } from './profile.js'
 import type { Shell } from './shell.js'
 import type { ModelFamily } from './types.js'
 
@@ -73,7 +73,7 @@ export async function runConsult(input: {
   if (document.text.trim().length === 0) {
     throw new HogwashError({ kind: 'io', path: input.candidate, message: 'candidate is empty' })
   }
-  const profile = await loadProfile(shell.cwd, config, shell.home)
+  const profile = await loadProfile(shell.cwd, config, idiolectHomeOf(shell))
   let advice: string
   try {
     advice = await query({

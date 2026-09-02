@@ -5,10 +5,10 @@ import { join } from 'node:path'
 import { readReport, writeReport } from '../../../skills/hogwash/scripts/report/store.js'
 import { ReportSchema } from '../../../skills/hogwash/scripts/types.js'
 
-it('round-trips only report v6', async () => {
+it('round-trips only report v7', async () => {
   const cwd = mkdtempSync(join(tmpdir(), 'hogwash-report-'))
   const report = ReportSchema.parse({
-    version: 6,
+    version: 7,
     createdAt: 'fixed',
     register: 'technical',
     threshold: 25,

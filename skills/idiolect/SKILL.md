@@ -31,16 +31,20 @@ the evidence behind every rule is in
 - Durable profile changes need the owner's approval and a changelog entry.
 - Never claim the output is undetectable or "passes as human". The claim is:
   it follows the profile.
+- The ban list is machine-read by hogwash: bullets only, the banned form
+  first, then a spaced hyphen and the reason. Keep placeholders and guidance
+  out of bullets, or they become live bans.
 
 ## The profile
 
 One directory holds any number of named profiles (default `profiles/`, or
 wherever the project's config points), so a project can keep several voices —
 a personal voice, a house voice, a docs voice. Profiles live in two places
-with one lookup rule: the project's own directory first, then the shared
-`~/.idiolect/profiles/` in the owner's home directory. A shared profile lets
-many projects use the same voice without copies. On a name clash the project
-copy wins. Each profile is a named subdirectory:
+with one lookup rule: the project's own directory first, then the shared root,
+which is `$IDIOLECT_HOME/profiles/` when that variable is set and
+`~/.idiolect/profiles/` otherwise. A shared profile lets many projects use the
+same voice without copies. On a name clash the project copy wins. Each profile
+is a named subdirectory:
 
 ```
 profiles/<name>/
@@ -56,8 +60,11 @@ profiles/<name>/
 
 Never overwrite a non-empty profile with a template. Start new files from
 [templates/](templates/voice.md), adapt shape to the project, and respect an
-existing project config (e.g. `hogwash.json`) that names profile paths — a
-config pointing at flat profile files counts as one existing profile.
+existing project config (e.g. `hogwash.json`) that names profile paths. That
+config names three files (`profile.voice`, `profile.quality`,
+`profile.banList`); the directory holding `profile.voice` is the profile
+directory, and its parent is the profiles root. A hogwash `init` seeds
+`profiles/default/`, which is a profile named `default` in this layout.
 
 Two status ladders, kept distinct: each CLAIM is `reported` (user said it) →
 `observed` (seen in samples) → `confirmed` (both, or approved in action); the
@@ -69,17 +76,28 @@ then `calibrated`.
 
 Every build starts here, in order. Do not skip ahead to capture.
 
-1. **Find the profiles.** The project's config wins; otherwise default to
-   `profiles/` in the project. Also check the shared `~/.idiolect/profiles/`.
-   List the profiles from both places, marked project or shared; a name that
-   exists in both resolves to the project copy.
+1. **Find the profiles.** The project's config wins: read `hogwash.json` when
+   it exists and take the directory of `profile.voice` as the current profile
+   (see "The profile" above). Otherwise default to `profiles/` in the project.
+   Also check the shared root (`$IDIOLECT_HOME/profiles/` or
+   `~/.idiolect/profiles/`). List the profiles from both places, marked
+   project or shared; a name that exists in both resolves to the project copy.
 2. **If any profile exists, ask the owner to choose:** improve an existing
    profile (continue in Critique or Refine on that profile) or create a new
    one beside it. Never choose for them, and never overwrite.
 3. **For a new profile, ask for a name and a home.** Project-only voice →
    `profiles/<name>/` in the project. Voice shared across projects →
-   `~/.idiolect/profiles/<name>/`. Either way it starts from the templates.
-   Never decide the location for the owner.
+   `<shared root>/profiles/<name>/`. Either way it starts from the templates.
+   Never decide the location for the owner. The name `default` is reserved
+   for the neutral seed that hogwash `init` writes, or for a shared house
+   voice; a person's voice always gets its own name, so other people on the
+   same machine or project can keep theirs beside it.
+   **Hand the profile to hogwash.** When the project has a `hogwash.json`
+   (or the owner uses hogwash), offer to point its three `profile` paths at
+   the new profile's `voice.md`, `quality.md`, and `ban-list.md`, using the
+   same relative `profiles/<name>/...` form for both homes so the shared
+   fallback keeps working. Show the exact JSON change and apply it only on
+   approval. Never edit `hogwash.json` silently.
 4. **Ask whether the owner has authentic past writing.** If yes, ask them to
    point at the directory (or specific files) that holds it, and work from
    exactly that material → [references/corpus.md](references/corpus.md).

@@ -3,7 +3,7 @@ import { noteCell, renderTerminal } from '../../../skills/hogwash/scripts/report
 import { ReportSchema } from '../../../skills/hogwash/scripts/types.js'
 
 const report = ReportSchema.parse({
-  version: 6,
+  version: 7,
   createdAt: 'fixed',
   register: 'technical',
   threshold: 25,
@@ -12,6 +12,7 @@ const report = ReportSchema.parse({
       path: 'a.md',
       words: 10,
       density: 100,
+      fingerprint: 'e3b0c44298fc1c14',
       findings: [
         {
           ruleId: 'test.rule',

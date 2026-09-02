@@ -24,14 +24,15 @@ const rule: LexicalRule = {
 }
 
 describe('buildReport', () => {
-  it('builds scanner-only v6 findings with end-exclusive locations', () => {
+  it('builds scanner-only v7 findings with end-exclusive locations', () => {
     const report = buildReport(
       [{ path: 'a.md', text: 'First line.\nThen delve.\n' }],
       { lexical: [rule], stylometric: [], structural: [] },
       ConfigSchema.parse({}),
       'fixed',
     )
-    expect(report.version).toBe(6)
+    expect(report.version).toBe(7)
+    expect(report.files[0]?.fingerprint).toMatch(/^[0-9a-f]{16}$/)
     expect(report.files[0]?.findings[0]).toMatchObject({
       start: 17,
       end: 22,

@@ -8,10 +8,14 @@ const ErrnoSchema = z.object({ code: z.string() })
 
 /** Writes the pre-commit hook under `cwd` and returns its absolute path.
  *  Throws HogwashError{kind:'io'} when the hook already exists or cannot be written. */
-export async function installHook(cwd: string): Promise<string> {
+export async function installHook(cwd: string, scriptPath: string): Promise<string> {
   const path = join(cwd, ...HOOK_PATH.split('/'))
   try {
-    await writeFile(path, preCommitScript(), { encoding: 'utf8', flag: 'wx', mode: 0o755 })
+    await writeFile(path, preCommitScript(scriptPath), {
+      encoding: 'utf8',
+      flag: 'wx',
+      mode: 0o755,
+    })
   } catch (error) {
     const message =
       ErrnoSchema.safeParse(error).data?.code === 'EEXIST'

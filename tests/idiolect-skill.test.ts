@@ -33,6 +33,11 @@ describe('idiolect skill', () => {
     )
     expect(hogwash).toContain('/idiolect')
     expect(hogwash).toMatch(/never invoke/i)
+    const seed = readFileSync(
+      join(import.meta.dir, '..', 'skills', 'hogwash', 'templates', 'ban-list-template.md'),
+      'utf8',
+    )
+    expect(seed.split('\n').filter((line) => /^\s*[-*+]\s+/.test(line))).toEqual([])
   })
 
   it('defines the sixteen-dimension core profile with confidence tags', () => {
@@ -56,7 +61,10 @@ describe('idiolect skill', () => {
     expect(template).toContain('reported')
     expect(read('templates/register.md')).toContain('## Dimension overrides')
     expect(read('templates/evidence.md')).toContain('HOLDOUT')
-    expect(read('templates/ban-list.md')).toContain('bullets only')
+    const banList = read('templates/ban-list.md')
+    expect(banList).toContain('bullets only')
+    // Hogwash reads every bullet as a live ban, so the template must ship none.
+    expect(banList.split('\n').filter((line) => /^\s*[-*+]\s+/.test(line))).toEqual([])
   })
 
   it('anchors every interview dimension with example ranges', () => {
@@ -97,13 +105,16 @@ describe('idiolect skill', () => {
     expect(refine.toLowerCase()).toContain('changelog')
   })
 
-  it('ships realistic trigger and workflow evals', () => {
+  it('ships workflow evals and no trigger evals, because nothing but the owner invokes it', () => {
     const evals = JSON.parse(read('evals/evals.json')) as {
-      trigger: Array<{ readonly should_trigger: boolean }>
-      workflow: Array<{ readonly mode: string }>
+      trigger?: unknown
+      invocation: { in_scope: string[]; out_of_scope: string[] }
+      workflow: Array<{ readonly mode: string; readonly assertions: string[] }>
     }
-    expect(evals.trigger.filter((entry) => entry.should_trigger)).toHaveLength(6)
-    expect(evals.trigger.filter((entry) => !entry.should_trigger)).toHaveLength(6)
+    expect(evals).not.toHaveProperty('trigger')
+    expect(evals.invocation.in_scope.length).toBeGreaterThan(0)
+    expect(evals.invocation.out_of_scope.length).toBeGreaterThan(0)
+    expect(evals.workflow[0]?.assertions.join(' ')).toContain('hogwash.json')
     expect(evals.workflow.map((entry) => entry.mode)).toEqual([
       'create',
       'create',

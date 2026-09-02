@@ -1,0 +1,14 @@
+# Advisers: the consultant and the subagent
+
+Read this when `workflow.advanced.enabled` is true or the user asks for a consultation. Both advisers are read-only: they never edit shared files, run scans, or own the loop.
+
+If `workflow.advanced.enabled` is true, you may seek advice before stopping. If it is false, do not invoke a consultant or native subagent. Each mechanism also has its own flag: use the consultant only when `workflow.advanced.useConsultant` is true, and the native subagent only when `workflow.advanced.useSubagent` is true.
+
+The user may request a consultation at any point in the loop, not only when a stopping condition threatens. Treat it as user-directed advice under the same rules. When a required flag is false, do not flip it yourself and do not bypass it: ask the user to change the configuration, or to confirm the exact change, before running the consult.
+
+When `workflow.advanced.enabled` and `workflow.advanced.useSubagent` are both true, you may also start one proactive subagent consult per rewrite cycle on your own judgment, before the review gate, when you expect the advice to improve the candidate. It follows the same subagent rules. One is the cap: after it is spent, a further consult in the same cycle happens only when a stopping condition threatens or the user asks. A user-directed revision that resets the pass budget also restores the proactive consult.
+
+- For `workflow.advanced.consultant`, put one non-empty question on stdin and run `bun "$SKILL/scripts/hogwash.ts" consult --family <family> <candidate>`. The command uses `models.<family>` as configured and sends the candidate plus all three profiles itself. Do not bypass it with a different model or effort. Include relevant findings in the question when you want the consultant to see them; the consultant sees nothing you do not send. Check every suggestion against the baseline checklist, the ban list, and the profiles before applying any part of it.
+- For `workflow.advanced.subagent`, start a read-only task and provide the candidate, all three profile documents, the register overlay that matches the document's format when one exists, and the constructions the loop has already removed from the candidate, so the subagent does not propose them back. Like the consultant, the subagent sees nothing you do not send. Use the exact model and effort from `models.<family>`; never pick a different value for either setting yourself. If the harness cannot set that exact model, do not start the task: report the limit and ask the user. If it can set the model but exposes no effort control, start the task anyway and name the missing control in the consult report.
+
+Advice is optional. Apply it yourself only when it fits the checklist and profiles. Advice does not reset either stopping condition or authorize another autonomous pass after a stopping condition fires. Never let an adviser edit the candidate, trigger a scan, or take over the loop.

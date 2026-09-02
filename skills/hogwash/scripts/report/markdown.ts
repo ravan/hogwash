@@ -1,5 +1,5 @@
 import type { Report, ReportFinding } from '../types.js'
-import { noteCell } from './render.js'
+import { noteCell, stateOf } from './render.js'
 
 const cell = (text: string): string => text.replaceAll('|', '\\|')
 const quote = (finding: ReportFinding): string =>
@@ -32,9 +32,7 @@ export function renderMarkdown(report: Report): string {
           (finding) =>
             `| ${location(finding)} | ${finding.start}-${finding.end} | \`${finding.ruleId}\` | ${quote(
               finding,
-            )} | ${finding.severity} | ${finding.actionable ? 'actionable' : 'advisory'} | ${cell(
-              noteCell(finding),
-            )} |`,
+            )} | ${finding.severity} | ${stateOf(finding)} | ${cell(noteCell(finding))} |`,
         ),
       ].join('\n'),
     )

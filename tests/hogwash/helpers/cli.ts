@@ -32,11 +32,19 @@ export const harness = (queryFor: QueryFactory = () => null): Harness => {
   const stderr: string[] = []
   const processes: { command: string; args: readonly string[]; wait: boolean }[] = []
   let stdin = ''
-  mkdirSync(join(cwd, 'profile'), { recursive: true })
+  mkdirSync(join(cwd, 'profiles', 'default'), { recursive: true })
   writeFileSync(join(cwd, 'hogwash.json'), defaultConfigJson(), 'utf8')
-  writeFileSync(join(cwd, 'profile', 'voice.md'), '# Voice\n\nWrite plainly.\n', 'utf8')
-  writeFileSync(join(cwd, 'profile', 'quality.md'), '# Quality\n\nKeep facts intact.\n', 'utf8')
-  writeFileSync(join(cwd, 'profile', 'ban-list.md'), '# Ban list\n\n- delve — filler\n', 'utf8')
+  writeFileSync(join(cwd, 'profiles', 'default', 'voice.md'), '# Voice\n\nWrite plainly.\n', 'utf8')
+  writeFileSync(
+    join(cwd, 'profiles', 'default', 'quality.md'),
+    '# Quality\n\nKeep facts intact.\n',
+    'utf8',
+  )
+  writeFileSync(
+    join(cwd, 'profiles', 'default', 'ban-list.md'),
+    '# Ban list\n\n- delve — filler\n',
+    'utf8',
+  )
   return {
     cwd,
     home,
@@ -56,6 +64,7 @@ export const harness = (queryFor: QueryFactory = () => null): Harness => {
     shell: {
       cwd,
       home,
+      scriptPath: '/skills/hogwash/scripts/hogwash.ts',
       now: () => '2026-01-01T00:00:00.000Z',
       stdout: (line) => stdout.push(line),
       stderr: (line) => stderr.push(line),

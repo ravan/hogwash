@@ -2,7 +2,6 @@ import { describe, expect, it } from 'bun:test'
 import { mkdtemp, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { HogwashError } from '../../../skills/hogwash/scripts/errors.js'
 import {
   BAN_PACK,
   banPackOf,
@@ -44,6 +43,7 @@ describe('parseBanList', () => {
 
 describe('banPackOf', () => {
   const pack = banPackOf(parseBanList(LIST), 'ban.md')
+  if (pack === null) throw new Error('expected a pack')
 
   it('gives every entry its own judge rule with a readable id', () => {
     expect(pack.name).toBe(BAN_PACK)
@@ -71,11 +71,11 @@ describe('banPackOf', () => {
       ],
       'ban.md',
     )
-    expect(twice.rules.map((rule) => rule.id)).toEqual(['ban/delve', 'ban/delve-2'])
+    expect(twice?.rules.map((rule) => rule.id)).toEqual(['ban/delve', 'ban/delve-2'])
   })
 
-  it('rejects a list with no entries', () => {
-    expect(() => banPackOf([], 'ban.md')).toThrow(HogwashError)
+  it('returns null for a list with no entries', () => {
+    expect(banPackOf([], 'ban.md')).toBeNull()
   })
 })
 
@@ -84,9 +84,17 @@ describe('loadBanList', () => {
     const dir = await mkdtemp(join(tmpdir(), 'hogwash-ban-'))
     const path = join(dir, 'ban.md')
     await writeFile(path, '- delve\n', 'utf8')
-    const pack = await loadBanList(path)
-    expect(pack.rules.map((rule) => rule.id)).toEqual(['ban/delve'])
-    expect(pack.attribution).toContain(path)
+    const found = await loadBanList(path)
+    expect(found.path).toBe(path)
+    expect(found.pack?.rules.map((rule) => rule.id)).toEqual(['ban/delve'])
+    expect(found.pack?.attribution).toContain(path)
+  })
+
+  it('reads a file with no bullets as a present but empty list', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'hogwash-ban-'))
+    const path = join(dir, 'ban.md')
+    await writeFile(path, '# Ban list\n\nNo entries yet.\n', 'utf8')
+    expect(await loadBanList(path)).toEqual({ path, pack: null })
   })
 
   it('reports a missing file as a config failure', async () => {

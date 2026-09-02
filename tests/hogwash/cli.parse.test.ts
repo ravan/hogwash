@@ -17,8 +17,40 @@ describe('parseArgs', () => {
       format: 'json',
       verbose: false,
       failOn: null,
+      baseline: false,
       overrides: { register: 'prose', threshold: ThresholdSchema.parse(12), short: false },
     })
+    const frozen = parseArgs(['scan', '--baseline', 'a.md'])
+    expect(frozen.kind === 'scan' && frozen.baseline).toBe(true)
+  })
+
+  it('parses a waiver with its required fields and optional line', () => {
+    expect(
+      parseArgs(['waive', '--rule', 'r.x', '--match', 'a handful', '--reason', 'Quote.', 'a.md']),
+    ).toEqual({
+      kind: 'waive',
+      original: 'a.md',
+      rule: 'r.x',
+      match: 'a handful',
+      reason: 'Quote.',
+      line: null,
+    })
+    const lined = parseArgs([
+      'waive',
+      '--line',
+      '54',
+      '--rule',
+      'r.x',
+      '--match',
+      'x',
+      '--reason',
+      'y',
+      'a.md',
+    ])
+    expect(lined.kind === 'waive' && lined.line).toBe(54)
+    rejects(['waive', '--rule', 'r.x', '--match', 'x', 'a.md'])
+    rejects(['waive', '--rule', 'r.x', '--match', 'x', '--reason', 'y', '--line', '0', 'a.md'])
+    rejects(['waive', '--rule', 'r.x', '--match', 'x', '--reason', 'y'])
   })
 
   it('parses the severity gate, and refuses a severity it does not know', () => {
@@ -38,6 +70,11 @@ describe('parseArgs', () => {
       kind: 'accept',
       original: 'draft.md',
       approved: true,
+      register: null,
+    })
+    expect(parseArgs(['accept', '--register', 'prose', '--approved', 'draft.md'])).toMatchObject({
+      kind: 'accept',
+      register: 'prose',
     })
     expect(parseArgs(['init'])).toEqual({ kind: 'init' })
     rejects(['init', '--skill'])

@@ -1,11 +1,13 @@
 #!/usr/bin/env bun
 import { spawn } from 'node:child_process'
+import { fileURLToPath } from 'node:url'
 import { createSdkQuery } from './adapters/claude-sdk.js'
 import { openCodexTransport } from './adapters/codex-app-server.js'
 import { createCodexQuery } from './adapters/codex-client.js'
 import type { Models } from './adapters/tuning.js'
 import type { AgentQuery } from './adapters/types.js'
 import { run } from './cli.js'
+import { resolveIdiolectHome } from './profile.js'
 import type { ModelFamily } from './types.js'
 
 const queryFor = (family: ModelFamily, models: Models): AgentQuery | null => {
@@ -14,8 +16,6 @@ const queryFor = (family: ModelFamily, models: Models): AgentQuery | null => {
       return createSdkQuery(models.claude)
     case 'codex':
       return createCodexQuery(openCodexTransport, models.codex)
-    case 'gemini':
-      return null
   }
 }
 
@@ -40,13 +40,23 @@ const runProcess = (command: string, args: readonly string[], wait: boolean): Pr
     }
   })
 
-process.exitCode = await run(process.argv.slice(2), {
+// A single sink with backpressure: console.log drops the tail of a write larger
+// than the pipe buffer when the process exits, which cut `rules` and large JSON
+// reports short whenever stdout was a pipe.
+const out = Bun.stdout.writer()
+const exitCode = await run(process.argv.slice(2), {
   cwd: process.cwd(),
+  idiolectHome: resolveIdiolectHome(process.env.IDIOLECT_HOME),
+  scriptPath: fileURLToPath(import.meta.url),
   now: () => new Date().toISOString(),
-  stdout: (line) => console.log(line),
+  stdout: (line) => {
+    out.write(`${line}\n`)
+  },
   stderr: (line) => console.error(line),
   color: process.stdout.isTTY === true && process.env.NO_COLOR === undefined,
   readStdin: () => Bun.stdin.text(),
   queryFor,
   runProcess,
 })
+await out.end()
+process.exitCode = exitCode

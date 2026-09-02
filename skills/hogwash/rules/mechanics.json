@@ -1,6 +1,6 @@
 {
   "name": "mechanics",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "attribution": "hogwash house-mechanics pack (MIT). Punctuation and length rules a writer sets for their own prose; off by default, enabled by naming \"mechanics\" in hogwash.json packs.",
   "rules": [
     {
@@ -77,7 +77,7 @@
       "engine": "structural",
       "check": "long-paragraph",
       "limit": 3,
-      "severity": "warning",
+      "severity": "error",
       "weight": 1,
       "era": "mixed",
       "reliable": true,

@@ -13,9 +13,9 @@
   ],
   "gates": [],
   "profile": {
-    "voice": "profile/voice.md",
-    "quality": "profile/quality.md",
-    "banList": "profile/ban-list.md"
+    "voice": "profiles/default/voice.md",
+    "quality": "profiles/default/quality.md",
+    "banList": "profiles/default/ban-list.md"
   },
   "workflow": {
     "maxPasses": 5,

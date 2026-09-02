@@ -6,9 +6,9 @@ import { HogwashError } from './errors.js'
 
 const TEMPLATE_SOURCE = fileURLToPath(new URL('../templates', import.meta.url))
 const TEMPLATES = [
-  ['voice-template.md', 'profile/voice.md'],
-  ['quality-template.md', 'profile/quality.md'],
-  ['ban-list-template.md', 'profile/ban-list.md'],
+  ['voice-template.md', 'profiles/default/voice.md'],
+  ['quality-template.md', 'profiles/default/quality.md'],
+  ['ban-list-template.md', 'profiles/default/ban-list.md'],
 ] as const
 
 const exists = async (path: string): Promise<boolean> => {

@@ -6,11 +6,12 @@ import { reportProgress } from '../progress.js'
 import { buildReport, exitCodeForReport } from '../report/build.js'
 import { renderTerminal } from '../report/render.js'
 import { buildSarif, renderSarif } from '../report/sarif.js'
-import { writeReport } from '../report/store.js'
+import { writeBaseline, writeReport } from '../report/store.js'
 import type { LoadedRule } from '../rules/packs.js'
 import { lexicalRules, structuralRules, stylometricRules } from '../rules/packs.js'
 import type { Shell } from '../shell.js'
 import type { ExitCode } from '../types.js'
+import { readWaivers } from '../waivers.js'
 
 const count = (value: number, singular: string, plural: string): string =>
   `${value} ${value === 1 ? singular : plural}`
@@ -41,9 +42,23 @@ export async function runScan(input: {
     },
     config,
     shell.now(),
+    { waivers: await readWaivers(shell.cwd), cwd: shell.cwd },
   )
   reportProgress(shell, 'scan', 'writing the report', 'info')
   await writeReport(shell.cwd, report)
+  if (command.baseline) {
+    for (const file of report.files) {
+      const frozen = await writeBaseline(shell.cwd, { ...report, files: [file] })
+      reportProgress(
+        shell,
+        'scan',
+        frozen.created
+          ? `baseline frozen at ${frozen.path}`
+          : `baseline already exists at ${frozen.path}; kept as is`,
+        frozen.created ? 'success' : 'warning',
+      )
+    }
+  }
   switch (command.format) {
     case 'terminal':
       shell.stdout(renderTerminal(report, { color: shell.color === true, detail: command.verbose }))

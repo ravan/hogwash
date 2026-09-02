@@ -84,14 +84,13 @@ const ruleOf = (entry: BanEntry, id: string, origin: string): unknown => ({
   examples: { matching: [entry.term] },
 })
 
-/** Turns the parsed bullets into a pack; throws HogwashError{kind:'config'} on an empty list. */
-export function banPackOf(entries: readonly BanEntry[], origin: string): RulePack {
-  if (entries.length === 0) {
-    throw new HogwashError({
-      kind: 'config',
-      message: `The ban list ${origin} holds no entries. Write one bulleted line for each banned word or phrase.`,
-    })
-  }
+/**
+ * Turns the parsed bullets into a pack. A list with no bullets is a ban list
+ * that nobody has filled in yet, not a broken one: it yields null, and the
+ * caller says so on stderr instead of refusing to scan.
+ */
+export function banPackOf(entries: readonly BanEntry[], origin: string): RulePack | null {
+  if (entries.length === 0) return null
   const used = new Map<string, number>()
   const rules = entries.map((entry) => {
     const base = slugOf(entry.term) || 'entry'
@@ -129,8 +128,11 @@ async function readBanSource(
 const candidatesOf = (path: string | readonly string[]): readonly string[] =>
   typeof path === 'string' ? [path] : path
 
+/** The ban list file that was found, and its pack — null when the file holds no bullets. */
+export type LoadedBanList = { readonly path: string; readonly pack: RulePack | null }
+
 /** Reads the configured ban list at the I/O boundary; a missing file is an error. */
-export async function loadBanList(path: string | readonly string[]): Promise<RulePack> {
+export async function loadBanList(path: string | readonly string[]): Promise<LoadedBanList> {
   const candidates = candidatesOf(path)
   const found = await readBanSource(candidates)
   if (found === null) {
@@ -142,13 +144,15 @@ export async function loadBanList(path: string | readonly string[]): Promise<Rul
           : `Could not read the ban list: no such file. Tried ${candidates.join(', ')}.`,
     })
   }
-  return banPackOf(parseBanList(found.source), found.path)
+  return { path: found.path, pack: banPackOf(parseBanList(found.source), found.path) }
 }
 
 /** The configured ban list, or null when no candidate file exists. */
 export async function loadBanListIfPresent(
   path: string | readonly string[],
-): Promise<RulePack | null> {
+): Promise<LoadedBanList | null> {
   const found = await readBanSource(candidatesOf(path))
-  return found === null ? null : banPackOf(parseBanList(found.source), found.path)
+  return found === null
+    ? null
+    : { path: found.path, pack: banPackOf(parseBanList(found.source), found.path) }
 }

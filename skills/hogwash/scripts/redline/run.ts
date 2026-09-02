@@ -9,6 +9,7 @@ import { buildReport } from '../report/build.js'
 import type { LoadedRule } from '../rules/packs.js'
 import { lexicalRules, structuralRules, stylometricRules } from '../rules/packs.js'
 import type { Shell } from '../shell.js'
+import { readWaivers } from '../waivers.js'
 import { computeHunks } from './align.js'
 import { buildView, renderRedline } from './html.js'
 import { emptyNotes, readNotes } from './notes.js'
@@ -32,6 +33,7 @@ export async function runRedline(input: {
     },
     config,
     shell.now(),
+    { waivers: await readWaivers(shell.cwd), cwd: shell.cwd },
   )
   const [originalDoc, candidateDoc] = documents
   const [originalFile, candidateFile] = report.files

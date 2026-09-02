@@ -8,7 +8,6 @@ import {
   defaultConfigJson,
   loadConfig,
 } from '../../skills/hogwash/scripts/config.js'
-import { HogwashError } from '../../skills/hogwash/scripts/errors.js'
 import { ThresholdSchema } from '../../skills/hogwash/scripts/types.js'
 
 const directory = (): string => mkdtempSync(join(tmpdir(), 'hogwash-config-'))
@@ -21,9 +20,9 @@ describe('strict configuration', () => {
   it('fills the runtime defaults', () => {
     const config = ConfigSchema.parse({})
     expect(config.profile).toEqual({
-      voice: 'profile/voice.md',
-      quality: 'profile/quality.md',
-      banList: 'profile/ban-list.md',
+      voice: 'profiles/default/voice.md',
+      quality: 'profiles/default/quality.md',
+      banList: 'profiles/default/ban-list.md',
     })
     expect(config.workflow).toEqual({
       maxPasses: 5,
@@ -73,15 +72,25 @@ describe('strict configuration', () => {
 
   it('requires model tuning for every configured advice family', () => {
     const missing = ConfigSchema.safeParse({
-      workflow: { advanced: { enabled: true, consultant: 'gemini', subagent: 'codex' } },
+      workflow: { advanced: { enabled: true, consultant: 'codex', subagent: 'claude' } },
+      models: { claude: {} },
     })
     expect(missing.success).toBe(false)
+    expect(
+      ConfigSchema.safeParse({
+        workflow: { advanced: { enabled: true, consultant: 'codex', subagent: 'claude' } },
+        models: { claude: {}, codex: {} },
+      }).success,
+    ).toBe(true)
+  })
+
+  it('knows only the families that have an adapter', () => {
     expect(
       ConfigSchema.safeParse({
         workflow: { advanced: { enabled: true, consultant: 'gemini', subagent: 'codex' } },
         models: { gemini: {}, codex: {} },
       }).success,
-    ).toBe(true)
+    ).toBe(false)
   })
 
   it('skips model tuning for a mechanism that is turned off and rejects advanced with no mechanism', () => {
@@ -91,7 +100,7 @@ describe('strict configuration', () => {
           advanced: {
             enabled: true,
             useConsultant: false,
-            consultant: 'gemini',
+            consultant: 'claude',
             subagent: 'codex',
           },
         },

@@ -28,6 +28,17 @@ _Avoid_: Fixed file, output document
 The approved atomic replacement of the original with its candidate.
 _Avoid_: Apply fix, overwrite
 
+**Waiver**:
+An owner's recorded decision that one occurrence of one finding stays. Stored in `.hogwash/waivers.json`; the scan marks the finding waived, weightless, and not actionable.
+_Avoid_: Ignore, suppression
+
+**Baseline file**:
+The frozen first scan of one original, written once to `.hogwash/<stem>-baseline.json` and removed by acceptance.
+
+**Fingerprint**:
+A digest of a file's actionable findings as a multiset of rule and normalised match. Two equal fingerprints mean the pass changed nothing the scanner sees.
+_Avoid_: Hash, checksum
+
 **Consultant**:
 A configured model family that gives read-only advice about a candidate and its profiles in one call.
 _Avoid_: Fixer, judge

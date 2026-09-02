@@ -15,10 +15,10 @@ const finding = {
   actionable: true,
 }
 
-describe('report v6', () => {
+describe('report v7', () => {
   it('requires locations and actionability without judge fields', () => {
     const report = ReportSchema.parse({
-      version: 6,
+      version: 7,
       createdAt: '2026-01-01T00:00:00.000Z',
       register: 'technical',
       threshold: 25,
@@ -27,6 +27,7 @@ describe('report v6', () => {
           path: 'a.md',
           words: 1,
           density: 1000,
+          fingerprint: 'e3b0c44298fc1c14',
           findings: [
             {
               ...finding,
@@ -45,6 +46,6 @@ describe('report v6', () => {
   })
 
   it('rejects old report versions', () => {
-    expect(ReportSchema.safeParse({ version: 5 }).success).toBe(false)
+    expect(ReportSchema.safeParse({ version: 6 }).success).toBe(false)
   })
 })

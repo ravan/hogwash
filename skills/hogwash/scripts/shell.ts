@@ -11,6 +11,10 @@ export type Shell = {
   readonly cwd: string
   /** Home directory override; os.homedir() when absent. */
   readonly home?: string
+  /** The shared profile root; `<home>/.idiolect` when absent. The host reads IDIOLECT_HOME. */
+  readonly idiolectHome?: string
+  /** Absolute path of the hogwash entry script, so generated hooks can call it. */
+  readonly scriptPath: string
   readonly now: () => string
   readonly stdout: (line: string) => void
   readonly stderr: (line: string) => void

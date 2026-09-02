@@ -33,7 +33,7 @@ ln -s "$PWD/skills/hogwash" ~/.claude/skills/hogwash
 ln -s "$PWD/skills/idiolect" ~/.claude/skills/idiolect
 ```
 
-There is no setup step. On first use the skill installs its own script dependencies and scaffolds `hogwash.json` and the `profile/` templates. Start it with one sentence to your agent:
+There is no setup step. On first use the skill installs its own script dependencies and scaffolds `hogwash.json` and the `profiles/default/` templates. Start it with one sentence to your agent:
 
 > Initialize hogwash in this project.
 
@@ -44,13 +44,13 @@ Hogwash reports patterns, rates, and counts. It does not decide who wrote the te
 The skill drives the scripts; you drive the skill. Ask your agent to run hogwash on one document and the loop follows:
 
 1. The agent maps the document's format to one of the three scanner registers — `technical` (architecture docs, ADRs, READMEs, specs), `prose` (blog posts, essays, articles, emails), or `marketing` (landing pages, product copy, press releases) — and passes `--register` when it differs from the `hogwash.json` default. Every scan of the document uses that same register.
-2. The agent scans the original and freezes that report as a baseline checklist.
+2. The agent scans the original with `--baseline`, which freezes that report in `.hogwash/<stem>-baseline.json`. Later rescans never overwrite it, so the checklist survives a lost context.
 3. It copies the original to a sibling candidate: `docs/post.md` becomes `docs/post-hogwash.md`, `README` becomes `README-hogwash`. The original stays unchanged.
-4. It rewrites the candidate against your profiles, rescans, and repeats until no actionable finding remains. Later rescans measure the candidate but never replace the baseline checklist.
+4. It rewrites the candidate against your profiles, rescans, and repeats until no actionable finding remains. Each file report carries a `fingerprint` of its actionable findings; two rescans with the same fingerprint stop the loop.
 5. You review the diff and give an explicit verdict.
-6. Only after your approval does `accept` atomically rename the candidate over the original.
+6. Only after your approval does `accept` run. It rescans the candidate one last time, refuses if anything actionable remains, and otherwise atomically renames the candidate over the original and removes the baseline.
 
-A finding is `actionable` when the loop must resolve it before acceptance. Advisory findings stay visible but never block. When a finding can only be resolved by changing one of your claims, the agent asks instead of deciding; you can waive the finding and keep the claim.
+A finding is `actionable` when the loop must resolve it before acceptance. Advisory findings stay visible but never block. When a finding can only be resolved by changing one of your claims, the agent asks instead of deciding; you can waive the finding and keep the claim. A waiver is recorded with `waive` in `.hogwash/waivers.json`, covers one occurrence, and is honoured by every later scan, by the diff report, and by the acceptance gate.
 
 ### Scrub by default, re-voice on request
 
@@ -74,17 +74,19 @@ The same scripts work without an agent. `$SKILL` is the skill directory; run eac
 
 ```sh
 SKILL=~/.claude/skills/hogwash
-bun "$SKILL/scripts/hogwash.ts" init                       # scaffold hogwash.json and profile/
+bun "$SKILL/scripts/hogwash.ts" init                       # scaffold hogwash.json and profiles/default/
 bun "$SKILL/scripts/hogwash.ts" scan --register prose docs/post.md  # scan; also --output json|sarif
+bun "$SKILL/scripts/hogwash.ts" scan --baseline docs/post.md        # scan and freeze .hogwash/post-baseline.json
 bun "$SKILL/scripts/hogwash.ts" scan --short --output json note.md  # short-message scan, long-document rules off
+bun "$SKILL/scripts/hogwash.ts" waive --rule <rule-id> --match "<text>" --reason "<why>" --line <n> docs/post.md
 bun "$SKILL/scripts/hogwash.ts" report --md                # render the stored report
 bun "$SKILL/scripts/hogwash.ts" rules --explain <rule-id>  # list or explain scanner rules
 bun "$SKILL/scripts/hogwash.ts" diff docs/post.md          # open original vs candidate in your viewer
-bun "$SKILL/scripts/hogwash.ts" accept --approved docs/post.md
+bun "$SKILL/scripts/hogwash.ts" accept --approved docs/post.md      # final scan, then rename; exit 1 if anything actionable remains
 bun "$SKILL/scripts/hogwash.ts" hook --install             # pre-commit scan hook
 ```
 
-`init` never overwrites a profile that already exists. `scan` is the only command that scans; no command other than the agent-owned loop rewrites a document. `scan` writes `.hogwash/report.json` (report v6) and every finding carries raw UTF-16 offsets, a 1-based line and column range with an exclusive end, and an `actionable` boolean.
+`init` never overwrites a profile that already exists. The seed ban list has no bullets, so scans run with a stderr note until you approve entries. `scan` is the only command that scans a document into the stored report; `accept` rescans in memory as its gate; no command other than the agent-owned loop rewrites a document. `scan` writes `.hogwash/report.json` (report v7) and every finding carries raw UTF-16 offsets, a 1-based line and column range with an exclusive end, an `actionable` boolean, and a `waived` boolean. Each file carries a `fingerprint`: a digest of its actionable findings as a multiset of rule and normalised match. The installed hook calls the skill's script by absolute path, so it works without any `hogwash` binary.
 
 The scan exit code is density-based, where density is the weighted actionable findings per 1,000 prose words:
 
@@ -101,11 +103,11 @@ Use the gate when a rule has to hold every time.
 
 ### Configure
 
-Hogwash reads `hogwash.json` from the working directory. The file is optional: when it is absent, the built-in defaults apply (advanced consultation stays off; both advisers default to Claude once a project enables it), profile paths resolve through `~/.idiolect/` after the project, and a missing ban list is tolerated for scanning. Write the file only when the project needs fine-tuning. Unknown and retired keys are errors, and paths resolve from the working directory, then from `~/.idiolect/`. [hogwash.example.json](hogwash.example.json) shows the complete defaults. The main settings:
+Hogwash reads `hogwash.json` from the working directory. The file is optional: when it is absent, the built-in defaults apply (advanced consultation stays off; both advisers default to Claude once a project enables it), profile paths resolve through the shared root after the project, and a missing ban list is tolerated for scanning. Write the file only when the project needs fine-tuning. Unknown and retired keys are errors. Relative paths resolve from the working directory, then from the shared profile root: `$IDIOLECT_HOME` when set, else `~/.idiolect/`. Set `IDIOLECT_HOME` when your agent runs with a redirected home directory. [hogwash.example.json](hogwash.example.json) shows the complete defaults. The main settings:
 
 - `register`: the project's default writing context, which selects stylometric baselines and rule weights: `technical`, `prose`, or `marketing`. `scan --register <name>` overrides it per document.
 - `threshold`: the density above which `scan` exits `1`.
-- `packs` and `gates`: which rule packs run, plus explicitly enabled model-specific rule groups. Hogwash never infers a gate from document authorship. One pack ships off by default: `mechanics` holds punctuation and length rules (connector dashes, more than one comma in a sentence, paragraphs past three sentences) that are a writer's house preference rather than a machine-writing tell, so a project turns it on by naming it here. Its two counting rules take their ceiling from a `limit` field in the pack, so a fork can set its own numbers without touching code.
+- `packs` and `gates`: which rule packs run, plus explicitly enabled model-specific rule groups. Hogwash never infers a gate from document authorship. One pack ships off by default: `mechanics` holds punctuation and length rules (connector dashes, more than one comma in a sentence, paragraphs past three sentences) that are a writer's house preference rather than a machine-writing tell, so a project turns it on by naming it here. Every mechanics rule is an `error`, so `scan --fail-on error` fails the run on a single breach. Its two counting rules take their ceiling from a `limit` field in the pack, so a fork can set its own numbers without touching code.
 - `profile`: paths to your voice, quality, and ban-list files.
 - `workflow.diff`: the viewer `diff` launches (`code --diff` by default; set it to `null` to disable it).
 - `workflow.advanced` and `models`: opt-in model consultation. With `advanced.enabled`, `consult` reads the candidate plus all three profiles, makes exactly one configured model call (Claude or Codex), and returns advice as JSON. The consultant never scans, edits files, or owns the loop, and an unavailable family fails instead of falling back to another model.
@@ -116,7 +118,7 @@ Your idiolect is the language only you speak: your words, rhythm, punctuation, a
 
 Only you can invoke it (`/idiolect` in Claude Code); no model or skill triggers it on its own. It runs in four modes that chain naturally:
 
-- `Create` builds a named profile under `profiles/<name>/` from writing samples you point at, a guided interview, or both. The profile holds a stable core (`voice.md`), per-format quality bars, an owner-declared ban list, per-context register overlays, an evidence ledger, and a changelog.
+- `Create` builds a named profile under `profiles/<name>/` from writing samples you point at, a guided interview, or both. The profile holds a stable core (`voice.md`), per-format quality bars, an owner-declared ban list, per-context register overlays, an evidence ledger, and a changelog. When the project has a `hogwash.json`, it offers to point that file at the new profile. Hogwash's own `init` seeds `profiles/default/` in the same layout; `default` stays neutral (seeds or a shared house voice), and each person's voice lives under its own name.
 - `Apply` writes or rewrites a piece in the owner's voice, meaning-first, with an ordered self-check.
 - `Critique` judges a profile against a ten-point rubric and reports the smallest fix for each miss.
 - `Refine` turns feedback like "I'd never say that" into a narrow, approved, logged profile change.
@@ -156,6 +158,6 @@ bun run check          # lint, typecheck, and the test suite
 bun run eval --gate
 ```
 
-All tests live under [tests/](tests), outside the shipped skill folders, so installing a skill never pulls in test code or test data. `bun test` from the root runs everything; `bun test tests/hogwash` runs one skill's suite.
+All tests live under [tests/](tests), outside the shipped skill folders, so installing a skill never pulls in test code or test data. `bun test` from the root runs everything; `bun test tests/hogwash` runs one skill's suite. The idiolect skill has no scripts; its test checks the skill files for the promises the README makes, and [skills/idiolect/evals/evals.json](skills/idiolect/evals/evals.json) holds the workflow assertions a reviewer walks through by hand after changing the skill.
 
 `bun run sync`, `bun run import-liang`, and `bun run eval` are thin wrappers in [tools/](tools). Each one runs the matching script inside `skills/hogwash`.

@@ -13,8 +13,11 @@ const oneLine = (text: string, limit: number): string => {
   return flat.length <= limit ? flat : `${flat.slice(0, limit - 1)}…`
 }
 
+export const stateOf = (finding: ReportFinding): 'actionable' | 'advisory' | 'waived' =>
+  finding.waived ? 'waived' : finding.actionable ? 'actionable' : 'advisory'
+
 export const noteCell = (finding: ReportFinding): string =>
-  `${finding.message}${finding.actionable ? '' : ' (advisory)'}`
+  `${finding.message}${finding.actionable ? '' : finding.waived ? ' (waived)' : ' (advisory)'}`
 
 const locationOf = (finding: ReportFinding): string => {
   const start = finding.location.start
@@ -28,10 +31,11 @@ const verdict = (file: FileReport, threshold: number): string =>
 const summary = (report: Report): string => {
   const findings = report.files.flatMap((file) => file.findings)
   const actionable = findings.filter((finding) => finding.actionable).length
-  const advisory = findings.length - actionable
+  const waived = findings.filter((finding) => finding.waived).length
+  const advisory = findings.length - actionable - waived
   return `${findings.length} finding${findings.length === 1 ? '' : 's'} in ${report.files.length} file${
     report.files.length === 1 ? '' : 's'
-  } · ${actionable} actionable · ${advisory} advisory`
+  } · ${actionable} actionable · ${advisory} advisory${waived === 0 ? '' : ` · ${waived} waived`}`
 }
 
 export function renderTerminal(report: Report, options: TerminalOptions = {}): string {
@@ -46,7 +50,7 @@ export function renderTerminal(report: Report, options: TerminalOptions = {}): s
     )
     if (file.findings.length === 0) continue
     for (const finding of file.findings) {
-      const state = finding.actionable ? 'actionable' : 'advisory'
+      const state = stateOf(finding)
       if (options.detail === true) {
         sections.push(
           `  ${MARKS[finding.severity]} ${finding.ruleId}  ${locationOf(finding)}  ${state}`,

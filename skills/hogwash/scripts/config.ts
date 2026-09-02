@@ -22,9 +22,9 @@ const DEFAULT_PACKS = [
 ] as const
 
 export const ProfileSchema = z.strictObject({
-  voice: z.string().min(1).default('profile/voice.md'),
-  quality: z.string().min(1).default('profile/quality.md'),
-  banList: z.string().min(1).default('profile/ban-list.md'),
+  voice: z.string().min(1).default('profiles/default/voice.md'),
+  quality: z.string().min(1).default('profiles/default/quality.md'),
+  banList: z.string().min(1).default('profiles/default/ban-list.md'),
 })
 export type Profile = z.infer<typeof ProfileSchema>
 

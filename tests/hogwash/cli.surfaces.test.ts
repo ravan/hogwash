@@ -23,16 +23,18 @@ describe('init', () => {
       codex: { model: 'gpt-5.6-sol', effort: 'high' },
     })
     for (const path of ['voice.md', 'quality.md', 'ban-list.md']) {
-      expect(existsSync(join(created.cwd, 'profile', path))).toBe(true)
+      expect(existsSync(join(created.cwd, 'profiles', 'default', path))).toBe(true)
     }
   })
 
   it('keeps existing profiles when it runs again', async () => {
     const created = harness()
     await run(['init'], created.shell)
-    writeFileSync(join(created.cwd, 'profile', 'voice.md'), 'custom voice')
+    writeFileSync(join(created.cwd, 'profiles', 'default', 'voice.md'), 'custom voice')
     expect(await run(['init'], created.shell)).toBe(0)
-    expect(readFileSync(join(created.cwd, 'profile', 'voice.md'), 'utf8')).toBe('custom voice')
+    expect(readFileSync(join(created.cwd, 'profiles', 'default', 'voice.md'), 'utf8')).toBe(
+      'custom voice',
+    )
   })
 
   it('never installs a skill directory', async () => {
@@ -60,6 +62,6 @@ describe('retained surfaces', () => {
     expect(created.stdout[0]).toContain('| location | offsets | rule |')
     created.stdout.length = 0
     expect(await run(['hook'], created.shell)).toBe(0)
-    expect(created.stdout[0]).toContain('hogwash scan')
+    expect(created.stdout[0]).toContain('exec bun "/skills/hogwash/scripts/hogwash.ts" scan')
   })
 })

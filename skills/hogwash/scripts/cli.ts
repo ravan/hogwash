@@ -1,6 +1,6 @@
-import { acceptCandidate, requireCandidate } from './candidate.js'
+import { acceptCandidate, candidatePath, requireCandidate } from './candidate.js'
 import { reportFailure, runReport } from './command.js'
-import type { Command } from './commands.js'
+import type { AcceptCommand, Command } from './commands.js'
 import type { Config } from './config.js'
 import { applyOverrides, banListPath, loadConfigDetailed } from './config.js'
 import { runConsult } from './consult.js'
@@ -8,17 +8,28 @@ import { HogwashError } from './errors.js'
 import { installHook } from './hook/install.js'
 import { preCommitScript } from './hook/script.js'
 import { initProject } from './init.js'
-import { profileCandidates } from './profile.js'
+import { readDocuments } from './io.js'
+import { idiolectHomeOf, profileCandidates } from './profile.js'
 import { type ProgressCommand, reportProgress } from './progress.js'
 import { runRedline } from './redline/run.js'
+import { buildReport, hasActionable } from './report/build.js'
+import { renderTerminal } from './report/render.js'
+import { removeBaseline } from './report/store.js'
 import { loadBanList, loadBanListIfPresent } from './rules/banlist.js'
 import { renderRuleExplanation, renderRuleList } from './rules/explain.js'
 import type { LoadedRule } from './rules/packs.js'
-import { loadBundledPacks, selectRules } from './rules/packs.js'
+import {
+  lexicalRules,
+  loadBundledPacks,
+  selectRules,
+  structuralRules,
+  stylometricRules,
+} from './rules/packs.js'
 import { runScan } from './scan/run.js'
 import type { ScanFormat, Shell } from './shell.js'
 import type { ExitCode, ModelFamily, Register, Severity, Threshold } from './types.js'
 import { ModelFamilySchema, RegisterSchema, SeveritySchema, ThresholdSchema } from './types.js'
+import { addWaiver, readWaivers } from './waivers.js'
 
 export type { Command, ScanCommand } from './commands.js'
 export type { HookAction, ReportFormat, ScanFormat, Shell } from './shell.js'
@@ -26,12 +37,13 @@ export type { HookAction, ReportFormat, ScanFormat, Shell } from './shell.js'
 const USAGE =
   'usage: bun scripts/hogwash.ts scan [--output <terminal|json|sarif>] [--json] [--sarif]\n' +
   '                                   [--verbose] [--short] [--register <name>] [--threshold <n>]\n' +
-  '                                   [--fail-on <info|warning|error>] <files...>\n' +
-  '       bun scripts/hogwash.ts consult --family <claude|codex|gemini> <candidate>\n' +
+  '                                   [--fail-on <info|warning|error>] [--baseline] <files...>\n' +
+  '       bun scripts/hogwash.ts waive --rule <id> --match <text> --reason <text> [--line <n>] <original>\n' +
+  '       bun scripts/hogwash.ts consult --family <claude|codex> <candidate>\n' +
   '       bun scripts/hogwash.ts diff <original>\n' +
   '       bun scripts/hogwash.ts diff-report [--notes <json>] [--out <html>] [--register <name>]\n' +
   '                                          [--open] <original>\n' +
-  '       bun scripts/hogwash.ts accept --approved <original>\n' +
+  '       bun scripts/hogwash.ts accept --approved [--register <name>] <original>\n' +
   '       bun scripts/hogwash.ts rules [--explain <rule-id>]\n' +
   '       bun scripts/hogwash.ts report [--md]\n' +
   '       bun scripts/hogwash.ts hook [--install]\n' +
@@ -78,9 +90,12 @@ const parseScan = (rest: readonly string[]): Command => {
   let register: Register | null = null
   let threshold: Threshold | null = null
   let failOn: Severity | null = null
+  let baseline = false
   for (let index = 0; index < rest.length; index += 1) {
     const argument = rest[index]
-    if (argument === '--json' || argument === '--sarif') {
+    if (argument === '--baseline') {
+      baseline = true
+    } else if (argument === '--json' || argument === '--sarif') {
       format = argument === '--json' ? 'json' : 'sarif'
       alias = true
     } else if (argument === '--output') {
@@ -104,7 +119,49 @@ const parseScan = (rest: readonly string[]): Command => {
     }
   }
   if (files.length === 0 || (alias && output)) return usageFailure()
-  return { kind: 'scan', files, format, verbose, failOn, overrides: { register, threshold, short } }
+  return {
+    kind: 'scan',
+    files,
+    format,
+    verbose,
+    failOn,
+    baseline,
+    overrides: { register, threshold, short },
+  }
+}
+
+const parseWaive = (rest: readonly string[]): Command => {
+  const files: string[] = []
+  let rule: string | null = null
+  let match: string | null = null
+  let reason: string | null = null
+  let line: number | null = null
+  const value = (index: number): string => {
+    const argument = rest[index]
+    return argument === undefined || argument.length === 0 ? usageFailure() : argument
+  }
+  for (let index = 0; index < rest.length; index += 1) {
+    const argument = rest[index]
+    if (argument === '--rule') {
+      rule = value(++index)
+    } else if (argument === '--match') {
+      match = value(++index)
+    } else if (argument === '--reason') {
+      reason = value(++index)
+    } else if (argument === '--line') {
+      const parsed = Number(value(++index))
+      if (!Number.isInteger(parsed) || parsed < 1) return usageFailure()
+      line = parsed
+    } else if (argument === undefined || argument.startsWith('-')) {
+      return usageFailure()
+    } else {
+      files.push(argument)
+    }
+  }
+  const [original] = files
+  if (original === undefined || files.length > 1) return usageFailure()
+  if (rule === null || match === null || reason === null) return usageFailure()
+  return { kind: 'waive', original, rule, match, reason, line }
 }
 
 const parseRedline = (rest: readonly string[]): Command => {
@@ -157,10 +214,24 @@ const parseOnePath = (kind: 'diff', rest: readonly string[]): Command => {
 }
 
 const parseAccept = (rest: readonly string[]): Command => {
-  if (rest.length !== 2 || rest[0] !== '--approved') return usageFailure()
-  const original = rest[1]
-  if (original === undefined || original.startsWith('-')) return usageFailure()
-  return { kind: 'accept', original, approved: true }
+  const files: string[] = []
+  let approved = false
+  let register: Register | null = null
+  for (let index = 0; index < rest.length; index += 1) {
+    const argument = rest[index]
+    if (argument === '--approved') {
+      approved = true
+    } else if (argument === '--register') {
+      register = parseRegister(rest[++index])
+    } else if (argument === undefined || argument.startsWith('-')) {
+      return usageFailure()
+    } else {
+      files.push(argument)
+    }
+  }
+  const [original] = files
+  if (!approved || original === undefined || files.length > 1) return usageFailure()
+  return { kind: 'accept', original, approved: true, register }
 }
 
 const parseRules = (rest: readonly string[]): Command => {
@@ -193,6 +264,8 @@ export function parseArgs(argv: readonly string[]): Command {
       return parseOnePath('diff', rest)
     case 'diff-report':
       return parseRedline(rest)
+    case 'waive':
+      return parseWaive(rest)
     case 'accept':
       return parseAccept(rest)
     case 'rules':
@@ -213,15 +286,60 @@ async function loadRules(
   config: Config,
   banListRequired: boolean,
 ): Promise<readonly LoadedRule[]> {
-  const candidates = profileCandidates(shell.cwd, banListPath(config), shell.home)
-  const banPack = banListRequired
+  const candidates = profileCandidates(shell.cwd, banListPath(config), idiolectHomeOf(shell))
+  const found = banListRequired
     ? await loadBanList(candidates)
     : await loadBanListIfPresent(candidates)
+  if (found !== null && found.pack === null) {
+    shell.stderr(
+      `The ban list ${found.path} holds no entries; scanning without bans. Write one bulleted line for each banned word or phrase.`,
+    )
+  }
+  const banPack = found?.pack ?? null
   return selectRules([...loadBundledPacks(), ...(banPack === null ? [] : [banPack])], {
     packs: banPack === null ? [...config.packs] : [...config.packs, banPack.name],
     gates: config.gates,
     deprecated: config.includeDeprecatedRules,
   })
+}
+
+/**
+ * The acceptance gate. The candidate is scanned one last time, in memory, with
+ * the owner's waivers honoured. Anything still actionable keeps the original in
+ * place and comes back as exit 1 with the findings on stdout. A clean candidate
+ * replaces the original and its frozen baseline is removed.
+ */
+async function runAccept(
+  command: AcceptCommand,
+  config: Config,
+  selected: readonly LoadedRule[],
+  shell: Shell,
+): Promise<ExitCode> {
+  const candidate = await requireCandidate(command.original)
+  const documents = await readDocuments([candidate])
+  const report = buildReport(
+    documents,
+    {
+      lexical: lexicalRules(selected),
+      stylometric: stylometricRules(selected),
+      structural: structuralRules(selected),
+    },
+    config,
+    shell.now(),
+    { waivers: await readWaivers(shell.cwd), cwd: shell.cwd },
+  )
+  if (hasActionable(report)) {
+    shell.stdout(renderTerminal(report, { color: shell.color === true }))
+    shell.stderr(
+      `${candidate} still has actionable findings; the original is unchanged. Resolve or waive them, then ask for acceptance again.`,
+    )
+    return 1
+  }
+  shell.stdout(await acceptCandidate(command.original))
+  if (await removeBaseline(shell.cwd, command.original)) {
+    shell.stderr(`Removed the frozen baseline for ${command.original}.`)
+  }
+  return 0
 }
 
 async function runDiff(original: string, config: Config, shell: Shell): Promise<void> {
@@ -253,7 +371,9 @@ export async function run(argv: readonly string[], shell: Shell): Promise<ExitCo
         return await runReport(command.format, shell)
       case 'hook':
         shell.stdout(
-          command.action === 'install' ? await installHook(shell.cwd) : preCommitScript(),
+          command.action === 'install'
+            ? await installHook(shell.cwd, shell.scriptPath)
+            : preCommitScript(shell.scriptPath),
         )
         return 0
       case 'scan': {
@@ -288,9 +408,32 @@ export async function run(argv: readonly string[], shell: Shell): Promise<ExitCo
         )
         return 0
       }
-      case 'accept':
-        shell.stdout(await acceptCandidate(command.original))
+      case 'waive': {
+        const written = await addWaiver(shell.cwd, {
+          file: command.original,
+          rule: command.rule,
+          match: command.match,
+          reason: command.reason,
+          line: command.line,
+        })
+        shell.stdout(
+          `${written.path}: ${written.total} waiver${written.total === 1 ? '' : 's'}; ${command.rule} "${command.match}" on ${command.original} (also covers ${candidatePath(command.original)})`,
+        )
         return 0
+      }
+      case 'accept': {
+        const effective = applyOverrides(config, {
+          register: command.register,
+          threshold: null,
+          short: false,
+        })
+        return await runAccept(
+          command,
+          effective,
+          await loadRules(shell, effective, fromFile),
+          shell,
+        )
+      }
       case 'rules': {
         const selected = await loadRules(shell, config, fromFile)
         shell.stdout(

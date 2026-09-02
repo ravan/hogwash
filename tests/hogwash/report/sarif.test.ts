@@ -2,9 +2,9 @@ import { expect, it } from 'bun:test'
 import { buildSarif } from '../../../skills/hogwash/scripts/report/sarif.js'
 import { ReportSchema } from '../../../skills/hogwash/scripts/types.js'
 
-it('uses report v6 positions and actionability in SARIF', () => {
+it('uses report v7 positions and actionability in SARIF', () => {
   const report = ReportSchema.parse({
-    version: 6,
+    version: 7,
     createdAt: 'fixed',
     register: 'technical',
     threshold: 25,
@@ -13,6 +13,7 @@ it('uses report v6 positions and actionability in SARIF', () => {
         path: 'a.md',
         words: 1,
         density: 1000,
+        fingerprint: 'e3b0c44298fc1c14',
         findings: [
           {
             ruleId: 'test.rule',

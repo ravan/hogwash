@@ -31,7 +31,8 @@ export type WordCount = z.infer<typeof WordCountSchema>
 export const PackNameSchema = z.string().min(1).brand<'PackName'>()
 export type PackName = z.infer<typeof PackNameSchema>
 
-export const ModelFamilySchema = z.enum(['claude', 'codex', 'gemini'])
+/** The families that have a consultation adapter. */
+export const ModelFamilySchema = z.enum(['claude', 'codex'])
 export type ModelFamily = z.infer<typeof ModelFamilySchema>
 
 export const PositionSchema = z.strictObject({
@@ -63,19 +64,29 @@ export const FindingSchema = z.strictObject({
 })
 export type Finding = z.infer<typeof FindingSchema>
 
-export const ReportFindingSchema = FindingSchema.extend({ location: LocationSchema })
+/**
+ * A finding with its position, and whether the owner waived this occurrence
+ * (see waivers.ts). A waived finding stays visible, weighs nothing and is not
+ * actionable.
+ */
+export const ReportFindingSchema = FindingSchema.extend({
+  location: LocationSchema,
+  waived: z.boolean().default(false),
+})
 export type ReportFinding = z.infer<typeof ReportFindingSchema>
 
 export const FileReportSchema = z.strictObject({
   path: z.string().min(1),
   words: WordCountSchema,
   density: DensitySchema,
+  /** Digest of the actionable findings as a (rule, normalised match) multiset; see report/fingerprint.ts. */
+  fingerprint: z.string().regex(/^[0-9a-f]{16}$/),
   findings: z.array(ReportFindingSchema),
 })
 export type FileReport = z.infer<typeof FileReportSchema>
 
 export const ReportSchema = z.strictObject({
-  version: z.literal(6),
+  version: z.literal(7),
   /** ISO-8601 instant, supplied by the host. */
   createdAt: z.string().min(1),
   register: RegisterSchema,

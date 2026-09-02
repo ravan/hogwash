@@ -15,6 +15,29 @@ export type ScanCommand = {
    * code to the density alone.
    */
   readonly failOn: Severity | null
+  /** Also freeze each file's report as `.hogwash/<stem>-baseline.json` when none exists. */
+  readonly baseline: boolean
+}
+
+/** Record one owner waiver in `.hogwash/waivers.json`. */
+export type WaiveCommand = {
+  readonly kind: 'waive'
+  readonly original: string
+  readonly rule: string
+  readonly match: string
+  readonly reason: string
+  readonly line: number | null
+}
+
+/**
+ * Replace the original with its candidate — after a final scan of the
+ * candidate finds nothing actionable beyond owner-waived rows.
+ */
+export type AcceptCommand = {
+  readonly kind: 'accept'
+  readonly original: string
+  readonly approved: true
+  readonly register: Register | null
 }
 
 export type RedlineCommand = {
@@ -30,9 +53,10 @@ export type RedlineCommand = {
 export type Command =
   | ScanCommand
   | RedlineCommand
+  | WaiveCommand
+  | AcceptCommand
   | { readonly kind: 'consult'; readonly family: ModelFamily; readonly candidate: string }
   | { readonly kind: 'diff'; readonly original: string }
-  | { readonly kind: 'accept'; readonly original: string; readonly approved: true }
   | { readonly kind: 'rules'; readonly explain: string | null }
   | { readonly kind: 'report'; readonly format: ReportFormat }
   | { readonly kind: 'hook'; readonly action: HookAction }

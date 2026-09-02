@@ -28,15 +28,10 @@ export const CODEX_DEFAULT_TUNING = {
   effort: 'high',
 } as const satisfies Required<CodexTuning>
 
-/** Gemini has no adapter yet, so only the model name is accepted for it. */
-export const GeminiTuningSchema = z.strictObject({ model: ModelNameSchema.optional() })
-export type GeminiTuning = z.infer<typeof GeminiTuningSchema>
-
 /** Per-family model and effort settings; an absent family means adapter defaults. */
 export const ModelsSchema = z.strictObject({
   claude: ClaudeTuningSchema.optional(),
   codex: CodexTuningSchema.optional(),
-  gemini: GeminiTuningSchema.optional(),
 })
 export type Models = z.infer<typeof ModelsSchema>
 
@@ -46,6 +41,5 @@ export function mergeModels(base: Models, overrides: Models): Models {
     ...base,
     ...(overrides.claude === undefined ? {} : { claude: { ...base.claude, ...overrides.claude } }),
     ...(overrides.codex === undefined ? {} : { codex: { ...base.codex, ...overrides.codex } }),
-    ...(overrides.gemini === undefined ? {} : { gemini: { ...base.gemini, ...overrides.gemini } }),
   }
 }

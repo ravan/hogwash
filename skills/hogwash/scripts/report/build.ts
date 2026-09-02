@@ -6,6 +6,9 @@ import { scanStructure } from '../scan/structural.js'
 import { scanStylometry } from '../scan/stylometry.js'
 import { countProseWords, segment } from '../segment/markdown.js'
 import type { Finding, Register, Report, Severity } from '../types.js'
+import type { Waiver } from '../waivers.js'
+import { applyWaivers, waiversFor } from '../waivers.js'
+import { fingerprintOf } from './fingerprint.js'
 import { buildLineIndex, lineColumnAt } from './position.js'
 
 export type Document = { readonly path: string; readonly text: string }
@@ -30,36 +33,50 @@ export function scanFindings(text: string, rules: ScanRules, register: Register)
   ].sort(byOffset)
 }
 
+/** Owner waivers to honour, resolved against `cwd` (see waivers.ts). */
+export type WaiverContext = { readonly waivers: readonly Waiver[]; readonly cwd: string }
+
 export function buildReport(
   documents: readonly Document[],
   rules: ScanRules,
   config: Config,
   createdAt: string,
+  waiverContext: WaiverContext = { waivers: [], cwd: '.' },
 ): Report {
   return {
-    version: 6,
+    version: 7,
     createdAt,
     register: config.register,
     threshold: config.threshold,
     files: documents.map((document) => {
-      const findings = scanFindings(document.text, rules, config.register)
       const lineIndex = buildLineIndex(document.text)
       const words = countProseWords(document.text, segment(document.text))
+      const located = scanFindings(document.text, rules, config.register).map((finding) => ({
+        ...finding,
+        waived: false,
+        location: {
+          start: lineColumnAt(lineIndex, finding.start),
+          end: lineColumnAt(lineIndex, finding.end),
+        },
+      }))
+      const findings = applyWaivers(
+        located,
+        waiversFor(waiverContext.waivers, document.path, waiverContext.cwd),
+      )
       return {
         path: document.path,
         words,
         density: density(findings, words),
-        findings: findings.map((finding) => ({
-          ...finding,
-          location: {
-            start: lineColumnAt(lineIndex, finding.start),
-            end: lineColumnAt(lineIndex, finding.end),
-          },
-        })),
+        fingerprint: fingerprintOf(findings),
+        findings: [...findings],
       }
     }),
   }
 }
+
+/** True when any file still has an actionable finding — the loop's exit gate. */
+export const hasActionable = (report: Report): boolean =>
+  report.files.some((file) => file.findings.some((finding) => finding.actionable))
 
 const SEVERITY_ORDER: Record<Severity, number> = { info: 0, warning: 1, error: 2 }
 
@@ -74,7 +91,7 @@ export function exitCodeForReport(report: Report, failOn: Severity | null = null
   if (failOn === null) return 0
   const floor = SEVERITY_ORDER[failOn]
   return report.files.some((file) =>
-    file.findings.some((finding) => SEVERITY_ORDER[finding.severity] >= floor),
+    file.findings.some((finding) => !finding.waived && SEVERITY_ORDER[finding.severity] >= floor),
   )
     ? 1
     : 0

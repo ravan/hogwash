@@ -11,12 +11,18 @@ const EXPECTED = [
   '  exit 0',
   'fi',
   '# shellcheck disable=SC2086',
-  'exec hogwash scan $files',
+  'exec bun "/skills/hogwash/scripts/hogwash.ts" scan $files',
 ]
 
 describe('preCommitScript', () => {
   it('returns the generated script verbatim', () => {
-    expect(preCommitScript()).toBe(`${EXPECTED.join('\n')}\n`)
+    expect(preCommitScript('/skills/hogwash/scripts/hogwash.ts')).toBe(`${EXPECTED.join('\n')}\n`)
+  })
+
+  it('quotes a script path that holds spaces', () => {
+    expect(preCommitScript('/Users/a b/hogwash.ts')).toContain(
+      'exec bun "/Users/a b/hogwash.ts" scan',
+    )
   })
 
   it('names the hook path git looks for', () => {

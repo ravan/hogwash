@@ -49,9 +49,9 @@ try {
   const createdAt = new Date().toISOString()
   const cwd = process.cwd()
   const config = await loadConfig(cwd)
-  const banPack = await loadBanList(join(cwd, banListPath(config)))
-  const selected = selectRules([...loadBundledPacks(), banPack], {
-    packs: [...config.packs, banPack.name],
+  const banPack = (await loadBanList(join(cwd, banListPath(config)))).pack
+  const selected = selectRules([...loadBundledPacks(), ...(banPack === null ? [] : [banPack])], {
+    packs: banPack === null ? [...config.packs] : [...config.packs, banPack.name],
     gates: config.gates,
     deprecated: config.includeDeprecatedRules,
   })

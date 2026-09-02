@@ -1,54 +1,22 @@
 {
-  "trigger": [
-    {
-      "query": "I have a folder of sent emails and old blog posts. Build a profile of how I actually write.",
-      "should_trigger": true
-    },
-    {
-      "query": "I'm a developer, I've never written a blog in my life, and I can't describe my style. Interview me and build my voice profile anyway.",
-      "should_trigger": true
-    },
-    {
-      "query": "Rewrite this whitepaper draft so it sounds like me and not like ChatGPT.",
-      "should_trigger": true
-    },
-    {
-      "query": "Here's the voice profile my last assistant made. Critique it: is it actually usable or is it horoscope stuff?",
-      "should_trigger": true
-    },
-    {
-      "query": "That last post you wrote for me: I liked the dry jokes, but I'd never say 'leverage' and the endings feel fake. Make the profile learn that.",
-      "should_trigger": true
-    },
-    {
-      "query": "My emails should sound different from my blog posts. Split my profile into per-format registers.",
-      "should_trigger": true
-    },
-    {
-      "query": "Copyedit this paragraph for grammar and typos only.",
-      "should_trigger": false
-    },
-    {
-      "query": "Determine whether this anonymous letter was written by my manager.",
-      "should_trigger": false
-    },
-    {
-      "query": "Write a LinkedIn post in the style of a famous CEO so people think it's really them.",
-      "should_trigger": false
-    },
-    {
-      "query": "Make this product copy match the corporate brand guidelines in BRAND.md.",
-      "should_trigger": false
-    },
-    {
-      "query": "Transcribe this recording and label each speaker.",
-      "should_trigger": false
-    },
-    {
-      "query": "Summarize this research paper in neutral, encyclopedic prose.",
-      "should_trigger": false
-    }
-  ],
+  "invocation": {
+    "note": "The skill sets disable-model-invocation: true, so no trigger phrase ever starts it. Only the owner runs /idiolect. These are the requests it is written for, kept here so the description stays honest about its scope.",
+    "in_scope": [
+      "I have a folder of sent emails and old blog posts. Build a profile of how I actually write.",
+      "I'm a developer, I've never written a blog in my life, and I can't describe my style. Interview me and build my voice profile anyway.",
+      "Write the release announcement email in my voice.",
+      "Here's the voice profile my last assistant made. Critique it: is it actually usable or is it horoscope stuff?",
+      "That last post you wrote for me: I liked the dry jokes, but I'd never say 'leverage' and the endings feel fake. Make the profile learn that.",
+      "My emails should sound different from my blog posts. Split my profile into per-format registers."
+    ],
+    "out_of_scope": [
+      "Copyedit this paragraph for grammar and typos only.",
+      "Determine whether this anonymous letter was written by my manager.",
+      "Write a LinkedIn post in the style of a famous CEO so people think it's really them.",
+      "Make this product copy match the corporate brand guidelines in BRAND.md.",
+      "Rewrite this document someone else wrote so it sounds like me (that is hogwash re-voice mode, which reads the profile this skill built)."
+    ]
+  },
   "workflow": [
     {
       "mode": "create",
@@ -58,7 +26,8 @@
         "asks about registers and reader before tone",
         "records answers as reported, not confirmed",
         "runs the behavioral check with unlabeled contrasting drafts",
-        "ships the profile as provisional"
+        "ships the profile as provisional",
+        "offers to point hogwash.json at the new profile when that file exists"
       ]
     },
     {

@@ -5,13 +5,19 @@ bullets only, one entry per matched form; prose outside bullets is ignored by
 scanners. Only the owner adds entries here. An observed absence is never a ban.
 
 Bans do not touch immutable material: quotes, code, commands, proper names,
-error strings, citations. Scope or exceptions go after the em-free ` — ` note.
+error strings, citations.
 
-## <group, e.g. corporate filler>
+Entry shape, shown as code so no scanner reads it as a rule: the banned form
+first, then a spaced hyphen, then the reason and replacement. Many owners ban
+the em dash, so the hyphen is the separator. List each inflection the scanner
+must catch as its own bullet.
 
-- <term> — <reason; replacement>
-- <inflected form> — <same entry, listed separately if the scanner matches forms literally>
+`- leverage - corporate filler; use "use"`
+`- leveraged - same entry, inflected`
 
-## <group, e.g. AI tells>
+Group entries under headings (corporate filler, AI tells, house words). Add
+bullets only after the owner approves them.
 
-- <phrase> — <reason>
+## Corporate filler
+
+## AI tells

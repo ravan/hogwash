@@ -6,6 +6,8 @@ import { HogwashError } from '../../../skills/hogwash/scripts/errors.js'
 import { installHook } from '../../../skills/hogwash/scripts/hook/install.js'
 import { preCommitScript } from '../../../skills/hogwash/scripts/hook/script.js'
 
+const SCRIPT = '/skills/hogwash/scripts/hogwash.ts'
+
 const repository = (): string => {
   const cwd = mkdtempSync(join(tmpdir(), 'hogwash-hook-'))
   mkdirSync(join(cwd, '.git', 'hooks'), { recursive: true })
@@ -14,7 +16,7 @@ const repository = (): string => {
 
 const expectIoFailure = async (cwd: string): Promise<HogwashError> => {
   try {
-    await installHook(cwd)
+    await installHook(cwd, SCRIPT)
   } catch (error) {
     if (!(error instanceof HogwashError)) throw error
     expect(error.failure.kind).toBe('io')
@@ -26,13 +28,13 @@ const expectIoFailure = async (cwd: string): Promise<HogwashError> => {
 describe('installHook', () => {
   it('writes the script and returns its path', async () => {
     const cwd = repository()
-    const path = await installHook(cwd)
+    const path = await installHook(cwd, SCRIPT)
     expect(path).toBe(join(cwd, '.git', 'hooks', 'pre-commit'))
-    expect(readFileSync(path, 'utf8')).toBe(preCommitScript())
+    expect(readFileSync(path, 'utf8')).toBe(preCommitScript(SCRIPT))
   })
 
   it('makes the hook executable', async () => {
-    const path = await installHook(repository())
+    const path = await installHook(repository(), SCRIPT)
     expect(statSync(path).mode & 0o111).not.toBe(0)
   })
 

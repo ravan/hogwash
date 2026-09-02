@@ -13,14 +13,28 @@ export type LoadedProfile = {
   readonly banList: string
 }
 
-/** Project copy first; a relative path missing there falls back to ~/.idiolect/<path>. */
+/**
+ * Where shared profiles live: IDIOLECT_HOME when set, else `<home>/.idiolect`.
+ * An agent profile that redirects HOME keeps working through the variable.
+ */
+export function resolveIdiolectHome(env: string | undefined, home: string = homedir()): string {
+  return env !== undefined && env.length > 0 ? env : join(home, '.idiolect')
+}
+
+/** The shared profile root a shell resolves to. */
+export const idiolectHomeOf = (shell: {
+  readonly home?: string
+  readonly idiolectHome?: string
+}): string => shell.idiolectHome ?? resolveIdiolectHome(undefined, shell.home ?? homedir())
+
+/** Project copy first; a relative path missing there falls back to <idiolectHome>/<path>. */
 export function profileCandidates(
   cwd: string,
   path: string,
-  home: string = homedir(),
+  idiolectHome: string = resolveIdiolectHome(undefined),
 ): readonly string[] {
   if (isAbsolute(path)) return [path]
-  return [join(cwd, path), join(home, '.idiolect', path)]
+  return [join(cwd, path), join(idiolectHome, path)]
 }
 
 async function readProfileDocument(paths: readonly string[], name: string): Promise<string> {
@@ -53,19 +67,19 @@ async function readProfileDocument(paths: readonly string[], name: string): Prom
 export async function loadProfile(
   cwd: string,
   config: Config,
-  home = homedir(),
+  idiolectHome: string = resolveIdiolectHome(undefined),
 ): Promise<LoadedProfile> {
   return {
     voice: await readProfileDocument(
-      profileCandidates(cwd, config.profile.voice, home),
+      profileCandidates(cwd, config.profile.voice, idiolectHome),
       'voice profile',
     ),
     quality: await readProfileDocument(
-      profileCandidates(cwd, config.profile.quality, home),
+      profileCandidates(cwd, config.profile.quality, idiolectHome),
       'quality profile',
     ),
     banList: await readProfileDocument(
-      profileCandidates(cwd, config.profile.banList, home),
+      profileCandidates(cwd, config.profile.banList, idiolectHome),
       'ban list',
     ),
   }
